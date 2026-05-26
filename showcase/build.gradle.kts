@@ -21,4 +21,6 @@ configure<ApplicationExtension> {
 
 dependencies {
     implementation(project(":canvaskit"))
+    implementation("androidx.navigation3:navigation3-runtime:1.1.2")
+    implementation("androidx.navigation3:navigation3-ui:1.1.2")
 }
