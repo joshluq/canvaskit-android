@@ -1,7 +1,10 @@
 package es.joshluq.canvaskit.showcase.ui.screens
 
 import android.widget.Toast
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,6 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,17 +23,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitButton
 import es.joshluq.canvaskit.components.buttons.CanvasKitButtonVariant
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.feedback.CanvasKitDialog
 import es.joshluq.canvaskit.components.feedback.CanvasKitDialogContent
+import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.components.inputs.CanvasKitTextField
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
- * DialogsScreen showcases alert/confirmation dialogs and custom input dialogs.
+ * DialogsScreen showcases alert/confirmation dialogs and custom input dialogs
+ * in a premium spec card layout.
  */
 @Composable
 fun DialogsScreen(
@@ -39,61 +49,75 @@ fun DialogsScreen(
     var showCustomDialog by remember { mutableStateOf(false) }
     var customDialogInput by remember { mutableStateOf("") }
 
+    val colors = CanvasKitTheme.colors
+    val shapes = CanvasKitTheme.shapes
+    val spacing = CanvasKitTheme.spacing
+
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(CanvasKitTheme.spacing.md),
-        verticalArrangement = Arrangement.spacedBy(CanvasKitTheme.spacing.lg)
+        modifier = modifier.fillMaxSize()
     ) {
-        // Navigation Header
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(CanvasKitTheme.spacing.sm)
+        CanvasKitTopBar(
+            title = {
+                Column {
+                    Text(
+                        text = "Dialogs & Overlays",
+                        style = CanvasKitTheme.typography.headingMedium,
+                        color = colors.textPrimary
+                    )
+                    Text(
+                        text = "Fichas técnicas y estados de diálogos modales emergentes.",
+                        style = CanvasKitTheme.typography.labelSmall,
+                        color = colors.textSecondary
+                    )
+                }
+            },
+            navigationIcon = {
+                CanvasKitIconButton(onClick = onBack) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Atrás",
+                        tint = colors.brandPrimary
+                    )
+                }
+            }
+        )
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(spacing.md),
+            verticalArrangement = Arrangement.spacedBy(spacing.md)
         ) {
-            CanvasKitIconButton(onClick = onBack) {
+
+        // Section: Confirmation Dialog Card
+        SpecSectionCard(
+            title = "Alert & Confirmation Dialog",
+            description = "Ventana modal bloqueante para confirmar acciones destructivas o críticas."
+        ) {
+            CanvasKitButton(onClick = { showConfirmDialog = true }) {
                 Text(
-                    text = "←",
-                    style = CanvasKitTheme.typography.headingMedium,
-                    color = CanvasKitTheme.colors.brandPrimary
+                    "Mostrar Confirmación",
+                    style = CanvasKitTheme.typography.labelLarge,
+                    color = colors.backgroundPrimary
                 )
             }
-            Text(
-                text = "Dialogs Showcase",
-                style = CanvasKitTheme.typography.headingLarge,
-                color = CanvasKitTheme.colors.textPrimary
-            )
         }
 
-        // Section: Dialog Triggers
-        Column(verticalArrangement = Arrangement.spacedBy(CanvasKitTheme.spacing.sm)) {
-            Text(
-                text = "Dialogs (Modal Overlays)",
-                style = CanvasKitTheme.typography.headingMedium,
-                color = CanvasKitTheme.colors.textPrimary
-            )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(CanvasKitTheme.spacing.sm),
-                verticalAlignment = Alignment.CenterVertically
+        // Section: Custom Dialog Card
+        SpecSectionCard(
+            title = "Custom Content Dialog",
+            description = "Ventana modal con layouts personalizados dinámicos (inputs, descripciones complejas)."
+        ) {
+            CanvasKitButton(
+                onClick = { showCustomDialog = true },
+                variant = CanvasKitButtonVariant.Secondary
             ) {
-                CanvasKitButton(onClick = { showConfirmDialog = true }) {
-                    Text(
-                        "Alerta/Confirmación",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = CanvasKitTheme.colors.backgroundPrimary
-                    )
-                }
-
-                CanvasKitButton(
-                    onClick = { showCustomDialog = true },
-                    variant = CanvasKitButtonVariant.Secondary
-                ) {
-                    Text(
-                        "Contenido Personalizado",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = CanvasKitTheme.colors.brandPrimary
-                    )
-                }
+                Text(
+                    "Mostrar Personalizado",
+                    style = CanvasKitTheme.typography.labelLarge,
+                    color = colors.brandPrimary
+                )
             }
         }
 
@@ -107,14 +131,14 @@ fun DialogsScreen(
                         Text(
                             text = "Eliminar elemento",
                             style = CanvasKitTheme.typography.headingLarge,
-                            color = CanvasKitTheme.colors.textPrimary
+                            color = colors.textPrimary
                         )
                     },
                     content = {
                         Text(
                             text = "¿Estás seguro de que deseas eliminar este elemento permanentemente? Esta acción no se puede deshacer.",
                             style = CanvasKitTheme.typography.bodyMedium,
-                            color = CanvasKitTheme.colors.textSecondary
+                            color = colors.textSecondary
                         )
                     },
                     buttons = {
@@ -125,7 +149,7 @@ fun DialogsScreen(
                             Text(
                                 "Cancelar",
                                 style = CanvasKitTheme.typography.labelLarge,
-                                color = CanvasKitTheme.colors.brandAccent
+                                color = colors.brandAccent
                             )
                         }
                         CanvasKitButton(
@@ -137,7 +161,7 @@ fun DialogsScreen(
                             Text(
                                 "Eliminar",
                                 style = CanvasKitTheme.typography.labelLarge,
-                                color = CanvasKitTheme.colors.backgroundPrimary
+                                color = colors.backgroundPrimary
                             )
                         }
                     }
@@ -154,15 +178,15 @@ fun DialogsScreen(
                         Text(
                             text = "Nuevo Workspace",
                             style = CanvasKitTheme.typography.headingLarge,
-                            color = CanvasKitTheme.colors.textPrimary
+                            color = colors.textPrimary
                         )
                     },
                     content = {
-                        Column(verticalArrangement = Arrangement.spacedBy(CanvasKitTheme.spacing.xs)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
                             Text(
                                 text = "Ingresa el nombre del nuevo workspace para comenzar a organizar tus proyectos.",
                                 style = CanvasKitTheme.typography.bodyMedium,
-                                color = CanvasKitTheme.colors.textSecondary
+                                color = colors.textSecondary
                             )
                             CanvasKitTextField(
                                 value = customDialogInput,
@@ -180,7 +204,7 @@ fun DialogsScreen(
                             Text(
                                 "Cancelar",
                                 style = CanvasKitTheme.typography.labelLarge,
-                                color = CanvasKitTheme.colors.brandAccent
+                                color = colors.brandAccent
                             )
                         }
                         CanvasKitButton(
@@ -197,7 +221,7 @@ fun DialogsScreen(
                             Text(
                                 "Crear",
                                 style = CanvasKitTheme.typography.labelLarge,
-                                color = CanvasKitTheme.colors.backgroundPrimary
+                                color = colors.backgroundPrimary
                             )
                         }
                     }
@@ -205,4 +229,5 @@ fun DialogsScreen(
             }
         }
     }
+}
 }
