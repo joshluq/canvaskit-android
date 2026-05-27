@@ -15,10 +15,12 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 import es.joshluq.canvaskit.showcase.ui.screens.ButtonsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.CardsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.DialogsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.HomeScreen
 import es.joshluq.canvaskit.showcase.ui.screens.PopupsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TextFieldsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.TopBarScreen
 import es.joshluq.canvaskit.showcase.ui.theme.ShowcaseTheme
 import kotlinx.serialization.Serializable
 
@@ -36,6 +38,12 @@ object DialogsRoute : NavKey
 
 @Serializable
 object PopupsRoute : NavKey
+
+@Serializable
+object CardsRoute : NavKey
+
+@Serializable
+object TopBarRoute : NavKey
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +78,9 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToButtons = { backStack.add(ButtonsRoute) },
                     onNavigateToTextFields = { backStack.add(TextFieldsRoute) },
                     onNavigateToDialogs = { backStack.add(DialogsRoute) },
-                    onNavigateToPopups = { backStack.add(PopupsRoute) }
+                    onNavigateToPopups = { backStack.add(PopupsRoute) },
+                    onNavigateToCards = { backStack.add(CardsRoute) },
+                    onNavigateToTopBar = { backStack.add(TopBarRoute) }
                 )
             }
             entry<ButtonsRoute> {
@@ -84,6 +94,12 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
             }
             entry<PopupsRoute> {
                 PopupsScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<CardsRoute> {
+                CardsScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<TopBarRoute> {
+                TopBarScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )

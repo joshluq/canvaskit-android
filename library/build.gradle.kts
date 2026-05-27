@@ -16,7 +16,7 @@ configure<LibraryExtension> {
 }
 
 dependencies {
-
+    implementation("androidx.compose.material:material-icons-core")
 }
 
 pluginkitQuality {
