@@ -20,7 +20,9 @@ import es.joshluq.canvaskit.showcase.ui.screens.DialogsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.HomeScreen
 import es.joshluq.canvaskit.showcase.ui.screens.PopupsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TextFieldsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.BottomBarScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TopBarScreen
+import es.joshluq.canvaskit.showcase.ui.screens.TogglesScreen
 import es.joshluq.canvaskit.showcase.ui.theme.ShowcaseTheme
 import kotlinx.serialization.Serializable
 
@@ -44,6 +46,12 @@ object CardsRoute : NavKey
 
 @Serializable
 object TopBarRoute : NavKey
+
+@Serializable
+object BottomBarRoute : NavKey
+
+@Serializable
+object TogglesRoute : NavKey
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +88,9 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToDialogs = { backStack.add(DialogsRoute) },
                     onNavigateToPopups = { backStack.add(PopupsRoute) },
                     onNavigateToCards = { backStack.add(CardsRoute) },
-                    onNavigateToTopBar = { backStack.add(TopBarRoute) }
+                    onNavigateToTopBar = { backStack.add(TopBarRoute) },
+                    onNavigateToBottomBar = { backStack.add(BottomBarRoute) },
+                    onNavigateToToggles = { backStack.add(TogglesRoute) }
                 )
             }
             entry<ButtonsRoute> {
@@ -100,6 +110,12 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
             }
             entry<TopBarRoute> {
                 TopBarScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<BottomBarRoute> {
+                BottomBarScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<TogglesRoute> {
+                TogglesScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )

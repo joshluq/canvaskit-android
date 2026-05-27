@@ -71,6 +71,8 @@ fun HomeScreen(
     onNavigateToPopups: () -> Unit,
     onNavigateToCards: () -> Unit,
     onNavigateToTopBar: () -> Unit,
+    onNavigateToBottomBar: () -> Unit,
+    onNavigateToToggles: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
@@ -317,7 +319,9 @@ fun HomeScreen(
             Triple("Dialogs", "Modales de alertas y contenidos personalizados.", onNavigateToDialogs),
             Triple("Popups & Menus", "Ventanas flotantes y tooltips anclados.", onNavigateToPopups),
             Triple("Cards & Containers", "Tarjetas modulares, bloques de contenidos y layouts.", onNavigateToCards),
-            Triple("Top App Bar", "Cabeceras de aplicación con soporte de insets y acciones.", onNavigateToTopBar)
+            Triple("Top App Bar", "Cabeceras de aplicación con soporte de insets y acciones.", onNavigateToTopBar),
+            Triple("Bottom Bar", "Barras de navegación inferior con soporte para badges y destinos.", onNavigateToBottomBar),
+            Triple("Switches & Toggles", "Switches, casillas checkboxes y botones radio.", onNavigateToToggles)
         ).filter {
             searchQuery.isBlank() || it.first.contains(searchQuery, ignoreCase = true) || it.second.contains(searchQuery, ignoreCase = true)
         }
@@ -340,6 +344,8 @@ fun HomeScreen(
                             "Dialogs" -> Icons.Default.Warning
                             "Cards & Containers" -> Icons.Default.List
                             "Top App Bar" -> Icons.Default.Home
+                            "Bottom Bar" -> Icons.Default.Menu
+                            "Switches & Toggles" -> Icons.Default.Check
                             else -> Icons.Default.Info
                         },
                         iconBg = colors.brandAccent.copy(alpha = 0.1f),
@@ -352,7 +358,6 @@ fun HomeScreen(
 
         // 5. Section: Planned Components
         val plannedComponents = listOf(
-            Pair("Switches & Toggles", "Switches, casillas checkboxes y botones radio."),
             Pair("Banners & Alerts", "Notificaciones snackbars y banners inline."),
             Pair("Skeletons", "Marcadores de posición de cargas asíncronas.")
         ).filter {
@@ -372,7 +377,6 @@ fun HomeScreen(
                         name = name,
                         description = description,
                         iconVector = when (name) {
-                            "Switches & Toggles" -> Icons.Default.Check
                             "Banners & Alerts" -> Icons.Default.Notifications
                             "Skeletons" -> Icons.Default.Refresh
                             else -> Icons.Default.Info
