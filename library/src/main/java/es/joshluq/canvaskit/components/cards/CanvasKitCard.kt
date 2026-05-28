@@ -61,7 +61,7 @@ fun CanvasKitCard(
     variant: CanvasKitCardVariant = CanvasKitCardVariant.Outlined,
     selected: Boolean = false,
     enabled: Boolean = true,
-    shape: Shape = CanvasKitTheme.shapes.medium,
+    shape: Shape = CanvasKitTheme.shapes.extraLarge,
     header: (@Composable () -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
@@ -91,7 +91,7 @@ fun CanvasKitCard(
 
     val borderStroke = when {
         selected -> BorderStroke(width = 2.dp, color = colors.brandAccent)
-        variant == CanvasKitCardVariant.Outlined -> BorderStroke(width = 1.dp, color = colors.borderSubtle)
+        variant == CanvasKitCardVariant.Outlined -> BorderStroke(width = 0.5.dp, color = colors.borderSubtle)
         else -> null
     }
 

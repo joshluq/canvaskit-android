@@ -2,9 +2,7 @@ package es.joshluq.canvaskit.showcase.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
@@ -27,7 +25,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitButton
 import es.joshluq.canvaskit.components.buttons.CanvasKitButtonVariant
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
@@ -35,8 +32,7 @@ import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
- * ButtonsScreen showcases primary, secondary, ghost, and icon buttons in a
- * clean and organized specification card layout.
+ * ButtonsScreen showcases the "Artisanal Precision" action hierarchy.
  */
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
@@ -54,18 +50,20 @@ fun ButtonsScreen(
     val spacing = CanvasKitTheme.spacing
 
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .background(colors.backgroundSecondary)
     ) {
         CanvasKitTopBar(
             title = {
                 Column {
                     Text(
-                        text = "Buttons & Actions",
-                        style = CanvasKitTheme.typography.headingMedium,
+                        text = "Action Hierarchy",
+                        style = CanvasKitTheme.typography.headingLarge,
                         color = colors.textPrimary
                     )
                     Text(
-                        text = "Fichas técnicas y estados de pulsación interactiva.",
+                        text = "Refined buttons and tactile interactive states.",
                         style = CanvasKitTheme.typography.labelSmall,
                         color = colors.textSecondary
                     )
@@ -87,205 +85,125 @@ fun ButtonsScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(spacing.md),
-            verticalArrangement = Arrangement.spacedBy(spacing.md)
+            verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
 
-        // Section: Primary Buttons Card
-        SpecSectionCard(
-            title = "Primary Buttons",
-            description = "Utilizado para la acción principal en un flujo. Admite estados normal, deshabilitado y de carga asíncrona."
-        ) {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
-                verticalArrangement = Arrangement.spacedBy(spacing.sm),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                CanvasKitButton(onClick = onButtonClick) {
-                    Text(
-                        "Primary Default",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.backgroundPrimary
-                    )
-                }
-                CanvasKitButton(onClick = onButtonClick, enabled = false) {
-                    Text(
-                        "Disabled",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.backgroundPrimary
-                    )
-                }
-                CanvasKitButton(onClick = onButtonClick, loading = true) {
-                    Text(
-                        "Loading",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.backgroundPrimary
-                    )
-                }
-            }
-        }
-
-        // Section: Secondary Buttons Card
-        SpecSectionCard(
-            title = "Secondary Buttons",
-            description = "Acción secundaria del flujo. Ofrece un diseño limpio con borde sutil."
-        ) {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
-                verticalArrangement = Arrangement.spacedBy(spacing.sm),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Secondary) {
-                    Text(
-                        "Secondary Default",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.brandPrimary
-                    )
-                }
-                CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Secondary, enabled = false) {
-                    Text(
-                        "Disabled",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.brandPrimary
-                    )
-                }
-                CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Secondary, loading = true) {
-                    Text(
-                        "Loading",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.brandPrimary
-                    )
-                }
-            }
-        }
-
-        // Section: Ghost Buttons Card
-        SpecSectionCard(
-            title = "Ghost Buttons",
-            description = "Acción de menor prioridad visual o enlaces de texto interactivo."
-        ) {
-            FlowRow(
-                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
-                verticalArrangement = Arrangement.spacedBy(spacing.sm),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Ghost) {
-                    Text(
-                        "Ghost Default",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.brandAccent
-                    )
-                }
-                CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Ghost, enabled = false) {
-                    Text(
-                        "Disabled",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.brandAccent
-                    )
-                }
-                CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Ghost, loading = true) {
-                    Text(
-                        "Loading",
-                        style = CanvasKitTheme.typography.labelLarge,
-                        color = colors.brandAccent
-                    )
-                }
-            }
-        }
-
-        // Section: Icon Buttons Card
-        SpecSectionCard(
-            title = "Icon Buttons",
-            description = "Iconos circulares o cuadrangulares interactivos con animaciones de micro-escala."
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(spacing.sm),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                CanvasKitIconButton(onClick = onButtonClick) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Añadir",
-                        tint = colors.brandPrimary
-                    )
-                }
-
-                CanvasKitIconButton(
-                    onClick = onButtonClick,
-                    shape = shapes.medium,
-                    backgroundColor = colors.backgroundSecondary,
-                    contentColor = colors.brandAccent
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Configuración",
-                        tint = colors.brandAccent
-                    )
-                }
-
-                CanvasKitIconButton(onClick = onButtonClick, enabled = false) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Configuración",
-                        tint = colors.brandPrimary
-                    )
-                }
-
-                CanvasKitIconButton(onClick = onButtonClick, loading = true) {
-                    Icon(
-                        imageVector = Icons.Default.Settings,
-                        contentDescription = "Configuración",
-                        tint = colors.brandPrimary
-                    )
-                }
-            }
-        }
-    }
-}
-}
-
-/**
- * Reusable section card layout container for the CanvasKit showcase spec sheets.
- */
-@Composable
-fun SpecSectionCard(
-    title: String,
-    description: String,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
-) {
-    val colors = CanvasKitTheme.colors
-    val shapes = CanvasKitTheme.shapes
-    val spacing = CanvasKitTheme.spacing
-
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(shapes.medium)
-            .background(colors.backgroundSecondary)
-            .border(width = 1.dp, color = colors.borderSubtle, shape = shapes.medium)
-            .padding(spacing.md)
-    ) {
-        Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
-            Column {
+            // Introduction Section
+            Column(modifier = Modifier.padding(horizontal = spacing.xs)) {
                 Text(
-                    text = title,
-                    style = CanvasKitTheme.typography.headingMedium,
-                    color = colors.brandAccent
+                    text = "Tactile\nPrecision",
+                    style = CanvasKitTheme.typography.displayMedium,
+                    color = colors.textPrimary
                 )
+                Spacer(modifier = Modifier.height(spacing.sm))
                 Text(
-                    text = description,
-                    style = CanvasKitTheme.typography.bodyMedium,
+                    text = "Our buttons are crafted for clarity and responsiveness, using high-contrast weights for premium legibility.",
+                    style = CanvasKitTheme.typography.bodyLarge,
                     color = colors.textSecondary
                 )
             }
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(colors.borderSubtle)
-            )
-            Box(modifier = Modifier.fillMaxWidth()) {
-                content()
+
+            // Section: Primary Buttons Card
+            SpecSectionCard(
+                title = "Primary Actions",
+                description = "High-contrast actions for main user flows."
+            ) {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                    verticalArrangement = Arrangement.spacedBy(spacing.sm),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    CanvasKitButton(onClick = onButtonClick) {
+                        Text(
+                            "Default",
+                            style = CanvasKitTheme.typography.labelLarge,
+                            color = colors.backgroundPrimary
+                        )
+                    }
+                    CanvasKitButton(onClick = onButtonClick, enabled = false) {
+                        Text(
+                            "Disabled",
+                            style = CanvasKitTheme.typography.labelLarge,
+                            color = colors.backgroundPrimary
+                        )
+                    }
+                    CanvasKitButton(onClick = onButtonClick, loading = true) {
+                        Text(
+                            "Loading",
+                            style = CanvasKitTheme.typography.labelLarge,
+                            color = colors.backgroundPrimary
+                        )
+                    }
+                }
+            }
+
+            // Section: Secondary & Ghost
+            SpecSectionCard(
+                title = "Supporting Actions",
+                description = "Secondary and ghost variants for cleaner hierarchies."
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(spacing.md)) {
+                    FlowRow(
+                        horizontalArrangement = Arrangement.spacedBy(spacing.sm),
+                        verticalArrangement = Arrangement.spacedBy(spacing.sm),
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Secondary) {
+                            Text(
+                                "Secondary",
+                                style = CanvasKitTheme.typography.labelLarge,
+                                color = colors.brandPrimary
+                            )
+                        }
+                        CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Ghost) {
+                            Text(
+                                "Ghost Action",
+                                style = CanvasKitTheme.typography.labelLarge,
+                                color = colors.brandAccent
+                            )
+                        }
+                    }
+                }
+            }
+
+            // Section: Icon Buttons
+            SpecSectionCard(
+                title = "Tactile Icons",
+                description = "Precision icon actions with micro-scale animations."
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(spacing.md),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CanvasKitIconButton(onClick = onButtonClick) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Añadir",
+                            tint = colors.brandPrimary
+                        )
+                    }
+
+                    CanvasKitIconButton(
+                        onClick = onButtonClick,
+                        shape = shapes.extraLarge,
+                        backgroundColor = colors.backgroundSecondary,
+                        contentColor = colors.brandAccent
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Configuración",
+                            tint = colors.brandAccent
+                        )
+                    }
+
+                    CanvasKitIconButton(onClick = onButtonClick, loading = true) {
+                        Icon(
+                            imageVector = Icons.Default.Settings,
+                            contentDescription = "Configuración",
+                            tint = colors.brandPrimary
+                        )
+                    }
+                }
             }
         }
     }
