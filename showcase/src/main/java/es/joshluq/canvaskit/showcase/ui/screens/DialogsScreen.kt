@@ -2,13 +2,13 @@ package es.joshluq.canvaskit.showcase.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,23 +21,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitButton
 import es.joshluq.canvaskit.components.buttons.CanvasKitButtonVariant
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.feedback.CanvasKitDialog
 import es.joshluq.canvaskit.components.feedback.CanvasKitDialogContent
 import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
-import es.joshluq.canvaskit.components.inputs.CanvasKitTextField
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
- * DialogsScreen showcases alert/confirmation dialogs and custom input dialogs
- * in a premium spec card layout.
+ * DialogsScreen showcases the "Artisanal Precision" modal experiences.
  */
 @Composable
 fun DialogsScreen(
@@ -46,26 +41,26 @@ fun DialogsScreen(
 ) {
     val context = LocalContext.current
     var showConfirmDialog by remember { mutableStateOf(false) }
-    var showCustomDialog by remember { mutableStateOf(false) }
-    var customDialogInput by remember { mutableStateOf("") }
+    var showExclusiveDialog by remember { mutableStateOf(false) }
 
     val colors = CanvasKitTheme.colors
-    val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
 
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .background(colors.backgroundSecondary)
     ) {
         CanvasKitTopBar(
             title = {
                 Column {
                     Text(
-                        text = "Dialogs & Overlays",
-                        style = CanvasKitTheme.typography.headingMedium,
+                        text = "Modal Experiences",
+                        style = CanvasKitTheme.typography.headingLarge,
                         color = colors.textPrimary
                     )
                     Text(
-                        text = "Fichas técnicas y estados de diálogos modales emergentes.",
+                        text = "Premium transitions and exclusive container hierarchies.",
                         style = CanvasKitTheme.typography.labelSmall,
                         color = colors.textSecondary
                     )
@@ -87,41 +82,57 @@ fun DialogsScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(spacing.md),
-            verticalArrangement = Arrangement.spacedBy(spacing.md)
+            verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
-
-        // Section: Confirmation Dialog Card
-        SpecSectionCard(
-            title = "Alert & Confirmation Dialog",
-            description = "Ventana modal bloqueante para confirmar acciones destructivas o críticas."
-        ) {
-            CanvasKitButton(onClick = { showConfirmDialog = true }) {
+            
+            // Introduction Section
+            Column(modifier = Modifier.padding(horizontal = spacing.xs)) {
                 Text(
-                    "Mostrar Confirmación",
-                    style = CanvasKitTheme.typography.labelLarge,
-                    color = colors.backgroundPrimary
+                    text = "Refined\nOverlays",
+                    style = CanvasKitTheme.typography.displayMedium,
+                    color = colors.textPrimary
+                )
+                Spacer(modifier = Modifier.height(spacing.sm))
+                Text(
+                    text = "Dialogs that command attention without disrupting the visual harmony. Precision in every shadow and corner.",
+                    style = CanvasKitTheme.typography.bodyLarge,
+                    color = colors.textSecondary
                 )
             }
-        }
 
-        // Section: Custom Dialog Card
-        SpecSectionCard(
-            title = "Custom Content Dialog",
-            description = "Ventana modal con layouts personalizados dinámicos (inputs, descripciones complejas)."
-        ) {
-            CanvasKitButton(
-                onClick = { showCustomDialog = true },
-                variant = CanvasKitButtonVariant.Secondary
+            // Section: Alert Dialog
+            SpecSectionCard(
+                title = "Alert Confirmation",
+                description = "Focused modal for critical system decisions."
             ) {
-                Text(
-                    "Mostrar Personalizado",
-                    style = CanvasKitTheme.typography.labelLarge,
-                    color = colors.brandPrimary
-                )
+                CanvasKitButton(onClick = { showConfirmDialog = true }) {
+                    Text(
+                        "Trigger Alert",
+                        style = CanvasKitTheme.typography.labelLarge,
+                        color = colors.backgroundPrimary
+                    )
+                }
+            }
+
+            // Section: Exclusive Content
+            SpecSectionCard(
+                title = "Exclusive Content",
+                description = "The pinnacle of our layered artisanal modularity."
+            ) {
+                CanvasKitButton(
+                    onClick = { showExclusiveDialog = true },
+                    variant = CanvasKitButtonVariant.Secondary
+                ) {
+                    Text(
+                        "Trigger Exclusive Overlay",
+                        style = CanvasKitTheme.typography.labelLarge,
+                        color = colors.brandPrimary
+                    )
+                }
             }
         }
 
-        // Render Dialogs if active
+        // Render Dialogs
         if (showConfirmDialog) {
             CanvasKitDialog(
                 onDismissRequest = { showConfirmDialog = false }
@@ -129,14 +140,14 @@ fun DialogsScreen(
                 CanvasKitDialogContent(
                     title = {
                         Text(
-                            text = "Eliminar elemento",
+                            text = "Confirm Action",
                             style = CanvasKitTheme.typography.headingLarge,
                             color = colors.textPrimary
                         )
                     },
                     content = {
                         Text(
-                            text = "¿Estás seguro de que deseas eliminar este elemento permanentemente? Esta acción no se puede deshacer.",
+                            text = "This action will apply global precision tokens to all components. Are you ready to proceed with the refinement?",
                             style = CanvasKitTheme.typography.bodyMedium,
                             color = colors.textSecondary
                         )
@@ -147,19 +158,19 @@ fun DialogsScreen(
                             variant = CanvasKitButtonVariant.Ghost
                         ) {
                             Text(
-                                "Cancelar",
+                                "Cancel",
                                 style = CanvasKitTheme.typography.labelLarge,
-                                color = colors.brandAccent
+                                color = colors.brandPrimary
                             )
                         }
                         CanvasKitButton(
                             onClick = {
                                 showConfirmDialog = false
-                                Toast.makeText(context, "Elemento eliminado", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "Precision applied.", Toast.LENGTH_SHORT).show()
                             }
                         ) {
                             Text(
-                                "Eliminar",
+                                "Proceed",
                                 style = CanvasKitTheme.typography.labelLarge,
                                 color = colors.backgroundPrimary
                             )
@@ -169,57 +180,44 @@ fun DialogsScreen(
             }
         }
 
-        if (showCustomDialog) {
+        if (showExclusiveDialog) {
             CanvasKitDialog(
-                onDismissRequest = { showCustomDialog = false }
+                onDismissRequest = { showExclusiveDialog = false }
             ) {
                 CanvasKitDialogContent(
                     title = {
                         Text(
-                            text = "Nuevo Workspace",
+                            text = "Artisanal Precision",
                             style = CanvasKitTheme.typography.headingLarge,
                             color = colors.textPrimary
                         )
                     },
                     content = {
-                        Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
+                        Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
                             Text(
-                                text = "Ingresa el nombre del nuevo workspace para comenzar a organizar tus proyectos.",
+                                text = "Experience the full depth of the Atelier Design System. Modular, exclusive, and precise.",
                                 style = CanvasKitTheme.typography.bodyMedium,
                                 color = colors.textSecondary
                             )
-                            CanvasKitTextField(
-                                value = customDialogInput,
-                                onValueChange = { customDialogInput = it },
-                                label = "Nombre del workspace",
-                                modifier = Modifier.fillMaxWidth()
-                            )
+                            // Nested Card example inside dialog
+                            SpecSectionCard(
+                                title = "Layered Architecture",
+                                description = "Card-on-card precision even in overlays."
+                            ) {
+                                Text(
+                                    text = "This is a nested module.",
+                                    style = CanvasKitTheme.typography.labelSmall,
+                                    color = colors.brandPrimary
+                                )
+                            }
                         }
                     },
                     buttons = {
                         CanvasKitButton(
-                            onClick = { showCustomDialog = false },
-                            variant = CanvasKitButtonVariant.Ghost
+                            onClick = { showExclusiveDialog = false }
                         ) {
                             Text(
-                                "Cancelar",
-                                style = CanvasKitTheme.typography.labelLarge,
-                                color = colors.brandAccent
-                            )
-                        }
-                        CanvasKitButton(
-                            onClick = {
-                                if (customDialogInput.isNotBlank()) {
-                                    showCustomDialog = false
-                                    Toast.makeText(context, "Creado: $customDialogInput", Toast.LENGTH_SHORT).show()
-                                    customDialogInput = ""
-                                } else {
-                                    Toast.makeText(context, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        ) {
-                            Text(
-                                "Crear",
+                                "Excellent",
                                 style = CanvasKitTheme.typography.labelLarge,
                                 color = colors.backgroundPrimary
                             )
@@ -229,5 +227,4 @@ fun DialogsScreen(
             }
         }
     }
-}
 }

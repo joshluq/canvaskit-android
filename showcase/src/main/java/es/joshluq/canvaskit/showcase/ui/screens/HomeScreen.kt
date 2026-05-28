@@ -2,7 +2,6 @@ package es.joshluq.canvaskit.showcase.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -58,11 +57,6 @@ import es.joshluq.canvaskit.components.feedback.CanvasKitPopup
 import es.joshluq.canvaskit.components.inputs.CanvasKitTextField
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
-/**
- * HomeScreen is the upgraded dashboard landing screen for the Design System catalog.
- * It presents a personalized, cohesive real-world workspace showcasing top bar dropdowns,
- * notifications, search-filter panels, and dashboard component cards.
- */
 @Composable
 fun HomeScreen(
     onNavigateToButtons: () -> Unit,
@@ -78,7 +72,6 @@ fun HomeScreen(
     val context = LocalContext.current
     var searchQuery by remember { mutableStateOf("") }
     
-    // States for interactive popups/dialogs
     var showLocationMenu by remember { mutableStateOf(false) }
     var showNotificationsMenu by remember { mutableStateOf(false) }
     var showRoadmapDialog by remember { mutableStateOf<String?>(null) }
@@ -91,17 +84,16 @@ fun HomeScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(colors.backgroundSecondary)
             .verticalScroll(rememberScrollState())
             .padding(spacing.md),
-        verticalArrangement = Arrangement.spacedBy(spacing.md)
+        verticalArrangement = Arrangement.spacedBy(spacing.lg)
     ) {
-        // 1. Dashboard Top Header Bar
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Left: Location / Ecosystem dropdown selector
             Box {
                 Row(
                     modifier = Modifier
@@ -173,7 +165,7 @@ fun HomeScreen(
                         modifier = Modifier
                             .size(44.dp)
                             .clip(CircleShape)
-                            .background(colors.backgroundSecondary)
+                            .background(colors.backgroundPrimary)
                             .clickable { showNotificationsMenu = true },
                         contentAlignment = Alignment.Center
                     ) {
@@ -235,33 +227,33 @@ fun HomeScreen(
             }
         }
 
-        // 2. Custom Title Area
-        Column {
+        Column(
+            modifier = Modifier.padding(horizontal = spacing.xs)
+        ) {
             Text(
-                text = "Find your component",
-                style = CanvasKitTheme.typography.displayMedium,
+                text = "Artisanal\nPrecision",
+                style = CanvasKitTheme.typography.displayLarge,
                 color = colors.textPrimary
             )
-            Spacer(modifier = Modifier.height(spacing.xxxs))
+            Spacer(modifier = Modifier.height(spacing.sm))
             Text(
-                text = "Workspace de diseño del ecosistema de bibliotecas Kit.",
+                text = "The premium design system for the Kit ecosystem. Refined, modular, and exclusive.",
                 style = CanvasKitTheme.typography.bodyLarge,
                 color = colors.textSecondary
             )
         }
 
-        // 3. Search and Filter Bar
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(spacing.xs),
+            horizontalArrangement = Arrangement.spacedBy(spacing.sm),
             verticalAlignment = Alignment.CenterVertically
         ) {
             CanvasKitTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
-                label = "Buscar componentes, fichas...",
+                label = "Search components...",
                 leadingIcon = {
-                    Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = colors.textSecondary, modifier = Modifier.padding(start = spacing.xs).size(20.dp))
+                    Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = colors.textSecondary, modifier = Modifier.padding(start = spacing.sm).size(20.dp))
                 },
                 modifier = Modifier.weight(1f)
             )
@@ -270,8 +262,8 @@ fun HomeScreen(
             Box {
                 Box(
                     modifier = Modifier
-                        .size(48.dp)
-                        .clip(shapes.medium)
+                        .size(56.dp)
+                        .clip(shapes.container)
                         .background(colors.brandPrimary)
                         .clickable { showFilterPopup = true },
                     contentAlignment = Alignment.Center
@@ -283,7 +275,7 @@ fun HomeScreen(
                     expanded = showFilterPopup,
                     onDismissRequest = { showFilterPopup = false },
                     alignment = Alignment.TopEnd,
-                    offset = DpOffset(0.dp, 52.dp)
+                    offset = DpOffset(0.dp, 60.dp)
                 ) {
                     Column(modifier = Modifier.width(180.dp)) {
                         Text(
@@ -312,26 +304,34 @@ fun HomeScreen(
             }
         }
 
-        // 4. Section: Available Components
+        // 4. Section: Available Components (Card-on-Card)
         val activeComponents = listOf(
-            Triple("Buttons", "Botones Primary, Secondary, Ghost e Icon con animaciones.", onNavigateToButtons),
-            Triple("Text Fields", "Inputs con validaciones de errores y visuales.", onNavigateToTextFields),
-            Triple("Dialogs", "Modales de alertas y contenidos personalizados.", onNavigateToDialogs),
-            Triple("Popups & Menus", "Ventanas flotantes y tooltips anclados.", onNavigateToPopups),
-            Triple("Cards & Containers", "Tarjetas modulares, bloques de contenidos y layouts.", onNavigateToCards),
-            Triple("Top App Bar", "Cabeceras de aplicación con soporte de insets y acciones.", onNavigateToTopBar),
-            Triple("Bottom Bar", "Barras de navegación inferior con soporte para badges y destinos.", onNavigateToBottomBar),
-            Triple("Switches & Toggles", "Switches, casillas checkboxes y botones radio.", onNavigateToToggles)
+            Triple("Buttons", "Refined Primary, Secondary, and Ghost variants.", onNavigateToButtons),
+            Triple("Text Fields", "Precision inputs with semantic error states.", onNavigateToTextFields),
+            Triple("Dialogs", "Modal experiences with premium transitions.", onNavigateToDialogs),
+            Triple("Popups & Menus", "Floating modules for contextual actions.", onNavigateToPopups),
+            Triple("Cards & Containers", "The core of our modular pureza modular.", onNavigateToCards),
+            Triple("Top App Bar", "Clean navigation headers with inset support.", onNavigateToTopBar),
+            Triple("Bottom Bar", "Accessible and elegant app navigation.", onNavigateToBottomBar),
+            Triple("Switches & Toggles", "Tactile interactive selection controls.", onNavigateToToggles)
         ).filter {
             searchQuery.isBlank() || it.first.contains(searchQuery, ignoreCase = true) || it.second.contains(searchQuery, ignoreCase = true)
         }
 
         if (activeComponents.isNotEmpty()) {
-            Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shapes.container)
+                    .background(colors.backgroundPrimary)
+                    .padding(spacing.md),
+                verticalArrangement = Arrangement.spacedBy(spacing.md)
+            ) {
                 Text(
-                    text = "Componentes Disponibles",
+                    text = "Core Components",
                     style = CanvasKitTheme.typography.headingMedium,
-                    color = colors.textPrimary
+                    color = colors.textPrimary,
+                    modifier = Modifier.padding(bottom = spacing.xs)
                 )
 
                 activeComponents.forEach { (name, description, onClick) ->
@@ -348,8 +348,8 @@ fun HomeScreen(
                             "Switches & Toggles" -> Icons.Default.Check
                             else -> Icons.Default.Info
                         },
-                        iconBg = colors.brandAccent.copy(alpha = 0.1f),
-                        iconColor = colors.brandAccent,
+                        iconBg = colors.backgroundSecondary,
+                        iconColor = colors.brandPrimary,
                         onClick = onClick
                     )
                 }
@@ -358,18 +358,26 @@ fun HomeScreen(
 
         // 5. Section: Planned Components
         val plannedComponents = listOf(
-            Pair("Banners & Alerts", "Notificaciones snackbars y banners inline."),
-            Pair("Skeletons", "Marcadores de posición de cargas asíncronas.")
+            Pair("Banners & Alerts", "System-wide notifications and inline alerts."),
+            Pair("Skeletons", "Artisanal loading states for content placeholders.")
         ).filter {
             searchQuery.isBlank() || it.first.contains(searchQuery, ignoreCase = true) || it.second.contains(searchQuery, ignoreCase = true)
         }
 
         if (plannedComponents.isNotEmpty()) {
-            Column(verticalArrangement = Arrangement.spacedBy(spacing.sm)) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shapes.container)
+                    .background(colors.backgroundPrimary)
+                    .padding(spacing.md),
+                verticalArrangement = Arrangement.spacedBy(spacing.md)
+            ) {
                 Text(
-                    text = "Futuros Lanzamientos (Roadmap)",
+                    text = "Upcoming Roadmap",
                     style = CanvasKitTheme.typography.headingMedium,
-                    color = colors.textPrimary
+                    color = colors.textPrimary,
+                    modifier = Modifier.padding(bottom = spacing.xs)
                 )
 
                 plannedComponents.forEach { (name, description) ->
@@ -381,7 +389,7 @@ fun HomeScreen(
                             "Skeletons" -> Icons.Default.Refresh
                             else -> Icons.Default.Info
                         },
-                        iconBg = colors.borderSubtle,
+                        iconBg = colors.backgroundSecondary.copy(alpha = 0.5f),
                         iconColor = colors.textSecondary,
                         enabled = false,
                         onClick = { showRoadmapDialog = name }
@@ -406,7 +414,7 @@ fun HomeScreen(
                 },
                 content = {
                     Text(
-                        text = "El componente '$name' se encuentra en fase de diseño de tokens y especificación arquitectónica. Estará disponible en futuras entregas del Atelier Design System.",
+                        text = "The '$name' component is currently in the design token and architectural specification phase. It will be available in future releases of the Atelier Design System.",
                         style = CanvasKitTheme.typography.bodyMedium,
                         color = colors.textSecondary
                     )
@@ -443,82 +451,76 @@ private fun ComponentCard(
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
 
-    val borderStrokeColor = if (enabled) colors.borderSubtle else colors.borderSubtle.copy(alpha = 0.5f)
     val cardAlpha = if (enabled) 1.0f else 0.6f
 
-    Box(
+    Row(
         modifier = modifier
             .fillMaxWidth()
-            .clip(shapes.medium)
-            .background(colors.backgroundSecondary)
-            .border(width = 1.dp, color = borderStrokeColor, shape = shapes.medium)
-            .clickable(onClick = onClick)
+            .clip(shapes.extraLarge)
+            .background(colors.backgroundSecondary.copy(alpha = if (enabled) 1f else 0.5f))
+            .clickable(enabled = enabled, onClick = onClick)
             .padding(spacing.md)
-            .alpha(cardAlpha)
+            .alpha(cardAlpha),
+        horizontalArrangement = Arrangement.spacedBy(spacing.md),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(spacing.md),
-            verticalAlignment = Alignment.CenterVertically
+        // Rounded Icon Box
+        Box(
+            modifier = Modifier
+                .size(48.dp)
+                .clip(shapes.medium)
+                .background(iconBg),
+            contentAlignment = Alignment.Center
         ) {
-            // Rounded Icon Box
-            Box(
-                modifier = Modifier
-                    .size(52.dp)
-                    .clip(shapes.medium)
-                    .background(iconBg),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    imageVector = iconVector,
-                    contentDescription = null,
-                    tint = iconColor,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+            Icon(
+                imageVector = iconVector,
+                contentDescription = null,
+                tint = iconColor,
+                modifier = Modifier.size(24.dp)
+            )
+        }
 
-            // Description block
-            Column(modifier = Modifier.weight(1f)) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(spacing.xs)
-                ) {
-                    Text(
-                        text = name,
-                        style = CanvasKitTheme.typography.headingMedium,
-                        color = colors.textPrimary
-                    )
-                    if (!enabled) {
-                         Box(
-                            modifier = Modifier
-                                .clip(shapes.pill)
-                                .background(colors.borderSubtle)
-                                .padding(horizontal = spacing.xs, vertical = spacing.xxxs)
-                        ) {
-                            Text(
-                                text = "Próximamente",
-                                style = CanvasKitTheme.typography.labelSmall,
-                                color = colors.textSecondary
-                            )
-                        }
+        // Description block
+        Column(modifier = Modifier.weight(1f)) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(spacing.xs)
+            ) {
+                Text(
+                    text = name,
+                    style = CanvasKitTheme.typography.headingMedium,
+                    color = colors.textPrimary
+                )
+                if (!enabled) {
+                     Box(
+                        modifier = Modifier
+                            .clip(shapes.pill)
+                            .background(colors.borderSubtle)
+                            .padding(horizontal = spacing.xs, vertical = spacing.xxxs)
+                    ) {
+                        Text(
+                            text = "Coming Soon",
+                            style = CanvasKitTheme.typography.labelSmall,
+                            color = colors.textSecondary
+                        )
                     }
                 }
-                Spacer(modifier = Modifier.height(spacing.xxxs))
-                Text(
-                    text = description,
-                    style = CanvasKitTheme.typography.bodyMedium,
-                    color = colors.textSecondary
-                )
             }
+            Spacer(modifier = Modifier.height(spacing.xxxs))
+            Text(
+                text = description,
+                style = CanvasKitTheme.typography.bodyMedium,
+                color = colors.textSecondary
+            )
+        }
 
-            if (enabled) {
-                Icon(
-                    imageVector = Icons.Default.ArrowForward,
-                    contentDescription = null,
-                    tint = colors.brandAccent,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+        if (enabled) {
+            Icon(
+                imageVector = Icons.Default.ArrowForward,
+                contentDescription = null,
+                tint = colors.brandPrimary.copy(alpha = 0.3f),
+                modifier = Modifier.size(20.dp)
+            )
         }
     }
 }

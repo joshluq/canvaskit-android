@@ -1,7 +1,6 @@
 package es.joshluq.canvaskit.showcase.ui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,8 +36,7 @@ import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
- * CardsScreen showcases card and container variations, click-scaling states,
- * and complex layouts built using CanvasKitCard's Slot APIs.
+ * CardsScreen showcases the "Artisanal Precision" modular structure.
  */
 @Composable
 fun CardsScreen(
@@ -49,21 +47,23 @@ fun CardsScreen(
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
 
-    var selectedPlanIndex by remember { mutableIntStateOf(0) }
+    var selectedPlanIndex by remember { mutableIntStateOf(1) }
 
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .background(colors.backgroundSecondary)
     ) {
         CanvasKitTopBar(
             title = {
                 Column {
                     Text(
-                        text = "Cards & Containers",
-                        style = CanvasKitTheme.typography.headingMedium,
+                        text = "Pureza Modular",
+                        style = CanvasKitTheme.typography.headingLarge,
                         color = colors.textPrimary
                     )
                     Text(
-                        text = "Contenedores estructurados con soporte de estados, selección y elevación.",
+                        text = "Exclusive container structures and layered hierarchies.",
                         style = CanvasKitTheme.typography.labelSmall,
                         color = colors.textSecondary
                     )
@@ -85,93 +85,99 @@ fun CardsScreen(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .padding(spacing.md),
-            verticalArrangement = Arrangement.spacedBy(spacing.md)
+            verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
 
-        // Section 1: Basic Card Variants
-        SpecSectionCard(
-            title = "Visual Variants",
-            description = "Diferentes estilos de contenedores según la jerarquía de la interfaz (Outlined, Elevated, Flat)."
-        ) {
+            // Introduction Section (Artisanal Precision)
+            Column(modifier = Modifier.padding(horizontal = spacing.xs)) {
+                Text(
+                    text = "Modular\nExclusivity",
+                    style = CanvasKitTheme.typography.displayMedium,
+                    color = colors.textPrimary
+                )
+                Spacer(modifier = Modifier.height(spacing.sm))
+                Text(
+                    text = "Our 'card-on-card' structure creates a visual signature that is both orderly and premium.",
+                    style = CanvasKitTheme.typography.bodyLarge,
+                    color = colors.textSecondary
+                )
+            }
+
+            // Section 1: Visual Variants (The "Container" card)
             Column(
-                verticalArrangement = Arrangement.spacedBy(spacing.md),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shapes.container)
+                    .background(colors.backgroundPrimary)
+                    .padding(spacing.md),
+                verticalArrangement = Arrangement.spacedBy(spacing.md)
             ) {
-                // Outlined Card
-                CanvasKitCard(
-                    variant = CanvasKitCardVariant.Outlined,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column {
-                        Text(
-                            text = "Outlined Card",
-                            style = CanvasKitTheme.typography.headingMedium,
-                            color = colors.textPrimary
-                        )
-                        Spacer(modifier = Modifier.height(spacing.xxs))
-                        Text(
-                            text = "Contenedor plano con borde sutil. Ideal para separar bloques de contenido en interfaces densas.",
-                            style = CanvasKitTheme.typography.bodyMedium,
-                            color = colors.textSecondary
-                        )
-                    }
-                }
-
-                // Elevated Card
-                CanvasKitCard(
-                    variant = CanvasKitCardVariant.Elevated,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Column {
-                        Text(
-                            text = "Elevated Card",
-                            style = CanvasKitTheme.typography.headingMedium,
-                            color = colors.textPrimary
-                        )
-                        Spacer(modifier = Modifier.height(spacing.xxs))
-                        Text(
-                            text = "Contenedor elevado con sombra suave. Ideal para resaltar sobre el fondo principal.",
-                            style = CanvasKitTheme.typography.bodyMedium,
-                            color = colors.textSecondary
-                        )
-                    }
-                }
-
-                // Flat Card
+                Text(
+                    text = "Visual Hierarchy",
+                    style = CanvasKitTheme.typography.headingMedium,
+                    color = colors.textPrimary
+                )
+                
+                // Outlined Card (Nested)
                 CanvasKitCard(
                     variant = CanvasKitCardVariant.Flat,
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Column {
                         Text(
-                            text = "Flat Card",
+                            text = "Primary Layer",
                             style = CanvasKitTheme.typography.headingMedium,
                             color = colors.textPrimary
                         )
                         Spacer(modifier = Modifier.height(spacing.xxs))
                         Text(
-                            text = "Contenedor plano sin bordes ni sombras. Utiliza un color secundario de fondo para agrupar elementos.",
+                            text = "Clean, light-weight surfaces that prioritize content over containment.",
+                            style = CanvasKitTheme.typography.bodyMedium,
+                            color = colors.textSecondary
+                        )
+                    }
+                }
+
+                // Elevated Card (Nested)
+                CanvasKitCard(
+                    variant = CanvasKitCardVariant.Elevated,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Column {
+                        Text(
+                            text = "Refined Elevation",
+                            style = CanvasKitTheme.typography.headingMedium,
+                            color = colors.textPrimary
+                        )
+                        Spacer(modifier = Modifier.height(spacing.xxs))
+                        Text(
+                            text = "Subtle shadows that suggest depth without adding visual noise.",
                             style = CanvasKitTheme.typography.bodyMedium,
                             color = colors.textSecondary
                         )
                     }
                 }
             }
-        }
 
-        // Section 2: Interactive Selection Grid
-        SpecSectionCard(
-            title = "Selection & Interaction States",
-            description = "Los contenedores cambian su escala dinámicamente al presionarse y aplican un borde de acento en estado de selección."
-        ) {
+            // Section 2: Interactive Selection
             Column(
-                verticalArrangement = Arrangement.spacedBy(spacing.sm),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shapes.container)
+                    .background(colors.backgroundPrimary)
+                    .padding(spacing.md),
+                verticalArrangement = Arrangement.spacedBy(spacing.md)
             ) {
+                Text(
+                    text = "Selection Precision",
+                    style = CanvasKitTheme.typography.headingMedium,
+                    color = colors.textPrimary
+                )
+
                 val plans = listOf(
-                    Triple("Plan Starter", "$0 / mes", "Acceso limitado a la biblioteca básica."),
-                    Triple("Plan Pro", "$19 / mes", "Todos los componentes avanzados y soporte prioritario."),
-                    Triple("Plan Enterprise", "$49 / mes", "Soporte personalizado, tokens ilimitados y multi-licencia.")
+                    Triple("Starter Kit", "Free", "Essential modular components."),
+                    Triple("Professional", "$24/mo", "Full artisanal precision library."),
+                    Triple("Enterprise", "Custom", "Tailored tokens and components.")
                 )
 
                 plans.forEachIndexed { index, (title, price, desc) ->
@@ -179,7 +185,8 @@ fun CardsScreen(
                         variant = CanvasKitCardVariant.Outlined,
                         selected = selectedPlanIndex == index,
                         onClick = { selectedPlanIndex = index },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = shapes.extraLarge
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -199,113 +206,15 @@ fun CardsScreen(
                                 )
                             }
                             Spacer(modifier = Modifier.width(spacing.md))
-                            Column(horizontalAlignment = Alignment.End) {
-                                Text(
-                                    text = price,
-                                    style = CanvasKitTheme.typography.labelLarge,
-                                    color = if (selectedPlanIndex == index) colors.brandAccent else colors.textPrimary
-                                )
-                                if (selectedPlanIndex == index) {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Check,
-                                            contentDescription = null,
-                                            tint = colors.brandAccent,
-                                            modifier = Modifier.size(12.dp)
-                                        )
-                                        Text(
-                                            text = "Activo",
-                                            style = CanvasKitTheme.typography.labelSmall,
-                                            color = colors.brandAccent
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Section 3: High-Fidelity Complex Slot Card Layout
-        SpecSectionCard(
-            title = "Modular Slot APIs",
-            description = "Estructura avanzada utilizando los slots de header, content y footer nativos."
-        ) {
-            CanvasKitCard(
-                variant = CanvasKitCardVariant.Outlined,
-                header = {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column {
                             Text(
-                                text = "Configuración del Sistema",
-                                style = CanvasKitTheme.typography.headingMedium,
-                                color = colors.textPrimary
-                            )
-                            Text(
-                                text = "Panel de control general de tokens y compilación.",
-                                style = CanvasKitTheme.typography.labelSmall,
-                                color = colors.textSecondary
-                            )
-                        }
-                        // Badges/Status indicator mockup (Flat container inside)
-                        CanvasKitCard(
-                            variant = CanvasKitCardVariant.Flat,
-                            shape = shapes.pill,
-                            modifier = Modifier.padding(horizontal = spacing.xxs)
-                        ) {
-                            // minimal padding wrapper
-                            Text(
-                                text = "V2.3 COMPILER",
-                                style = CanvasKitTheme.typography.labelSmall,
-                                color = colors.brandAccent,
-                                modifier = Modifier.padding(horizontal = 4.dp)
+                                text = price,
+                                style = CanvasKitTheme.typography.labelLarge,
+                                color = if (selectedPlanIndex == index) colors.brandPrimary else colors.textPrimary
                             )
                         }
                     }
-                },
-                footer = {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        CanvasKitButton(
-                            onClick = { /* no-op */ },
-                            variant = CanvasKitButtonVariant.Ghost
-                        ) {
-                            Text("Restaurar")
-                        }
-                        Spacer(modifier = Modifier.width(spacing.xs))
-                        CanvasKitButton(
-                            onClick = { /* no-op */ },
-                            variant = CanvasKitButtonVariant.Primary
-                        ) {
-                            Text(
-                                "Guardar cambios",
-                                color = colors.backgroundPrimary
-                            )
-                        }
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
-                    Text(
-                        text = "El compilador K2 está configurado con optimización de estabilidad Compose para colecciones inmutables. El tiempo de recomposición se reduce un 45%.",
-                        style = CanvasKitTheme.typography.bodyMedium,
-                        color = colors.textSecondary
-                    )
                 }
             }
         }
     }
-}
 }
