@@ -22,6 +22,10 @@ internal val RedError = Color(0xFFD32F2F)
 internal val RedErrorBg = Color(0xFFFFEBEE)
 internal val GreenSuccess = Color(0xFF2E7D32)
 internal val GreenSuccessBg = Color(0xFFE8F5E9)
+internal val Amber500 = Color(0xFFB45309)
+internal val AmberBg = Color(0xFFFFFBEB)
+internal val AmberDark = Color(0xFFFBBF24)
+internal val AmberDarkBg = Color(0xFF1C1506)
 
 /**
  * Semantic color scheme for the CanvasKit Design System.
@@ -39,6 +43,8 @@ data class CanvasKitColors(
     val errorContainer: Color,
     val success: Color,
     val successContainer: Color,
+    val warning: Color,
+    val warningContainer: Color,
     val isDark: Boolean
 )
 
@@ -56,7 +62,9 @@ fun lightCanvasKitColors(
     error: Color = RedError,
     errorContainer: Color = RedErrorBg,
     success: Color = GreenSuccess,
-    successContainer: Color = GreenSuccessBg
+    successContainer: Color = GreenSuccessBg,
+    warning: Color = Amber500,
+    warningContainer: Color = AmberBg
 ): CanvasKitColors = CanvasKitColors(
     backgroundPrimary = backgroundPrimary,
     backgroundSecondary = backgroundSecondary,
@@ -69,6 +77,8 @@ fun lightCanvasKitColors(
     errorContainer = errorContainer,
     success = success,
     successContainer = successContainer,
+    warning = warning,
+    warningContainer = warningContainer,
     isDark = false
 )
 
@@ -86,7 +96,9 @@ fun darkCanvasKitColors(
     error: Color = RedError,
     errorContainer: Color = Slate900,
     success: Color = GreenSuccess,
-    successContainer: Color = Slate900
+    successContainer: Color = Slate900,
+    warning: Color = AmberDark,
+    warningContainer: Color = AmberDarkBg
 ): CanvasKitColors = CanvasKitColors(
     backgroundPrimary = backgroundPrimary,
     backgroundSecondary = backgroundSecondary,
@@ -99,6 +111,8 @@ fun darkCanvasKitColors(
     errorContainer = errorContainer,
     success = success,
     successContainer = successContainer,
+    warning = warning,
+    warningContainer = warningContainer,
     isDark = true
 )
 

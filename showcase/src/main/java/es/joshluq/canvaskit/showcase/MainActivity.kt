@@ -23,6 +23,10 @@ import es.joshluq.canvaskit.showcase.ui.screens.TextFieldsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.BottomBarScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TopBarScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TogglesScreen
+import es.joshluq.canvaskit.showcase.ui.screens.BannersScreen
+import es.joshluq.canvaskit.showcase.ui.screens.ChipsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.SkeletonsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.LoadingScaffoldScreen
 import es.joshluq.canvaskit.showcase.ui.theme.ShowcaseTheme
 import kotlinx.serialization.Serializable
 
@@ -52,6 +56,18 @@ object BottomBarRoute : NavKey
 
 @Serializable
 object TogglesRoute : NavKey
+
+@Serializable
+object BannersRoute : NavKey
+
+@Serializable
+object ChipsRoute : NavKey
+
+@Serializable
+object SkeletonsRoute : NavKey
+
+@Serializable
+object LoadingScaffoldRoute : NavKey
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +106,11 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToCards = { backStack.add(CardsRoute) },
                     onNavigateToTopBar = { backStack.add(TopBarRoute) },
                     onNavigateToBottomBar = { backStack.add(BottomBarRoute) },
-                    onNavigateToToggles = { backStack.add(TogglesRoute) }
+                    onNavigateToToggles = { backStack.add(TogglesRoute) },
+                    onNavigateToBanners = { backStack.add(BannersRoute) },
+                    onNavigateToChips = { backStack.add(ChipsRoute) },
+                    onNavigateToSkeletons = { backStack.add(SkeletonsRoute) },
+                    onNavigateToLoadingScaffold = { backStack.add(LoadingScaffoldRoute) }
                 )
             }
             entry<ButtonsRoute> {
@@ -116,6 +136,18 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
             }
             entry<TogglesRoute> {
                 TogglesScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<BannersRoute> {
+                BannersScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<ChipsRoute> {
+                ChipsScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<SkeletonsRoute> {
+                SkeletonsScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<LoadingScaffoldRoute> {
+                LoadingScaffoldScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )
