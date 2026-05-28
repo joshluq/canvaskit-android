@@ -72,17 +72,14 @@ fun CanvasKitButton(
 ) {
     val isPressed by interactionSource.collectIsPressedAsState()
 
-    // 1. Press micro-animation (Scale down on press)
     val scale by animateFloatAsState(
         targetValue = if (isPressed && enabled && !loading) 0.97f else 1.0f,
         animationSpec = tween(durationMillis = CanvasKitTheme.motion.short1, easing = CanvasKitTheme.motion.standard),
         label = "ButtonScale"
     )
 
-    // 2. Disabled/Loading alpha
     val contentAlpha = if (enabled) 1.0f else 0.38f
 
-    // 3. Dynamic styling based on variant & theme tokens
     val colors = CanvasKitTheme.colors
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
@@ -111,15 +108,15 @@ fun CanvasKitButton(
         modifier = modifier
             .graphicsLayer(scaleX = scale, scaleY = scale)
             .alpha(contentAlpha)
-            .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp) // Minimum A11y touch target
-            .clip(shapes.medium)
+            .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
+            .clip(shapes.pill)
             .then(
-                if (borderStroke != null) Modifier.border(borderStroke, shapes.medium) else Modifier
+                if (borderStroke != null) Modifier.border(borderStroke, shapes.pill) else Modifier
             )
             .background(backgroundColor)
             .clickable(
                 interactionSource = interactionSource,
-                indication = null, // Disable default ripple to showcase clean scale animation
+                indication = null,
                 enabled = enabled && !loading,
                 role = Role.Button,
                 onClick = onClick
@@ -128,7 +125,7 @@ fun CanvasKitButton(
             .semantics(mergeDescendants = true) {
                 role = Role.Button
                 if (loading) {
-                    stateDescription = "Cargando" // Screen reader loading status
+                    stateDescription = "Loading"
                 }
             },
         contentAlignment = Alignment.Center

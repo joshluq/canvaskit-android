@@ -46,7 +46,7 @@ fun CanvasKitIconButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     loading: Boolean = false,
-    shape: Shape = CanvasKitTheme.shapes.pill, // circular by default
+    shape: Shape = CanvasKitTheme.shapes.pill,
     backgroundColor: Color = Color.Transparent,
     contentColor: Color = CanvasKitTheme.colors.brandPrimary,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -54,7 +54,6 @@ fun CanvasKitIconButton(
 ) {
     val isPressed by interactionSource.collectIsPressedAsState()
 
-    // Press scale micro-animation
     val scale by animateFloatAsState(
         targetValue = if (isPressed && enabled && !loading) 0.95f else 1.0f,
         animationSpec = tween(durationMillis = CanvasKitTheme.motion.short1, easing = CanvasKitTheme.motion.standard),
@@ -67,12 +66,12 @@ fun CanvasKitIconButton(
         modifier = modifier
             .graphicsLayer(scaleX = scale, scaleY = scale)
             .alpha(contentAlpha)
-            .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp) // Minimum A11y touch target
+            .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
             .clip(shape)
             .background(backgroundColor)
             .clickable(
                 interactionSource = interactionSource,
-                indication = null, // Custom scale animation replaces default ripple
+                indication = null,
                 enabled = enabled && !loading,
                 role = Role.Button,
                 onClick = onClick
@@ -81,7 +80,7 @@ fun CanvasKitIconButton(
             .semantics(mergeDescendants = true) {
                 role = Role.Button
                 if (loading) {
-                    stateDescription = "Cargando"
+                    stateDescription = "Loading"
                 }
             },
         contentAlignment = Alignment.Center

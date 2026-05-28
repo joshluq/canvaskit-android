@@ -57,7 +57,13 @@ private fun BottomBarPreviewContainer() {
             CanvasKitBottomBarItem(
                 selected = selectedIndex1 == 2,
                 onClick = { selectedIndex1 = 2 },
-                icon = { tint -> Icon(imageVector = Icons.Default.Notifications, contentDescription = "Avisos", tint = tint) },
+                icon = { tint ->
+                    Icon(
+                        imageVector = Icons.Default.Notifications,
+                        contentDescription = "Avisos",
+                        tint = tint
+                    )
+                },
                 label = { tint -> Text("Avisos", style = CanvasKitTheme.typography.labelSmall, color = tint) },
                 badge = {
                     CanvasKitBadge {
@@ -72,7 +78,13 @@ private fun BottomBarPreviewContainer() {
             CanvasKitBottomBarItem(
                 selected = selectedIndex1 == 3,
                 onClick = { selectedIndex1 = 3 },
-                icon = { tint -> Icon(imageVector = Icons.Default.Settings, contentDescription = "Ajustes", tint = tint) },
+                icon = { tint ->
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Ajustes",
+                        tint = tint
+                    )
+                },
                 label = { tint -> Text("Ajustes", style = CanvasKitTheme.typography.labelSmall, color = tint) }
             )
         }
@@ -101,7 +113,13 @@ private fun BottomBarPreviewContainer() {
             CanvasKitBottomBarItem(
                 selected = selectedIndex2 == 2,
                 onClick = { selectedIndex2 = 2 },
-                icon = { tint -> Icon(imageVector = Icons.Default.Notifications, contentDescription = "Avisos", tint = tint) },
+                icon = { tint ->
+                    Icon(
+                        imageVector = Icons.Default.Notifications,
+                        contentDescription = "Avisos",
+                        tint = tint
+                    )
+                },
                 label = { tint -> Text("Avisos", style = CanvasKitTheme.typography.labelSmall, color = tint) },
                 badge = { CanvasKitBadge() }, // Empty dot status badge
                 alwaysShowLabel = false
@@ -109,7 +127,13 @@ private fun BottomBarPreviewContainer() {
             CanvasKitBottomBarItem(
                 selected = selectedIndex2 == 3,
                 onClick = { selectedIndex2 = 3 },
-                icon = { tint -> Icon(imageVector = Icons.Default.Settings, contentDescription = "Ajustes", tint = tint) },
+                icon = { tint ->
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Ajustes",
+                        tint = tint
+                    )
+                },
                 label = { tint -> Text("Ajustes", style = CanvasKitTheme.typography.labelSmall, color = tint) },
                 alwaysShowLabel = false
             )

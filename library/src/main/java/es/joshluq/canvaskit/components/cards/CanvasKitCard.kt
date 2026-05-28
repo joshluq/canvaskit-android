@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
@@ -117,7 +116,9 @@ fun CanvasKitCard(
                         role = Role.Button,
                         onClick = onClick
                     )
-                } else Modifier
+                } else {
+                    Modifier
+                }
             )
             .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
             .semantics(mergeDescendants = true) {
