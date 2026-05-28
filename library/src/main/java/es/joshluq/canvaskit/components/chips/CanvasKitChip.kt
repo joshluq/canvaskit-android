@@ -142,8 +142,8 @@ fun CanvasKitChip(
             Box(
                 modifier = Modifier.alpha(if (selected) 1f else 0.85f)
             ) {
-                // We use a CompositionLocalProvider in a real component to pass contentColor, 
-                // but since we only provide slots here, consumers should style text. 
+                // We use a CompositionLocalProvider in a real component to pass contentColor,
+                // but since we only provide slots here, consumers should style text.
                 // To help consumers, they should use the colors provided or we could wrap the label.
                 label()
             }

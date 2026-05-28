@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,11 +46,11 @@ fun CanvasKitLoadingScaffold(
     isLoading: Boolean,
     modifier: Modifier = Modifier,
     loadingStrategy: CanvasKitLoadingStrategy = CanvasKitLoadingStrategy.ReplaceContent,
-    loadingContent: @Composable () -> Unit = { 
+    loadingContent: @Composable () -> Unit = {
         CanvasKitLoadingSpinner(
-            color = CanvasKitTheme.colors.brandAccent, 
+            color = CanvasKitTheme.colors.brandAccent,
             modifier = Modifier.size(48.dp)
-        ) 
+        )
     },
     topBar: @Composable () -> Unit = {},
     bottomBar: @Composable () -> Unit = {},

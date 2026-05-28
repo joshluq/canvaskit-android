@@ -42,7 +42,11 @@ private fun TogglesPreviewContainer() {
     ) {
         // Switch section
         Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
-            Text(text = "Switches (Active, Inactive, Disabled States)", style = typography.labelLarge, color = colors.textSecondary)
+            Text(
+                text = "Switches (Active, Inactive, Disabled States)",
+                style = typography.labelLarge,
+                color = colors.textSecondary
+            )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(spacing.md),
                 verticalAlignment = Alignment.CenterVertically
@@ -56,7 +60,11 @@ private fun TogglesPreviewContainer() {
 
         // Checkbox section
         Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
-            Text(text = "Checkboxes (Active, Inactive, Disabled States)", style = typography.labelLarge, color = colors.textSecondary)
+            Text(
+                text = "Checkboxes (Active, Inactive, Disabled States)",
+                style = typography.labelLarge,
+                color = colors.textSecondary
+            )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(spacing.md),
                 verticalAlignment = Alignment.CenterVertically
@@ -70,13 +78,23 @@ private fun TogglesPreviewContainer() {
 
         // RadioButton section
         Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
-            Text(text = "Radio Buttons (Active, Inactive, Disabled States)", style = typography.labelLarge, color = colors.textSecondary)
+            Text(
+                text = "Radio Buttons (Active, Inactive, Disabled States)",
+                style = typography.labelLarge,
+                color = colors.textSecondary
+            )
             Row(
                 horizontalArrangement = Arrangement.spacedBy(spacing.md),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                CanvasKitRadioButton(selected = radioSelected1, onClick = { radioSelected1 = true; radioSelected2 = false })
-                CanvasKitRadioButton(selected = radioSelected2, onClick = { radioSelected2 = true; radioSelected1 = false })
+                CanvasKitRadioButton(selected = radioSelected1, onClick = {
+                    radioSelected1 = true
+                    radioSelected2 = false
+                })
+                CanvasKitRadioButton(selected = radioSelected2, onClick = {
+                    radioSelected2 = true
+                    radioSelected1 = false
+                })
                 CanvasKitRadioButton(selected = true, onClick = null, enabled = false)
                 CanvasKitRadioButton(selected = false, onClick = null, enabled = false)
             }

@@ -45,10 +45,13 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 enum class CanvasKitAlertVariant {
     /** Informational context — uses the brand accent color. */
     Info,
+
     /** Positive outcome or confirmation. */
     Success,
+
     /** Caution or potential issue. */
     Warning,
+
     /** Destructive state, error, or failure. */
     Error
 }
@@ -190,15 +193,15 @@ internal data class AlertColors(val contentColor: Color, val containerColor: Col
 internal fun CanvasKitAlertVariant.resolveColors(
     colors: es.joshluq.canvaskit.core.tokens.CanvasKitColors
 ): AlertColors = when (this) {
-    CanvasKitAlertVariant.Info    -> AlertColors(colors.brandAccent, colors.brandAccent.copy(alpha = 0.10f))
+    CanvasKitAlertVariant.Info -> AlertColors(colors.brandAccent, colors.brandAccent.copy(alpha = 0.10f))
     CanvasKitAlertVariant.Success -> AlertColors(colors.success, colors.successContainer)
     CanvasKitAlertVariant.Warning -> AlertColors(colors.warning, colors.warningContainer)
-    CanvasKitAlertVariant.Error   -> AlertColors(colors.error, colors.errorContainer)
+    CanvasKitAlertVariant.Error -> AlertColors(colors.error, colors.errorContainer)
 }
 
 internal fun CanvasKitAlertVariant.defaultIcon() = when (this) {
-    CanvasKitAlertVariant.Info    -> Icons.Default.Info
+    CanvasKitAlertVariant.Info -> Icons.Default.Info
     CanvasKitAlertVariant.Success -> Icons.Default.CheckCircle
     CanvasKitAlertVariant.Warning -> Icons.Default.Warning
-    CanvasKitAlertVariant.Error   -> Icons.Default.Cancel
+    CanvasKitAlertVariant.Error -> Icons.Default.Cancel
 }
