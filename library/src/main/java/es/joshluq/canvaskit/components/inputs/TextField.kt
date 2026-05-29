@@ -77,8 +77,9 @@ enum class CanvasKitTextFieldVariant {
 fun CanvasKitTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    label: String,
     modifier: Modifier = Modifier,
+    label: String? = null,
+    placeholder: String? = null,
     variant: CanvasKitTextFieldVariant = CanvasKitTextFieldVariant.Outlined,
     enabled: Boolean = true,
     isError: Boolean = false,
@@ -132,6 +133,14 @@ fun CanvasKitTextField(
             .fillMaxWidth()
             .alpha(textAlpha)
     ) {
+        if (!label.isNullOrEmpty()) {
+            Text(
+                text = label,
+                color = if (isError) colors.error else colors.textPrimary,
+                style = typography.labelSmall,
+                modifier = Modifier.padding(bottom = spacing.xs, start = spacing.lg)
+            )
+        }
         BasicTextField(
             value = value,
             onValueChange = onValueChange,
@@ -155,34 +164,14 @@ fun CanvasKitTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp)
-                        .clip(
-                            if (variant == CanvasKitTextFieldVariant.Filled) {
-                                shapes.small.copy(
-                                    bottomStart = androidx.compose.foundation.shape.CornerSize(0.dp),
-                                    bottomEnd = androidx.compose.foundation.shape.CornerSize(0.dp)
-                                )
-                            } else {
-                                shapes.medium
-                            }
-                        )
+                        .clip(shapes.pill)
                         .background(containerBgColor)
                         .then(
-                            if (variant == CanvasKitTextFieldVariant.Outlined) {
-                                Modifier.border(BorderStroke(borderWidth, borderColor), shapes.medium)
-                            } else {
-                                Modifier.drawBehind {
-                                    val strokeWidthPx = borderWidth.toPx()
-                                    val y = size.height - strokeWidthPx / 2
-                                    drawLine(
-                                        color = borderColor,
-                                        start = Offset(0f, y),
-                                        end = Offset(size.width, y),
-                                        strokeWidth = strokeWidthPx
-                                    )
-                                }
-                            }
+                            if (variant == CanvasKitTextFieldVariant.Outlined || isFocused || isError) {
+                                Modifier.border(BorderStroke(borderWidth, borderColor), shapes.pill)
+                            } else Modifier
                         )
-                        .padding(horizontal = spacing.md),
+                        .padding(horizontal = spacing.lg),
                     contentAlignment = Alignment.CenterStart
                 ) {
                     Row(
@@ -201,55 +190,17 @@ fun CanvasKitTextField(
                                 .fillMaxHeight(),
                             contentAlignment = Alignment.CenterStart
                         ) {
-                            val density = LocalDensity.current
-                            val focusedOrNotEmpty = isFocused || value.isNotEmpty()
-                            val labelAnimationPercent by animateFloatAsState(
-                                targetValue = if (focusedOrNotEmpty) 1f else 0f,
-                                animationSpec = tween(durationMillis = motion.short2, easing = motion.standard),
-                                label = "LabelAnimation"
-                            )
-
-                            val labelScale = 1f - (labelAnimationPercent * 0.25f)
-                            val targetTranslateY = with(density) {
-                                if (variant == CanvasKitTextFieldVariant.Outlined) (-18.dp).toPx() else (-10.dp).toPx()
-                            }
-                            val translateY = labelAnimationPercent * targetTranslateY
-
-                            val labelColor by animateColorAsState(
-                                targetValue = when {
-                                    isError -> colors.error
-                                    isFocused -> colors.brandAccent
-                                    else -> colors.textSecondary
-                                },
-                                animationSpec = tween(durationMillis = motion.short2, easing = motion.standard),
-                                label = "LabelColor"
-                            )
-
-                            // Floating Label
-                            Text(
-                                text = label,
-                                color = labelColor,
-                                style = typography.bodyMedium,
-                                modifier = Modifier
-                                    .graphicsLayer {
-                                        this.scaleX = labelScale
-                                        this.scaleY = labelScale
-                                        this.translationY = translateY
-                                        this.transformOrigin = TransformOrigin(0f, 0.5f)
-                                    }
-                            )
-
-                            // Shift text input field down slightly in Filled variant when label is floating
-                            val textTranslateY = with(density) {
-                                if (variant == CanvasKitTextFieldVariant.Filled && focusedOrNotEmpty) 8.dp.toPx() else 0f
+                            // Static Placeholder
+                            if (value.isEmpty() && !placeholder.isNullOrEmpty()) {
+                                Text(
+                                    text = placeholder,
+                                    color = colors.textSecondary,
+                                    style = typography.bodyMedium
+                                )
                             }
 
                             Box(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .graphicsLayer {
-                                        this.translationY = textTranslateY
-                                    }
+                                modifier = Modifier.fillMaxWidth()
                             ) {
                                 innerTextField()
                             }
@@ -275,7 +226,7 @@ fun CanvasKitTextField(
                 text = supportText,
                 color = supportColor,
                 style = typography.labelSmall,
-                modifier = Modifier.padding(horizontal = spacing.xs)
+                modifier = Modifier.padding(horizontal = spacing.lg)
             )
         }
     }

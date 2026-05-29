@@ -121,7 +121,7 @@ The library components are grouped in a clear taxonomic structure following atom
     - Test interactive components with Google's Accessibility Scanner and Compose Layout Inspector.
 
 ### 5.5 Previews & Showcase App
-*   **Multi-Preview Setup:** Every public Composable must have a corresponding preview file containing:
+*   **Multi-Preview Setup:** Every public Composable must have a corresponding preview file (e.g., `ComponentNamePreview.kt`) in the same package. This is MANDATORY for all new components. The file must contain:
     *   Light Mode preview.
     *   Dark Mode preview.
     *   RTL (Right-To-Left) layout preview.
@@ -133,6 +133,7 @@ The library components are grouped in a clear taxonomic structure following atom
 ## 6. Prompting Rules & Agent Behaviors
 
 *   **No Vendor Lock-In:** Keep core UI components decoupled from external styling libraries or strict DI container annotations.
+*   **Automatic Preview Creation:** When creating a new public Composable component, you MUST automatically create its corresponding `ComponentNamePreview.kt` file following the Multi-Preview Setup guidelines.
 *   **Defensive Visibility:** Keep helper utilities, base classes, and experimental components marked as `internal` or annotate them with custom API visibility markers (e.g. `@RequiresOptIn`). Only expose the minimal public API surface.
 *   **Explain the "Why" First:** When proposing refactors, bug fixes, or new components, you must present the architectural and design system context (e.g., how this affects recomposition, accessibility, theme customization) before presenting code snippets.
 *   **Preserve Documentation & Comments:** Maintain all existing comments, KDoc documentation, and license headers. Ensure new public components have clear, descriptive KDoc comments explaining their purpose, parameters, and design tokens.

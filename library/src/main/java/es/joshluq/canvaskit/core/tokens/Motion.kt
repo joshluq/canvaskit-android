@@ -23,7 +23,10 @@ data class CanvasKitMotion(
     // Easings
     val standard: Easing = FastOutSlowInEasing,
     val decelerate: Easing = LinearOutSlowInEasing,
-    val accelerate: Easing = FastOutLinearInEasing
+    val accelerate: Easing = FastOutLinearInEasing,
+
+    // Scales
+    val pressedScale: Float = 0.97f
 )
 
 /**

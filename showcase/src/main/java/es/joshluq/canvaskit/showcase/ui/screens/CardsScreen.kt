@@ -58,7 +58,7 @@ fun CardsScreen(
             title = {
                 Column {
                     Text(
-                        text = "Pureza Modular",
+                        text = "Modular Purity",
                         style = CanvasKitTheme.typography.headingLarge,
                         color = colors.textPrimary
                     )
@@ -70,10 +70,13 @@ fun CardsScreen(
                 }
             },
             navigationIcon = {
-                CanvasKitIconButton(onClick = onBack) {
+                CanvasKitIconButton(
+                    onClick = onBack,
+                    contentDescription = "Back"
+                ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Atrás",
+                        contentDescription = null,
                         tint = colors.brandPrimary
                     )
                 }
