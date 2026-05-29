@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Color
 // --- Raw Palette ---
 internal val DeepNavy = Color(0xFF001E50)
 internal val ElectricBlue = Color(0xFF00B0F0)
-internal val ElectricBluePressed = Color(0xFF0082C8)
 internal val Slate950 = Color(0xFF080C14)
 internal val Slate900 = Color(0xFF0F172A)
 internal val Slate800 = Color(0xFF1E293B)
@@ -38,6 +37,7 @@ data class CanvasKitColors(
     val brandAccent: Color,
     val textPrimary: Color,
     val textSecondary: Color,
+    val contentColor: Color,
     val borderSubtle: Color,
     val error: Color,
     val errorContainer: Color,
@@ -58,6 +58,7 @@ fun lightCanvasKitColors(
     brandAccent: Color = ElectricBlue,
     textPrimary: Color = DeepNavy,
     textSecondary: Color = Gray600,
+    contentColor: Color = DeepNavy,
     borderSubtle: Color = Gray200,
     error: Color = RedError,
     errorContainer: Color = RedErrorBg,
@@ -72,6 +73,7 @@ fun lightCanvasKitColors(
     brandAccent = brandAccent,
     textPrimary = textPrimary,
     textSecondary = textSecondary,
+    contentColor = contentColor,
     borderSubtle = borderSubtle,
     error = error,
     errorContainer = errorContainer,
@@ -92,6 +94,7 @@ fun darkCanvasKitColors(
     brandAccent: Color = ElectricBlue,
     textPrimary: Color = White,
     textSecondary: Color = Slate400,
+    contentColor: Color = White,
     borderSubtle: Color = Slate800,
     error: Color = RedError,
     errorContainer: Color = Slate900,
@@ -106,6 +109,7 @@ fun darkCanvasKitColors(
     brandAccent = brandAccent,
     textPrimary = textPrimary,
     textSecondary = textSecondary,
+    contentColor = contentColor,
     borderSubtle = borderSubtle,
     error = error,
     errorContainer = errorContainer,
@@ -121,11 +125,4 @@ fun darkCanvasKitColors(
  */
 val LocalCanvasKitColors = staticCompositionLocalOf {
     lightCanvasKitColors()
-}
-
-/**
- * CompositionLocal key for the preferred content color (e.g., text or icons).
- */
-val LocalCanvasKitContentColor = staticCompositionLocalOf {
-    DeepNavy
 }
