@@ -45,6 +45,7 @@ data class CanvasKitColors(
     val successContainer: Color,
     val warning: Color,
     val warningContainer: Color,
+    val onBrandAccent: Color,
     val isDark: Boolean
 )
 
@@ -65,7 +66,8 @@ fun lightCanvasKitColors(
     success: Color = GreenSuccess,
     successContainer: Color = GreenSuccessBg,
     warning: Color = Amber500,
-    warningContainer: Color = AmberBg
+    warningContainer: Color = AmberBg,
+    onBrandAccent: Color = White,
 ): CanvasKitColors = CanvasKitColors(
     backgroundPrimary = backgroundPrimary,
     backgroundSecondary = backgroundSecondary,
@@ -81,6 +83,7 @@ fun lightCanvasKitColors(
     successContainer = successContainer,
     warning = warning,
     warningContainer = warningContainer,
+    onBrandAccent = onBrandAccent,
     isDark = false
 )
 
@@ -101,7 +104,8 @@ fun darkCanvasKitColors(
     success: Color = GreenSuccess,
     successContainer: Color = Slate900,
     warning: Color = AmberDark,
-    warningContainer: Color = AmberDarkBg
+    warningContainer: Color = AmberDarkBg,
+    onBrandAccent: Color = White,
 ): CanvasKitColors = CanvasKitColors(
     backgroundPrimary = backgroundPrimary,
     backgroundSecondary = backgroundSecondary,
@@ -117,6 +121,7 @@ fun darkCanvasKitColors(
     successContainer = successContainer,
     warning = warning,
     warningContainer = warningContainer,
+    onBrandAccent = onBrandAccent,
     isDark = true
 )
 

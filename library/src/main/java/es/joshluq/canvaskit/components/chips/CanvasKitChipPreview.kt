@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,7 +37,7 @@ private fun SampleChips() {
     ) {
         // Primary
         Text("Primary Variant", style = typography.labelLarge, color = colors.textSecondary)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CanvasKitChip(onClick = {}, variant = CanvasKitChipVariant.Primary, selected = false, label = {
                 Text("Default", style = typography.labelLarge, color = colors.textPrimary)
             })
@@ -50,7 +51,7 @@ private fun SampleChips() {
 
         // Outlined
         Text("Outlined Variant", style = typography.labelLarge, color = colors.textSecondary)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CanvasKitChip(onClick = {}, variant = CanvasKitChipVariant.Outlined, selected = false, label = {
                 Text("Default", style = typography.labelLarge, color = colors.textPrimary)
             })
@@ -64,7 +65,7 @@ private fun SampleChips() {
 
         // Ghost
         Text("Ghost Variant", style = typography.labelLarge, color = colors.textSecondary)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             CanvasKitChip(onClick = {}, variant = CanvasKitChipVariant.Ghost, selected = false, label = {
                 Text("Default", style = typography.labelLarge, color = colors.textSecondary)
             })

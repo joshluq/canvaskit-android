@@ -54,7 +54,7 @@ fun CanvasKitIconButton(
     backgroundColor: Color = Color.Transparent,
     contentColor: Color = CanvasKitTheme.colors.contentColor,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    icon: @Composable () -> Unit
+    icon: @Composable (contentColor : Color) -> Unit
 ) {
     val isPressed by interactionSource.collectIsPressedAsState()
     val theme = CanvasKitTheme
@@ -97,7 +97,7 @@ fun CanvasKitIconButton(
                 modifier = Modifier.size(20.dp)
             )
         } else {
-            icon()
+            icon(contentColor)
         }
     }
 }
