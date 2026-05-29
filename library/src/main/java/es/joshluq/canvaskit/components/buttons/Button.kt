@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -30,7 +29,6 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.feedback.CanvasKitLoadingSpinner
-import es.joshluq.canvaskit.core.tokens.LocalCanvasKitContentColor
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 import es.joshluq.canvaskit.core.tokens.White
 
@@ -129,13 +127,14 @@ fun CanvasKitButton(
         if (loading) {
             CanvasKitLoadingSpinner(color = contentColor)
         } else {
-            CompositionLocalProvider(LocalCanvasKitContentColor provides contentColor) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(spacing.xs, Alignment.CenterHorizontally),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    content()
-                }
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(
+                    spacing.xs,
+                    Alignment.CenterHorizontally
+                ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                content()
             }
         }
     }

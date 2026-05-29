@@ -4,7 +4,6 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.ui.graphics.Color
 import es.joshluq.canvaskit.core.tokens.CanvasKitColors
 import es.joshluq.canvaskit.core.tokens.CanvasKitMotion
 import es.joshluq.canvaskit.core.tokens.CanvasKitOpacity
@@ -13,7 +12,6 @@ import es.joshluq.canvaskit.core.tokens.CanvasKitSpacing
 import es.joshluq.canvaskit.core.tokens.CanvasKitStroke
 import es.joshluq.canvaskit.core.tokens.CanvasKitTypography
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitColors
-import es.joshluq.canvaskit.core.tokens.LocalCanvasKitContentColor
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitMotion
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitOpacity
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitShapes
@@ -40,7 +38,6 @@ fun CanvasKitTheme(
 ) {
     CompositionLocalProvider(
         LocalCanvasKitColors provides colors,
-        LocalCanvasKitContentColor provides colors.textPrimary,
         LocalCanvasKitTypography provides typography,
         LocalCanvasKitShapes provides shapes,
         LocalCanvasKitSpacing provides spacing,
@@ -59,11 +56,6 @@ object CanvasKitTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalCanvasKitColors.current
-
-    val contentColor: Color
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalCanvasKitContentColor.current
 
     val typography: CanvasKitTypography
         @Composable
