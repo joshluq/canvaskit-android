@@ -60,7 +60,7 @@ fun CanvasKitCard(
     variant: CanvasKitCardVariant = CanvasKitCardVariant.Outlined,
     selected: Boolean = false,
     enabled: Boolean = true,
-    shape: Shape = CanvasKitTheme.shapes.extraLarge,
+    shape: Shape = CanvasKitTheme.shapes.container,
     header: (@Composable () -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
     content: @Composable () -> Unit
@@ -129,7 +129,7 @@ fun CanvasKitCard(
             }
     ) {
         Column(
-            modifier = Modifier.padding(spacing.md)
+            modifier = Modifier.padding(spacing.lg)
         ) {
             if (header != null) {
                 header()

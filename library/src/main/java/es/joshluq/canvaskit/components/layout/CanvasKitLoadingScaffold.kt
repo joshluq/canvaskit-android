@@ -20,7 +20,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import es.joshluq.canvaskit.components.buttons.CanvasKitLoadingSpinner
+import es.joshluq.canvaskit.components.feedback.CanvasKitLoadingSpinner
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**

@@ -122,3 +122,10 @@ fun darkCanvasKitColors(
 val LocalCanvasKitColors = staticCompositionLocalOf {
     lightCanvasKitColors()
 }
+
+/**
+ * CompositionLocal key for the preferred content color (e.g., text or icons).
+ */
+val LocalCanvasKitContentColor = staticCompositionLocalOf {
+    DeepNavy
+}

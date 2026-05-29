@@ -13,7 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
@@ -69,11 +69,13 @@ fun TextFieldsScreen(
                 }
             },
             navigationIcon = {
-                CanvasKitIconButton(onClick = onBack) {
+                CanvasKitIconButton(
+                    onClick = onBack,
+                    contentDescription = "Atrás"
+                ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Atrás",
-                        tint = colors.brandPrimary
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
                     )
                 }
             }
@@ -129,12 +131,12 @@ fun TextFieldsScreen(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
                         CanvasKitIconButton(
-                            onClick = { passwordVisible = !passwordVisible }
+                            onClick = { passwordVisible = !passwordVisible },
+                            contentDescription = if (passwordVisible) "Ocultar" else "Mostrar"
                         ) {
                             Icon(
                                 imageVector = if (passwordVisible) Icons.Default.Check else Icons.Default.Close,
-                                contentDescription = if (passwordVisible) "Ocultar" else "Mostrar",
-                                tint = colors.textSecondary
+                                contentDescription = null
                             )
                         }
                     },

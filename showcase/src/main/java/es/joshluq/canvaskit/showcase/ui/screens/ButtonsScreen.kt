@@ -15,8 +15,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -70,11 +70,13 @@ fun ButtonsScreen(
                 }
             },
             navigationIcon = {
-                CanvasKitIconButton(onClick = onBack) {
+                CanvasKitIconButton(
+                    onClick = onBack,
+                    contentDescription = "Back"
+                ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Atrás",
-                        tint = colors.brandPrimary
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
                     )
                 }
             }
@@ -116,22 +118,19 @@ fun ButtonsScreen(
                     CanvasKitButton(onClick = onButtonClick) {
                         Text(
                             "Default",
-                            style = CanvasKitTheme.typography.labelLarge,
-                            color = colors.backgroundPrimary
+                            style = CanvasKitTheme.typography.labelLarge
                         )
                     }
                     CanvasKitButton(onClick = onButtonClick, enabled = false) {
                         Text(
                             "Disabled",
-                            style = CanvasKitTheme.typography.labelLarge,
-                            color = colors.backgroundPrimary
+                            style = CanvasKitTheme.typography.labelLarge
                         )
                     }
                     CanvasKitButton(onClick = onButtonClick, loading = true) {
                         Text(
                             "Loading",
-                            style = CanvasKitTheme.typography.labelLarge,
-                            color = colors.backgroundPrimary
+                            style = CanvasKitTheme.typography.labelLarge
                         )
                     }
                 }
@@ -151,15 +150,13 @@ fun ButtonsScreen(
                         CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Secondary) {
                             Text(
                                 "Secondary",
-                                style = CanvasKitTheme.typography.labelLarge,
-                                color = colors.brandPrimary
+                                style = CanvasKitTheme.typography.labelLarge
                             )
                         }
                         CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Ghost) {
                             Text(
                                 "Ghost Action",
-                                style = CanvasKitTheme.typography.labelLarge,
-                                color = colors.brandAccent
+                                style = CanvasKitTheme.typography.labelLarge
                             )
                         }
                     }
@@ -175,11 +172,13 @@ fun ButtonsScreen(
                     horizontalArrangement = Arrangement.spacedBy(spacing.md),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    CanvasKitIconButton(onClick = onButtonClick) {
+                    CanvasKitIconButton(
+                        onClick = onButtonClick,
+                        contentDescription = "Add"
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Add,
-                            contentDescription = "Añadir",
-                            tint = colors.brandPrimary
+                            contentDescription = null
                         )
                     }
 
@@ -187,20 +186,23 @@ fun ButtonsScreen(
                         onClick = onButtonClick,
                         shape = shapes.extraLarge,
                         backgroundColor = colors.backgroundSecondary,
-                        contentColor = colors.brandAccent
+                        contentColor = colors.brandAccent,
+                        contentDescription = "Settings"
                     ) {
                         Icon(
                             imageVector = Icons.Default.Settings,
-                            contentDescription = "Configuración",
-                            tint = colors.brandAccent
+                            contentDescription = null
                         )
                     }
 
-                    CanvasKitIconButton(onClick = onButtonClick, loading = true) {
+                    CanvasKitIconButton(
+                        onClick = onButtonClick,
+                        loading = true,
+                        contentDescription = "Settings"
+                    ) {
                         Icon(
                             imageVector = Icons.Default.Settings,
-                            contentDescription = "Configuración",
-                            tint = colors.brandPrimary
+                            contentDescription = null
                         )
                     }
                 }

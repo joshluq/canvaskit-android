@@ -167,11 +167,12 @@ fun CanvasKitBanner(
                 if (onDismiss != null) {
                     CanvasKitIconButton(
                         onClick = onDismiss,
+                        contentDescription = "Close notification",
                         modifier = Modifier.size(32.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
-                            contentDescription = "Cerrar notificación",
+                            contentDescription = null,
                             tint = contentColor.copy(alpha = 0.7f),
                             modifier = Modifier.size(16.dp)
                         )

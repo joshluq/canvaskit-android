@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -21,16 +22,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.components.feedback.CanvasKitLoadingSpinner
+import es.joshluq.canvaskit.core.tokens.LocalCanvasKitContentColor
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
  * CanvasKitIconButton is a specialized icon-only interactive component.
  *
  * @param onClick Callback to execute on click.
+ * @param contentDescription Text description for accessibility services.
  * @param modifier Root layout modifier.
  * @param enabled Controls whether the icon button is clickable.
  * @param loading Shows progress spinner and disables clicking when true.
@@ -43,24 +48,26 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 @Composable
 fun CanvasKitIconButton(
     onClick: () -> Unit,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     loading: Boolean = false,
     shape: Shape = CanvasKitTheme.shapes.pill,
     backgroundColor: Color = Color.Transparent,
-    contentColor: Color = CanvasKitTheme.colors.brandPrimary,
+    contentColor: Color = CanvasKitTheme.contentColor,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     icon: @Composable () -> Unit
 ) {
     val isPressed by interactionSource.collectIsPressedAsState()
+    val theme = CanvasKitTheme
 
     val scale by animateFloatAsState(
-        targetValue = if (isPressed && enabled && !loading) 0.95f else 1.0f,
-        animationSpec = tween(durationMillis = CanvasKitTheme.motion.short1, easing = CanvasKitTheme.motion.standard),
+        targetValue = if (isPressed && enabled && !loading) theme.motion.pressedScale else 1.0f,
+        animationSpec = tween(durationMillis = theme.motion.short1, easing = theme.motion.standard),
         label = "IconButtonScale"
     )
 
-    val contentAlpha = if (enabled) 1.0f else 0.38f
+    val contentAlpha = if (enabled) theme.opacity.full else theme.opacity.disabled
 
     Box(
         modifier = modifier
@@ -76,9 +83,10 @@ fun CanvasKitIconButton(
                 role = Role.Button,
                 onClick = onClick
             )
-            .padding(CanvasKitTheme.spacing.xs)
+            .padding(theme.spacing.xs)
             .semantics(mergeDescendants = true) {
                 role = Role.Button
+                this.contentDescription = contentDescription
                 if (loading) {
                     stateDescription = "Loading"
                 }
@@ -91,7 +99,9 @@ fun CanvasKitIconButton(
                 modifier = Modifier.size(20.dp)
             )
         } else {
-            icon()
+            CompositionLocalProvider(LocalCanvasKitContentColor provides contentColor) {
+                icon()
+            }
         }
     }
 }

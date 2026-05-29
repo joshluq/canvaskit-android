@@ -33,11 +33,13 @@ private fun SampleTopBarTitle(text: String) {
 
 @Composable
 private fun SampleBackIcon() {
-    CanvasKitIconButton(onClick = {}) {
+    CanvasKitIconButton(
+        onClick = {},
+        contentDescription = "Back"
+    ) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
-            contentDescription = "Atrás",
-            tint = CanvasKitTheme.colors.brandPrimary
+            contentDescription = null
         )
     }
 }
@@ -51,14 +53,16 @@ private fun TopBarPreviewContainer() {
     ) {
         // Standard start-aligned TopBar
         CanvasKitTopBar(
-            title = { SampleTopBarTitle("Configuración") },
+            title = { SampleTopBarTitle("Settings") },
             navigationIcon = { SampleBackIcon() },
             actions = {
-                CanvasKitIconButton(onClick = {}) {
+                CanvasKitIconButton(
+                    onClick = {},
+                    contentDescription = "Search"
+                ) {
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = "Buscar",
-                        tint = CanvasKitTheme.colors.brandPrimary
+                        contentDescription = null
                     )
                 }
             }
@@ -66,22 +70,26 @@ private fun TopBarPreviewContainer() {
 
         // Center-aligned TopBar
         CanvasKitTopBar(
-            title = { SampleTopBarTitle("Editar Perfil") },
+            title = { SampleTopBarTitle("Edit Profile") },
             navigationIcon = { SampleBackIcon() },
             centeredTitle = true,
             actions = {
-                CanvasKitIconButton(onClick = {}) {
+                CanvasKitIconButton(
+                    onClick = {},
+                    contentDescription = "Save"
+                ) {
                     Icon(
                         imageVector = Icons.Default.Check,
-                        contentDescription = "Guardar",
-                        tint = CanvasKitTheme.colors.brandPrimary
+                        contentDescription = null
                     )
                 }
-                CanvasKitIconButton(onClick = {}) {
+                CanvasKitIconButton(
+                    onClick = {},
+                    contentDescription = "Settings"
+                ) {
                     Icon(
                         imageVector = Icons.Default.Settings,
-                        contentDescription = "Configuración",
-                        tint = CanvasKitTheme.colors.brandPrimary
+                        contentDescription = null
                     )
                 }
             }
@@ -94,7 +102,7 @@ private fun TopBarPreviewContainer() {
                 .padding(spacing.xs)
         ) {
             CanvasKitTopBar(
-                title = { SampleTopBarTitle("Vista Transparente") },
+                title = { SampleTopBarTitle("Transparent View") },
                 transparent = true,
                 showBottomBorder = false
             )

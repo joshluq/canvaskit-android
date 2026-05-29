@@ -1,14 +1,8 @@
 package es.joshluq.canvaskit.components.buttons
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.infiniteRepeatable
-import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -20,8 +14,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -29,15 +23,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.components.feedback.CanvasKitLoadingSpinner
+import es.joshluq.canvaskit.core.tokens.LocalCanvasKitContentColor
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
+import es.joshluq.canvaskit.core.tokens.White
 
 /**
  * Variants for the CanvasKitButton component.
@@ -71,18 +66,19 @@ fun CanvasKitButton(
     content: @Composable RowScope.() -> Unit
 ) {
     val isPressed by interactionSource.collectIsPressedAsState()
+    val theme = CanvasKitTheme
 
     val scale by animateFloatAsState(
-        targetValue = if (isPressed && enabled && !loading) 0.97f else 1.0f,
-        animationSpec = tween(durationMillis = CanvasKitTheme.motion.short1, easing = CanvasKitTheme.motion.standard),
+        targetValue = if (isPressed && enabled && !loading) theme.motion.pressedScale else 1.0f,
+        animationSpec = tween(durationMillis = theme.motion.short1, easing = theme.motion.standard),
         label = "ButtonScale"
     )
 
-    val contentAlpha = if (enabled) 1.0f else 0.38f
+    val contentAlpha = if (enabled) theme.opacity.full else theme.opacity.disabled
 
-    val colors = CanvasKitTheme.colors
-    val shapes = CanvasKitTheme.shapes
-    val spacing = CanvasKitTheme.spacing
+    val colors = theme.colors
+    val shapes = theme.shapes
+    val spacing = theme.spacing
 
     val backgroundColor = when (variant) {
         CanvasKitButtonVariant.Primary -> if (enabled) colors.brandAccent else colors.borderSubtle
@@ -91,15 +87,15 @@ fun CanvasKitButton(
     }
 
     val contentColor = when (variant) {
-        CanvasKitButtonVariant.Primary -> colors.backgroundPrimary
+        CanvasKitButtonVariant.Primary -> White
         CanvasKitButtonVariant.Secondary -> colors.brandPrimary
         CanvasKitButtonVariant.Ghost -> colors.brandAccent
     }
 
     val borderStroke = when (variant) {
         CanvasKitButtonVariant.Secondary -> BorderStroke(
-            width = 1.dp,
-            color = if (enabled) colors.borderSubtle else colors.borderSubtle.copy(alpha = 0.5f)
+            width = theme.stroke.thin,
+            color = if (enabled) colors.borderSubtle else colors.borderSubtle.copy(alpha = theme.opacity.subtle)
         )
         else -> null
     }
@@ -133,42 +129,14 @@ fun CanvasKitButton(
         if (loading) {
             CanvasKitLoadingSpinner(color = contentColor)
         } else {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(spacing.xs, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                content()
+            CompositionLocalProvider(LocalCanvasKitContentColor provides contentColor) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(spacing.xs, Alignment.CenterHorizontally),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    content()
+                }
             }
         }
-    }
-}
-
-/**
- * Custom canvas-based loading spinner. Avoids direct dependencies on Material3 components.
- */
-@Composable
-internal fun CanvasKitLoadingSpinner(
-    color: Color,
-    modifier: Modifier = Modifier
-) {
-    val transition = rememberInfiniteTransition(label = "SpinnerTransition")
-    val angle by transition.animateFloat(
-        initialValue = 0f,
-        targetValue = 360f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(durationMillis = 1000, easing = LinearEasing),
-            repeatMode = RepeatMode.Restart
-        ),
-        label = "SpinnerAngle"
-    )
-
-    Canvas(modifier = modifier.size(20.dp)) {
-        drawArc(
-            color = color,
-            startAngle = angle,
-            sweepAngle = 270f,
-            useCenter = false,
-            style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round)
-        )
     }
 }

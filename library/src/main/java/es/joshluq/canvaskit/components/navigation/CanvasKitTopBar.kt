@@ -13,10 +13,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.core.tokens.LocalCanvasKitContentColor
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
@@ -53,47 +55,49 @@ fun CanvasKitTopBar(
             .background(backgroundColor)
             .statusBarsPadding()
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(64.dp),
-            contentAlignment = Alignment.CenterStart
-        ) {
-            // Title Layer
+        CompositionLocalProvider(LocalCanvasKitContentColor provides colors.textPrimary) {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = if (centeredTitle) 72.dp else if (navigationIcon != null) 64.dp else spacing.md,
-                        end = if (centeredTitle) 72.dp else if (actions != null) 72.dp else spacing.md
-                    ),
-                contentAlignment = if (centeredTitle) Alignment.Center else Alignment.CenterStart
+                    .fillMaxWidth()
+                    .height(64.dp),
+                contentAlignment = Alignment.CenterStart
             ) {
-                title()
-            }
-
-            // Navigation Icon Layer
-            if (navigationIcon != null) {
+                // Title Layer
                 Box(
                     modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .padding(start = spacing.sm),
-                    contentAlignment = Alignment.Center
+                        .fillMaxSize()
+                        .padding(
+                            start = if (centeredTitle) 72.dp else if (navigationIcon != null) 64.dp else spacing.md,
+                            end = if (centeredTitle) 72.dp else if (actions != null) 72.dp else spacing.md
+                        ),
+                    contentAlignment = if (centeredTitle) Alignment.Center else Alignment.CenterStart
                 ) {
-                    navigationIcon()
+                    title()
                 }
-            }
 
-            // Actions Layer
-            if (actions != null) {
-                Row(
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .padding(end = spacing.sm),
-                    horizontalArrangement = Arrangement.spacedBy(spacing.xxs),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    actions()
+                // Navigation Icon Layer
+                if (navigationIcon != null) {
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.CenterStart)
+                            .padding(start = spacing.sm),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        navigationIcon()
+                    }
+                }
+
+                // Actions Layer
+                if (actions != null) {
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = spacing.sm),
+                        horizontalArrangement = Arrangement.spacedBy(spacing.xxs),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        actions()
+                    }
                 }
             }
         }

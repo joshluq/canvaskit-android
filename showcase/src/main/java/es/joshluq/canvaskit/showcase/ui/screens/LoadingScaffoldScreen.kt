@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -67,10 +67,13 @@ fun LoadingScaffoldScreen(
                     }
                 },
                 navigationIcon = {
-                    CanvasKitIconButton(onClick = onBack) {
+                    CanvasKitIconButton(
+                        onClick = onBack,
+                        contentDescription = "Atrás"
+                    ) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Atrás",
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null,
                             tint = colors.brandPrimary
                         )
                     }

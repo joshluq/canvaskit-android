@@ -73,10 +73,13 @@ fun PopupsScreen(
                 }
             },
             navigationIcon = {
-                CanvasKitIconButton(onClick = onBack) {
+                CanvasKitIconButton(
+                    onClick = onBack,
+                    contentDescription = "Back"
+                ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Atrás",
+                        contentDescription = null,
                         tint = colors.brandPrimary
                     )
                 }
@@ -114,9 +117,10 @@ fun PopupsScreen(
                 Box {
                     CanvasKitIconButton(
                         onClick = { showMenuPopup = true },
-                        backgroundColor = colors.backgroundSecondary
+                        backgroundColor = colors.backgroundSecondary,
+                        contentDescription = "Menu"
                     ) {
-                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "Menu", tint = colors.brandPrimary)
+                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = null, tint = colors.brandPrimary)
                     }
 
                     CanvasKitPopup(
@@ -152,9 +156,10 @@ fun PopupsScreen(
                 Box {
                     CanvasKitIconButton(
                         onClick = { showTooltipPopup = true },
-                        backgroundColor = colors.backgroundSecondary
+                        backgroundColor = colors.backgroundSecondary,
+                        contentDescription = "Info"
                     ) {
-                        Icon(imageVector = Icons.Default.Notifications, contentDescription = "Info", tint = colors.brandPrimary)
+                        Icon(imageVector = Icons.Default.Notifications, contentDescription = null, tint = colors.brandPrimary)
                     }
 
                     CanvasKitPopup(

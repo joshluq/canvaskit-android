@@ -1,11 +1,13 @@
 package es.joshluq.canvaskit.components.cards
 
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -16,48 +18,6 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
-@Composable
-private fun SampleCardContent(
-    title: String,
-    subtitle: String,
-    description: String,
-    footerText: String
-) {
-    CanvasKitCard(
-        header = {
-            Column {
-                Text(
-                    text = title,
-                    style = CanvasKitTheme.typography.headingMedium,
-                    color = CanvasKitTheme.colors.textPrimary
-                )
-                Text(
-                    text = subtitle,
-                    style = CanvasKitTheme.typography.labelSmall,
-                    color = CanvasKitTheme.colors.textSecondary
-                )
-            }
-        },
-        footer = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Text(
-                    text = footerText,
-                    style = CanvasKitTheme.typography.labelLarge,
-                    color = CanvasKitTheme.colors.brandAccent
-                )
-            }
-        }
-    ) {
-        Text(
-            text = description,
-            style = CanvasKitTheme.typography.bodyMedium,
-            color = CanvasKitTheme.colors.textSecondary
-        )
-    }
-}
 
 @Composable
 private fun CardsPreviewContainer() {
@@ -78,7 +38,7 @@ private fun CardsPreviewContainer() {
             }
         ) {
             Text(
-                text = "Este es un contenedor con borde sutil, ideal para estructurar layouts limpios.",
+                text = "This is a container with a subtle border, ideal for structuring clean layouts.",
                 style = CanvasKitTheme.typography.bodyMedium,
                 color = CanvasKitTheme.colors.textSecondary
             )
@@ -96,7 +56,7 @@ private fun CardsPreviewContainer() {
             }
         ) {
             Text(
-                text = "Este contenedor tiene una elevación sutil para destacar sobre el fondo primario.",
+                text = "This container has a subtle elevation to stand out against the primary background.",
                 style = CanvasKitTheme.typography.bodyMedium,
                 color = CanvasKitTheme.colors.textSecondary
             )
@@ -114,7 +74,7 @@ private fun CardsPreviewContainer() {
             }
         ) {
             Text(
-                text = "Este contenedor usa el color secundario como fondo plano sin sombras ni bordes.",
+                text = "This container uses the secondary color as a flat background without shadows or borders.",
                 style = CanvasKitTheme.typography.bodyMedium,
                 color = CanvasKitTheme.colors.textSecondary
             )
@@ -133,7 +93,7 @@ private fun CardsPreviewContainer() {
             }
         ) {
             Text(
-                text = "Este contenedor está seleccionado y tiene un borde de acento de marca dinámico.",
+                text = "This container is selected and features a dynamic brand accent border.",
                 style = CanvasKitTheme.typography.bodyMedium,
                 color = CanvasKitTheme.colors.textSecondary
             )
@@ -177,7 +137,7 @@ fun CanvasKitCardRtlPreview() {
 @Composable
 fun CanvasKitCardFontScalePreview() {
     CanvasKitTheme {
-        Box(modifier = Modifier.padding(16.dp)) {
+        Box(modifier = Modifier.padding(16.dp).verticalScroll(rememberScrollState())) {
             CardsPreviewContainer()
         }
     }

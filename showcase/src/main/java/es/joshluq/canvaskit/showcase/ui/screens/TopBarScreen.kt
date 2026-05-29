@@ -59,10 +59,13 @@ fun TopBarScreen(
                 }
             },
             navigationIcon = {
-                CanvasKitIconButton(onClick = onBack) {
+                CanvasKitIconButton(
+                    onClick = onBack,
+                    contentDescription = "Back"
+                ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Atrás",
+                        contentDescription = null,
                         tint = colors.brandPrimary
                     )
                 }
@@ -106,7 +109,10 @@ fun TopBarScreen(
                         )
                     },
                     navigationIcon = {
-                        CanvasKitIconButton(onClick = { }) {
+                        CanvasKitIconButton(
+                            onClick = { },
+                            contentDescription = "Back"
+                        ) {
                             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null, tint = colors.brandPrimary)
                         }
                     },
@@ -136,10 +142,16 @@ fun TopBarScreen(
                     },
                     actions = {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            CanvasKitIconButton(onClick = { }) {
+                            CanvasKitIconButton(
+                                onClick = { },
+                                contentDescription = "Search"
+                            ) {
                                 Icon(imageVector = Icons.Default.Search, contentDescription = null, tint = colors.textPrimary)
                             }
-                            CanvasKitIconButton(onClick = { }) {
+                            CanvasKitIconButton(
+                                onClick = { },
+                                contentDescription = "Notifications"
+                            ) {
                                 Icon(imageVector = Icons.Default.Notifications, contentDescription = null, tint = colors.textPrimary)
                             }
                         }

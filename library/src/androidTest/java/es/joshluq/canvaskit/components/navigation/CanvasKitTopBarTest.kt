@@ -61,12 +61,18 @@ class CanvasKitTopBarTest {
                 CanvasKitTopBar(
                     title = { Text("Interactive TopBar") },
                     navigationIcon = {
-                        CanvasKitIconButton(onClick = { navClicked = true }) {
+                        CanvasKitIconButton(
+                            onClick = { navClicked = true },
+                            contentDescription = "Back"
+                        ) {
                             Text("Back")
                         }
                     },
                     actions = {
-                        CanvasKitIconButton(onClick = { actionClicked = true }) {
+                        CanvasKitIconButton(
+                            onClick = { actionClicked = true },
+                            contentDescription = "Save"
+                        ) {
                             Text("Save")
                         }
                     }

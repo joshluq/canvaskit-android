@@ -65,17 +65,20 @@ fun BannersScreen(
                         color = colors.textPrimary
                     )
                     Text(
-                        text = "Feedback components para mensajes del sistema y alertas contextuales.",
+                        text = "Feedback components for system messages and contextual alerts.",
                         style = typography.labelSmall,
                         color = colors.textSecondary
                     )
                 }
             },
             navigationIcon = {
-                CanvasKitIconButton(onClick = onBack) {
+                CanvasKitIconButton(
+                    onClick = onBack,
+                    contentDescription = "Back"
+                ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Atrás",
+                        contentDescription = null,
                         tint = colors.brandPrimary
                     )
                 }
@@ -95,7 +98,7 @@ fun BannersScreen(
             // ──────────────────────────────────────────────────────────
             SpecSectionCard(
                 title = "Interactive Banner Playground",
-                description = "Selecciona una variante semántica para ver el Banner en tiempo real."
+                description = "Select a semantic variant to see the Banner in real-time."
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(spacing.sm),
@@ -125,7 +128,7 @@ fun BannersScreen(
                                 variant = CanvasKitButtonVariant.Ghost
                             ) {
                                 Text(
-                                    text = "Ver detalles",
+                                    text = "See details",
                                     style = typography.labelLarge,
                                     color = selectedVariant.labelColor(colors)
                                 )
@@ -141,7 +144,7 @@ fun BannersScreen(
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
-                                text = "Restaurar Banner",
+                                text = "Restore Banner",
                                 style = typography.labelLarge,
                                 color = colors.backgroundPrimary
                             )
@@ -150,7 +153,7 @@ fun BannersScreen(
 
                     // Variant Selector Grid
                     Text(
-                        text = "Variante activa",
+                        text = "Active variant",
                         style = typography.labelSmall,
                         color = colors.textSecondary
                     )
@@ -184,7 +187,7 @@ fun BannersScreen(
             // ──────────────────────────────────────────────────────────
             SpecSectionCard(
                 title = "Banner Variants",
-                description = "Los cuatro estados semánticos del sistema de notificaciones."
+                description = "The four semantic states of the notification system."
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(spacing.sm),
@@ -218,7 +221,7 @@ fun BannersScreen(
             // ──────────────────────────────────────────────────────────
             SpecSectionCard(
                 title = "Inline Alert Variants",
-                description = "Alertas compactas para incrustar dentro de formularios y contenedores."
+                description = "Compact alerts for embedding within forms and containers."
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(spacing.sm),
@@ -250,8 +253,8 @@ fun BannersScreen(
             // Section 4: Real-world Example (Card with embedded alerts)
             // ──────────────────────────────────────────────────────────
             SpecSectionCard(
-                title = "Uso en Contexto",
-                description = "Ejemplo de integración dentro de una card de formulario."
+                title = "Contextual Usage",
+                description = "Example of integration within a form card."
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(spacing.sm),
@@ -262,12 +265,12 @@ fun BannersScreen(
                             verticalArrangement = Arrangement.spacedBy(spacing.sm)
                         ) {
                             Text(
-                                text = "Formulario de Pago",
+                                text = "Payment Form",
                                 style = typography.headingMedium,
                                 color = colors.textPrimary
                             )
                             Text(
-                                text = "Introduce los datos de tu tarjeta para continuar.",
+                                text = "Enter your card details to continue.",
                                 style = typography.bodyMedium,
                                 color = colors.textSecondary
                             )
@@ -277,14 +280,14 @@ fun BannersScreen(
                                 variant = CanvasKitAlertVariant.Error,
                                 title = {
                                     Text(
-                                        text = "Tarjeta rechazada",
+                                        text = "Card declined",
                                         style = typography.labelLarge,
                                         color = colors.error
                                     )
                                 },
                                 message = {
                                     Text(
-                                        text = "Los fondos son insuficientes. Verifica tu saldo o usa otro método de pago.",
+                                        text = "Insufficient funds. Check your balance or use another payment method.",
                                         style = typography.bodyMedium,
                                         color = colors.textPrimary
                                     )
@@ -295,7 +298,7 @@ fun BannersScreen(
                                         variant = CanvasKitButtonVariant.Ghost
                                     ) {
                                         Text(
-                                            text = "Reintentar",
+                                            text = "Retry",
                                             style = typography.labelLarge,
                                             color = colors.error
                                         )
@@ -307,7 +310,7 @@ fun BannersScreen(
                                 variant = CanvasKitAlertVariant.Info,
                                 message = {
                                     Text(
-                                        text = "Tus datos están encriptados con TLS 1.3.",
+                                        text = "Your data is encrypted with TLS 1.3.",
                                         style = typography.bodyMedium,
                                         color = colors.textPrimary
                                     )
@@ -328,17 +331,17 @@ fun BannersScreen(
 // ---------------------------------------------------------------------------
 
 private fun CanvasKitAlertVariant.label(): String = when (this) {
-    CanvasKitAlertVariant.Info    -> "Información"
-    CanvasKitAlertVariant.Success -> "Éxito"
-    CanvasKitAlertVariant.Warning -> "Advertencia"
+    CanvasKitAlertVariant.Info    -> "Information"
+    CanvasKitAlertVariant.Success -> "Success"
+    CanvasKitAlertVariant.Warning -> "Warning"
     CanvasKitAlertVariant.Error   -> "Error"
 }
 
 private fun CanvasKitAlertVariant.sampleMessage(): String = when (this) {
-    CanvasKitAlertVariant.Info    -> "Nueva versión del sistema disponible. Actualiza para obtener las últimas mejoras."
-    CanvasKitAlertVariant.Success -> "Los cambios se guardaron correctamente y ya están activos."
-    CanvasKitAlertVariant.Warning -> "Algunos permisos están desactivados. Revisa la configuración de la app."
-    CanvasKitAlertVariant.Error   -> "No se pudo completar la operación. Comprueba tu conexión e inténtalo de nuevo."
+    CanvasKitAlertVariant.Info    -> "New system version available. Update to get the latest improvements."
+    CanvasKitAlertVariant.Success -> "Changes were saved successfully and are now active."
+    CanvasKitAlertVariant.Warning -> "Some permissions are disabled. Please review the app settings."
+    CanvasKitAlertVariant.Error   -> "The operation could not be completed. Check your connection and try again."
 }
 
 @Composable

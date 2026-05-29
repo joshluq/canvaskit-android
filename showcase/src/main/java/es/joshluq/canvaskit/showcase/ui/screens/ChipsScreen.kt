@@ -44,8 +44,7 @@ fun ChipsScreen(
 
     // Playground States
     var selectedFilter by remember { mutableStateOf<String?>(null) }
-    val filters = listOf("Todo", "Recientes", "Populares", "Favoritos")
-    
+
     var showDismissible by remember { mutableStateOf(true) }
 
     Column(
@@ -63,17 +62,20 @@ fun ChipsScreen(
                         color = colors.textPrimary
                     )
                     Text(
-                        text = "Componentes compactos para acciones, filtros o selección.",
+                        text = "Compact components for actions, filters, or selection.",
                         style = typography.labelSmall,
                         color = colors.textSecondary
                     )
                 }
             },
             navigationIcon = {
-                CanvasKitIconButton(onClick = onBack) {
+                CanvasKitIconButton(
+                    onClick = onBack,
+                    contentDescription = "Back"
+                ) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Atrás",
+                        contentDescription = null,
                         tint = colors.brandPrimary
                     )
                 }
@@ -93,13 +95,14 @@ fun ChipsScreen(
             // ──────────────────────────────────────────────────────────
             SpecSectionCard(
                 title = "Filter Chips",
-                description = "Uso de la variante Outlined para filtros de selección simple."
+                description = "Outlined variant for single-selection filters."
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(spacing.xs)
                 ) {
-                    filters.take(3).forEach { filter ->
+                    val englishFilters = listOf("All", "Recent", "Popular", "Favorites")
+                    englishFilters.take(3).forEach { filter ->
                         CanvasKitChip(
                             onClick = { 
                                 selectedFilter = if (selectedFilter == filter) null else filter 
@@ -126,7 +129,7 @@ fun ChipsScreen(
             // ──────────────────────────────────────────────────────────
             SpecSectionCard(
                 title = "Action Chips",
-                description = "Variante Ghost para acciones rápidas."
+                description = "Ghost variant for quick actions."
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -136,14 +139,14 @@ fun ChipsScreen(
                         onClick = {},
                         variant = CanvasKitChipVariant.Ghost,
                         label = {
-                            Text(text = "Compartir", style = typography.labelLarge, color = colors.textSecondary)
+                            Text(text = "Share", style = typography.labelLarge, color = colors.textSecondary)
                         }
                     )
                     CanvasKitChip(
                         onClick = {},
                         variant = CanvasKitChipVariant.Ghost,
                         label = {
-                            Text(text = "Descargar", style = typography.labelLarge, color = colors.textSecondary)
+                            Text(text = "Download", style = typography.labelLarge, color = colors.textSecondary)
                         }
                     )
                 }
@@ -154,7 +157,7 @@ fun ChipsScreen(
             // ──────────────────────────────────────────────────────────
             SpecSectionCard(
                 title = "Input Chips",
-                description = "Chips con botón de cierre (Primary)."
+                description = "Chips with a dismiss button (Primary)."
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -165,13 +168,14 @@ fun ChipsScreen(
                             onClick = {},
                             variant = CanvasKitChipVariant.Primary,
                             label = {
-                                Text(text = "Filtro Aplicado", style = typography.labelLarge, color = colors.textPrimary)
+                                Text(text = "Filter Applied", style = typography.labelLarge, color = colors.textPrimary)
                             },
                             trailingIcon = {
                                 CanvasKitIconButton(
-                                    onClick = { showDismissible = false }
+                                    onClick = { showDismissible = false },
+                                    contentDescription = "Remove"
                                 ) {
-                                    Icon(Icons.Default.Close, contentDescription = "Eliminar", tint = colors.textSecondary)
+                                    Icon(Icons.Default.Close, contentDescription = null, tint = colors.textSecondary)
                                 }
                             }
                         )
@@ -180,7 +184,7 @@ fun ChipsScreen(
                             onClick = { showDismissible = true },
                             variant = CanvasKitChipVariant.Outlined,
                             label = {
-                                Text("Añadir filtro", style = typography.labelLarge, color = colors.brandAccent)
+                                Text("Add filter", style = typography.labelLarge, color = colors.brandAccent)
                             }
                         )
                     }
