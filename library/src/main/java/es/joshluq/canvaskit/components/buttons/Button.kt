@@ -30,7 +30,6 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.feedback.CanvasKitLoadingSpinner
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
-import es.joshluq.canvaskit.core.tokens.White
 
 /**
  * Variants for the CanvasKitButton component.
@@ -61,7 +60,7 @@ fun CanvasKitButton(
     enabled: Boolean = true,
     loading: Boolean = false,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.() -> Unit
+    content: @Composable RowScope.(contentColor: Color) -> Unit
 ) {
     val isPressed by interactionSource.collectIsPressedAsState()
     val theme = CanvasKitTheme
@@ -85,15 +84,15 @@ fun CanvasKitButton(
     }
 
     val contentColor = when (variant) {
-        CanvasKitButtonVariant.Primary -> White
+        CanvasKitButtonVariant.Primary -> if (enabled)  colors.onBrandAccent else colors.brandPrimary
         CanvasKitButtonVariant.Secondary -> colors.brandPrimary
-        CanvasKitButtonVariant.Ghost -> colors.brandAccent
+        CanvasKitButtonVariant.Ghost -> colors.brandPrimary
     }
 
     val borderStroke = when (variant) {
         CanvasKitButtonVariant.Secondary -> BorderStroke(
             width = theme.stroke.thin,
-            color = if (enabled) colors.borderSubtle else colors.borderSubtle.copy(alpha = theme.opacity.subtle)
+            color = colors.borderSubtle
         )
         else -> null
     }
@@ -134,7 +133,7 @@ fun CanvasKitButton(
                 ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                content()
+                content(contentColor)
             }
         }
     }

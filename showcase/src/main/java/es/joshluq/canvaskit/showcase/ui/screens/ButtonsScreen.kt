@@ -115,10 +115,11 @@ fun ButtonsScreen(
                     verticalArrangement = Arrangement.spacedBy(spacing.sm),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    CanvasKitButton(onClick = onButtonClick) {
+                    CanvasKitButton(onClick = onButtonClick) { contentColor ->
                         Text(
                             "Default",
-                            style = CanvasKitTheme.typography.labelLarge
+                            style = CanvasKitTheme.typography.labelLarge,
+                            color = contentColor
                         )
                     }
                     CanvasKitButton(onClick = onButtonClick, enabled = false) {

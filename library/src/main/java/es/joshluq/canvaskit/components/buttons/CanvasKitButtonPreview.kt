@@ -40,28 +40,28 @@ private fun ButtonsPreviewContainer() {
                 color = CanvasKitTheme.colors.textPrimary
             )
             FlowRow (horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                CanvasKitButton(onClick = {}) {
+                CanvasKitButton(onClick = {}) { contentColor ->
                     Text(
                         text = "Primary",
-                        color = CanvasKitTheme.colors.textPrimary
+                        color = contentColor
                     )
                 }
                 CanvasKitButton(
                     onClick = {},
                     variant = CanvasKitButtonVariant.Secondary
-                ) {
+                ) { contentColor ->
                     Text(
                         text = "Secondary",
-                        color = CanvasKitTheme.colors.textPrimary
+                        color = contentColor
                     )
                 }
                 CanvasKitButton(
                     onClick = {},
                     variant = CanvasKitButtonVariant.Ghost
-                ) {
+                ) { contentColor ->
                     Text(
                         text = "Ghost",
-                        color = CanvasKitTheme.colors.textPrimary
+                        color = contentColor
                     )
                 }
             }
@@ -74,9 +74,69 @@ private fun ButtonsPreviewContainer() {
                 style = CanvasKitTheme.typography.headingMedium,
                 color = CanvasKitTheme.colors.textPrimary
             )
-            Row(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                CanvasKitButton(onClick = {}, enabled = false) { Text("Disabled") }
-                CanvasKitButton(onClick = {}, loading = true) { Text("Loading") }
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
+                CanvasKitButton(
+                    onClick = {},
+                    variant = CanvasKitButtonVariant.Primary,
+                    enabled = false
+                ) { contentColor ->
+                    Text(
+                        text = "Disabled",
+                        color = contentColor
+                    )
+                }
+                CanvasKitButton(
+                    onClick = {},
+                    variant = CanvasKitButtonVariant.Secondary,
+                    enabled = false
+                ) { contentColor ->
+                    Text(
+                        text = "Disabled",
+                        color = contentColor
+                    )
+                }
+                CanvasKitButton(
+                    onClick = {},
+                    variant = CanvasKitButtonVariant.Ghost,
+                    enabled = false
+                ) { contentColor ->
+                    Text(
+                        text = "Disabled",
+                        color = contentColor
+                    )
+                }
+            }
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
+                CanvasKitButton(
+                    onClick = {},
+                    variant = CanvasKitButtonVariant.Primary,
+                    loading = true
+                ) { contentColor ->
+                    Text(
+                        text = "Loading",
+                        color = contentColor
+                    )
+                }
+                CanvasKitButton(
+                    onClick = {},
+                    variant = CanvasKitButtonVariant.Secondary,
+                    loading = true
+                ) { contentColor ->
+                    Text(
+                        text = "Loading",
+                        color = contentColor
+                    )
+                }
+                CanvasKitButton(
+                    onClick = {},
+                    variant = CanvasKitButtonVariant.Ghost,
+                    loading = true
+                ) { contentColor ->
+                    Text(
+                        text = "Loading",
+                        color = contentColor
+                    )
+                }
             }
         }
 
@@ -87,14 +147,17 @@ private fun ButtonsPreviewContainer() {
                 style = CanvasKitTheme.typography.headingMedium,
                 color = CanvasKitTheme.colors.textPrimary
             )
-            Row(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
-                CanvasKitButton(onClick = {}) {
-                    Icon(Icons.Default.Add, contentDescription = null, tint = CanvasKitTheme.colors.contentColor)
-                    Text(text = "Add Item", color = CanvasKitTheme.colors.textPrimary)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
+                CanvasKitButton(onClick = {}) { contentColor ->
+                    Icon(Icons.Default.Add, contentDescription = null, tint = contentColor)
+                    Text(
+                        text = "Add Item",
+                        color = contentColor
+                    )
                 }
-                CanvasKitButton(onClick = {}, variant = CanvasKitButtonVariant.Secondary) {
-                    Text(text = "Continue", color = CanvasKitTheme.colors.textPrimary)
-                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, tint = CanvasKitTheme.colors.contentColor)
+                CanvasKitButton(onClick = {}, variant = CanvasKitButtonVariant.Secondary) { contentColor ->
+                    Text(text = "Continue", color = contentColor)
+                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, tint = contentColor)
                 }
             }
         }
@@ -110,23 +173,23 @@ private fun ButtonsPreviewContainer() {
                 CanvasKitIconButton(
                     onClick = {},
                     contentDescription = "Favorite"
-                ) {
-                    Icon(Icons.Default.Favorite, contentDescription = null, tint = CanvasKitTheme.colors.contentColor)
+                ) { contentColor ->
+                    Icon(Icons.Default.Favorite, contentDescription = null, tint = contentColor)
                 }
                 CanvasKitIconButton(
                     onClick = {},
                     loading = true,
                     contentDescription = "Favorite"
-                ) {
-                    Icon(Icons.Default.Favorite, contentDescription = null, tint = CanvasKitTheme.colors.contentColor)
+                ) { contentColor ->
+                    Icon(Icons.Default.Favorite, contentDescription = null, tint = contentColor)
                 }
                 CanvasKitIconButton(
                     onClick = {},
                     backgroundColor = CanvasKitTheme.colors.brandAccent,
-                    contentColor = CanvasKitTheme.colors.backgroundPrimary,
+                    contentColor = CanvasKitTheme.colors.onBrandAccent,
                     contentDescription = "Add"
-                ) {
-                    Icon(Icons.Default.Add, contentDescription = null, tint = CanvasKitTheme.colors.contentColor)
+                ) { contentColor ->
+                    Icon(Icons.Default.Add, contentDescription = null, tint = contentColor)
                 }
             }
         }

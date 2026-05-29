@@ -90,12 +90,6 @@ fun CanvasKitChip(
         CanvasKitChipVariant.Ghost -> if (selected) colors.backgroundSecondary else Color.Transparent
     }
 
-    val contentColor = when (variant) {
-        CanvasKitChipVariant.Primary -> if (selected) colors.backgroundPrimary else colors.textPrimary
-        CanvasKitChipVariant.Outlined -> if (selected) colors.brandAccent else colors.textPrimary
-        CanvasKitChipVariant.Ghost -> if (selected) colors.brandAccent else colors.textSecondary
-    }
-
     val borderStroke = when (variant) {
         CanvasKitChipVariant.Outlined -> BorderStroke(
             width = 1.dp,
@@ -109,9 +103,9 @@ fun CanvasKitChip(
             .graphicsLayer(scaleX = scale, scaleY = scale)
             .alpha(contentAlpha)
             .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp) // A11y minimum touch target
-            .clip(shapes.medium)
+            .clip(shapes.pill)
             .then(
-                if (borderStroke != null) Modifier.border(borderStroke, shapes.medium) else Modifier
+                if (borderStroke != null) Modifier.border(borderStroke, shapes.pill) else Modifier
             )
             .background(backgroundColor)
             .clickable(
@@ -144,7 +138,7 @@ fun CanvasKitChip(
             ) {
                 // We use a CompositionLocalProvider in a real component to pass contentColor,
                 // but since we only provide slots here, consumers should style text.
-                // To help consumers, they should use the colors provided or we could wrap the label.
+                // To help consumers, they should use the colors provided, or we could wrap the label.
                 label()
             }
 

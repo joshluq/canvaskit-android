@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
@@ -22,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.chips.CanvasKitChip
@@ -74,7 +73,7 @@ fun ChipsScreen(
                     contentDescription = "Back"
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = null,
                         tint = colors.brandPrimary
                     )
@@ -171,12 +170,7 @@ fun ChipsScreen(
                                 Text(text = "Filter Applied", style = typography.labelLarge, color = colors.textPrimary)
                             },
                             trailingIcon = {
-                                CanvasKitIconButton(
-                                    onClick = { showDismissible = false },
-                                    contentDescription = "Remove"
-                                ) {
-                                    Icon(Icons.Default.Close, contentDescription = null, tint = colors.textSecondary)
-                                }
+                                Icon(imageVector = Icons.Default.Close, contentDescription = null, tint = colors.textPrimary)
                             }
                         )
                     } else {
