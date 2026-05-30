@@ -1,7 +1,6 @@
 package es.joshluq.canvaskit.components.inputs
 
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -29,16 +28,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.TransformOrigin
-import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
@@ -169,7 +163,9 @@ fun CanvasKitTextField(
                         .then(
                             if (variant == CanvasKitTextFieldVariant.Outlined || isFocused || isError) {
                                 Modifier.border(BorderStroke(borderWidth, borderColor), shapes.pill)
-                            } else Modifier
+                            } else {
+                                Modifier
+                            }
                         )
                         .padding(horizontal = spacing.lg),
                     contentAlignment = Alignment.CenterStart

@@ -2,24 +2,22 @@ package es.joshluq.canvaskit.showcase.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,18 +25,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
-import es.joshluq.canvaskit.components.feedback.CanvasKitPopup
+import es.joshluq.canvaskit.components.menus.CanvasKitDropdownMenu
+import es.joshluq.canvaskit.components.menus.CanvasKitDropdownMenuItem
 import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
- * PopupsScreen showcases the "Artisanal Precision" contextual overlays.
+ * PopupsScreen showcases the new Expressive Dropdown Menus.
  */
 @Composable
 fun PopupsScreen(
@@ -47,7 +45,6 @@ fun PopupsScreen(
 ) {
     val context = LocalContext.current
     var showMenuPopup by remember { mutableStateOf(false) }
-    var showTooltipPopup by remember { mutableStateOf(false) }
 
     val colors = CanvasKitTheme.colors
     val spacing = CanvasKitTheme.spacing
@@ -61,12 +58,12 @@ fun PopupsScreen(
             title = {
                 Column {
                     Text(
-                        text = "Contextual Precision",
+                        text = "Expressive Menus",
                         style = CanvasKitTheme.typography.headingLarge,
                         color = colors.textPrimary
                     )
                     Text(
-                        text = "Refined floating modules and anchored tooltips.",
+                        text = "Refined floating modules following M3 Expressive.",
                         style = CanvasKitTheme.typography.labelSmall,
                         color = colors.textSecondary
                     )
@@ -78,7 +75,7 @@ fun PopupsScreen(
                     contentDescription = "Back"
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = null,
                         tint = colors.brandPrimary
                     )
@@ -97,22 +94,22 @@ fun PopupsScreen(
             // Introduction Section
             Column(modifier = Modifier.padding(horizontal = spacing.xs)) {
                 Text(
-                    text = "Anchored\nRefinement",
+                    text = "Dropdown\nEvolution",
                     style = CanvasKitTheme.typography.displayMedium,
                     color = colors.textPrimary
                 )
                 Spacer(modifier = Modifier.height(spacing.sm))
                 Text(
-                    text = "Floating components that appear exactly where they are needed, maintaining the modular purity of the interface.",
+                    text = "The new menu system combines artisanal rounding with high-density interactive slots.",
                     style = CanvasKitTheme.typography.bodyLarge,
                     color = colors.textSecondary
                 )
             }
 
-            // Section: Contextual Menu
+            // Section: Expressive Menu
             SpecSectionCard(
                 title = "Dropdown Precision",
-                description = "Anchored modules for contextual actions."
+                description = "Expressive rounding and semantic slots."
             ) {
                 Box {
                     CanvasKitIconButton(
@@ -123,63 +120,56 @@ fun PopupsScreen(
                         Icon(imageVector = Icons.Default.MoreVert, contentDescription = null, tint = colors.brandPrimary)
                     }
 
-                    CanvasKitPopup(
+                    CanvasKitDropdownMenu(
                         expanded = showMenuPopup,
                         onDismissRequest = { showMenuPopup = false },
-                        offset = DpOffset(0.dp, 48.dp)
+                        offset = DpOffset(0.dp, 8.dp)
                     ) {
-                        Column(modifier = Modifier.width(200.dp)) {
-                            listOf("Edit Precision", "Duplicate Module", "Export Tokens").forEach { item ->
+                        CanvasKitDropdownMenuItem(
+                            text = "Profile Settings",
+                            onClick = { 
+                                showMenuPopup = false
+                                Toast.makeText(context, "Profile clicked", Toast.LENGTH_SHORT).show()
+                            },
+                            leadingIcon = {
+                                Icon(Icons.Default.Person, contentDescription = null)
+                            }
+                        )
+                        CanvasKitDropdownMenuItem(
+                            text = "Share Module",
+                            onClick = { 
+                                showMenuPopup = false
+                                Toast.makeText(context, "Share clicked", Toast.LENGTH_SHORT).show()
+                            },
+                            leadingIcon = {
+                                Icon(Icons.Default.Share, contentDescription = null)
+                            }
+                        )
+                        CanvasKitDropdownMenuItem(
+                            text = "System Config",
+                            onClick = { 
+                                showMenuPopup = false
+                                Toast.makeText(context, "Settings clicked", Toast.LENGTH_SHORT).show()
+                            },
+                            leadingIcon = {
+                                Icon(Icons.Default.Settings, contentDescription = null)
+                            },
+                            trailingContent = {
                                 Text(
-                                    text = item,
-                                    style = CanvasKitTheme.typography.bodyMedium,
-                                    color = colors.textPrimary,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable { 
-                                            showMenuPopup = false
-                                            Toast.makeText(context, item, Toast.LENGTH_SHORT).show()
-                                        }
-                                        .padding(vertical = spacing.xs)
+                                    text = "v2.0",
+                                    style = CanvasKitTheme.typography.labelSmall,
+                                    color = colors.brandAccent
                                 )
                             }
-                        }
-                    }
-                }
-            }
-
-            // Section: Tooltips
-            SpecSectionCard(
-                title = "Floating Insights",
-                description = "Non-intrusive informational overlays."
-            ) {
-                Box {
-                    CanvasKitIconButton(
-                        onClick = { showTooltipPopup = true },
-                        backgroundColor = colors.backgroundSecondary,
-                        contentDescription = "Info"
-                    ) {
-                        Icon(imageVector = Icons.Default.Notifications, contentDescription = null, tint = colors.brandPrimary)
-                    }
-
-                    CanvasKitPopup(
-                        expanded = showTooltipPopup,
-                        onDismissRequest = { showTooltipPopup = false },
-                        offset = DpOffset(0.dp, 48.dp)
-                    ) {
-                        Column(modifier = Modifier.width(240.dp)) {
-                            Text(
-                                text = "Artisanal Insight",
-                                style = CanvasKitTheme.typography.labelSmall,
-                                color = colors.brandPrimary
-                            )
-                            Spacer(modifier = Modifier.height(spacing.xxs))
-                            Text(
-                                text = "Every popup uses the 24dp signature rounding for visual consistency across the ecosystem.",
-                                style = CanvasKitTheme.typography.bodyMedium,
-                                color = colors.textSecondary
-                            )
-                        }
+                        )
+                        CanvasKitDropdownMenuItem(
+                            text = "Notifications",
+                            onClick = { },
+                            leadingIcon = {
+                                Icon(Icons.Default.Notifications, contentDescription = null)
+                            },
+                            enabled = false
+                        )
                     }
                 }
             }

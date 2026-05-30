@@ -84,7 +84,7 @@ fun CanvasKitButton(
     }
 
     val contentColor = when (variant) {
-        CanvasKitButtonVariant.Primary -> if (enabled)  colors.onBrandAccent else colors.brandPrimary
+        CanvasKitButtonVariant.Primary -> if (enabled) colors.onBrandAccent else colors.brandPrimary
         CanvasKitButtonVariant.Secondary -> colors.brandPrimary
         CanvasKitButtonVariant.Ghost -> colors.brandPrimary
     }

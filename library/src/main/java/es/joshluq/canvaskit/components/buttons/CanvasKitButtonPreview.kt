@@ -39,7 +39,7 @@ private fun ButtonsPreviewContainer() {
                 style = CanvasKitTheme.typography.headingMedium,
                 color = CanvasKitTheme.colors.textPrimary
             )
-            FlowRow (horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(spacing.sm)) {
                 CanvasKitButton(onClick = {}) { contentColor ->
                     Text(
                         text = "Primary",
