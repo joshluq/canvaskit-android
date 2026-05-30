@@ -1,6 +1,5 @@
 package es.joshluq.canvaskit.components.cards
 
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
-
 
 @Composable
 private fun CardsPreviewContainer() {
