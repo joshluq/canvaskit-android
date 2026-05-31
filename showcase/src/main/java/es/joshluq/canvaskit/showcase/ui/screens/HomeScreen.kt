@@ -55,6 +55,7 @@ fun HomeScreen(
     onNavigateToLoadingScaffold: () -> Unit,
     onNavigateToLists: () -> Unit,
     onNavigateToSheets: () -> Unit,
+    onNavigateToTextLinks: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -147,6 +148,11 @@ fun HomeScreen(
                     "Bottom Sheets",
                     "Refined modal overlays for contextual flows.",
                     onNavigateToSheets
+                ),
+                Triple(
+                    "Rich Text & Links",
+                    "Programmatic and tag-based interactive paragraphs.",
+                    onNavigateToTextLinks
                 )
             )
             Column(
@@ -183,6 +189,7 @@ fun HomeScreen(
                             "Loading Scaffold" -> Icons.Default.Refresh
                             "List Items" -> Icons.AutoMirrored.Filled.List
                             "Bottom Sheets" -> Icons.Default.Menu
+                            "Rich Text & Links" -> Icons.Default.Info
                             else -> Icons.Default.Info
                         },
                         iconBg = colors.backgroundSecondary,
