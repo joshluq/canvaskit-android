@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.size
@@ -12,6 +13,7 @@ import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -36,6 +38,8 @@ fun CanvasKitRadioButton(
 ) {
     val colors = CanvasKitTheme.colors
     val motion = CanvasKitTheme.motion
+
+    val interactionSource = remember { MutableInteractionSource() }
 
     // Color transition of the outer border
     val ringColor by animateColorAsState(
@@ -70,7 +74,9 @@ fun CanvasKitRadioButton(
             selected = selected,
             onClick = onClick,
             enabled = enabled,
-            role = Role.RadioButton
+            role = Role.RadioButton,
+            interactionSource = interactionSource,
+            indication = null
         )
     } else {
         Modifier

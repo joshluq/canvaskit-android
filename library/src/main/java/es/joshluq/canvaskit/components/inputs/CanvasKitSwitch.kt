@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,6 +40,8 @@ fun CanvasKitSwitch(
     val colors = CanvasKitTheme.colors
     val shapes = CanvasKitTheme.shapes
     val motion = CanvasKitTheme.motion
+
+    val interactionSource = remember { MutableInteractionSource() }
 
     // Track color animations
     val trackColor by animateColorAsState(
@@ -82,7 +86,9 @@ fun CanvasKitSwitch(
             value = checked,
             onValueChange = onCheckedChange,
             enabled = enabled,
-            role = Role.Switch
+            role = Role.Switch,
+            interactionSource = interactionSource,
+            indication = null
         )
     } else {
         Modifier
