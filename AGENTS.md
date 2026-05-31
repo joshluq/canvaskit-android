@@ -26,13 +26,14 @@ This project is part of a modularized suite of libraries known as the **"Kit" ec
 ---
 
 ## 3. Design System Philosophy (Atelier Design System)
-`canvasKit` is inspired by high-end design systems like *Shopify Polaris*, *IBM Carbon*, and *Material 3*. It treats UI components as artisanal craft—combining extreme aesthetic refinement with technical rigor.
+`canvasKit` is inspired by high-end design systems like *Shopify Polaris*, *IBM Carbon*, and **Material 3 Expressive**. It treats UI components as artisanal craft—combining extreme aesthetic refinement with technical rigor.
 
 ### Key Pillars:
 1.  **Strict Tokenization (Design Tokens):** Never hardcode styling values. Values must originate from design tokens.
 2.  **Semantic Layer Abstraction:** We separate the raw design values (e.g., `#FF2E2E` or `Red-50`) from their semantic purpose (e.g., `theme.color.status.error` or `theme.color.border.destructive`).
 3.  **Composition over Configuration:** Do not write monolithic components with 30 optional parameters. Build modular building blocks using Jetpack Compose Slot APIs (`content: @Composable () -> Unit`) to allow consumers to nest components naturally.
 4.  **Accessibility by Default:** A component is not complete unless it is accessible to everyone. Contrast, touch targets, screen readers, and focus traversal must be handled natively.
+5.  **Pure Motion (No Ripple):** Prefer artisanal micro-animations (scale, background fades, springs) over generic system ripples. Interactivity should feel technical and precise.
 
 ---
 
@@ -54,7 +55,10 @@ The library components are grouped in a clear taxonomic structure following atom
 │   ├── buttons/        # Atomic: Primary, Secondary, Ghost, Icon buttons.
 │   ├── cards/          # Molecular: Content containers, selectable cards.
 │   ├── inputs/         # Molecular: Text fields, switches, checkboxes.
-│   └── feedback/       # Molecular: Banners, snackbars, skeletons.
+│   ├── lists/          # Molecular: List items and group containers.
+│   ├── sheets/         # Molecular: Modal and persistent bottom sheets.
+│   ├── menus/          # Molecular: Expressive dropdown menus.
+│   └── feedback/       # Molecular: Banners, toasts, snackbars.
 │
 ├── foundations/        # Lower-level layout building blocks and system modifiers.
 │   ├── layout/         # Base layout constraints, grid utilities, and dividers.
