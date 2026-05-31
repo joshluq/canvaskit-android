@@ -125,7 +125,7 @@ fun CanvasKitCard(
                 if (onClick != null) {
                     role = Role.Button
                 }
-                stateDescription = if (selected) "Seleccionado" else "No seleccionado"
+                stateDescription = if (selected) "Selected" else "Not selected"
             }
     ) {
         Column(

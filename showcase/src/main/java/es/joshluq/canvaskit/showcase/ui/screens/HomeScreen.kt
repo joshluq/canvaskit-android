@@ -53,6 +53,7 @@ fun HomeScreen(
     onNavigateToChips: () -> Unit,
     onNavigateToSkeletons: () -> Unit,
     onNavigateToLoadingScaffold: () -> Unit,
+    onNavigateToSheets: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -98,7 +99,7 @@ fun HomeScreen(
                 ),
                 Triple(
                     "Cards & Containers",
-                    "The core of our modular pureza modular.",
+                    "The core of our modular ecosystem.",
                     onNavigateToCards
                 ),
                 Triple(
@@ -135,6 +136,11 @@ fun HomeScreen(
                     "Loading Scaffold",
                     "Advanced layout container for loading states.",
                     onNavigateToLoadingScaffold
+                ),
+                Triple(
+                    "Bottom Sheets",
+                    "Refined modal overlays for contextual flows.",
+                    onNavigateToSheets
                 )
             )
             Column(
@@ -169,6 +175,7 @@ fun HomeScreen(
                             "Chips" -> Icons.Default.Add
                             "Skeletons" -> Icons.Default.Info
                             "Loading Scaffold" -> Icons.Default.Refresh
+                            "Bottom Sheets" -> Icons.Default.Menu
                             else -> Icons.Default.Info
                         },
                         iconBg = colors.backgroundSecondary,

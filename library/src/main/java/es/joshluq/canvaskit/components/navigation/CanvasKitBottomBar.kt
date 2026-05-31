@@ -176,7 +176,7 @@ fun RowScope.CanvasKitBottomBarItem(
         label = "labelYOffset"
     )
 
-    val selectionStateDescription = if (selected) "Seleccionado" else "No seleccionado"
+    val selectionStateDescription = if (selected) "Selected" else "Not selected"
 
     Box(
         contentAlignment = Alignment.Center,

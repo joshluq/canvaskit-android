@@ -1,11 +1,14 @@
 package es.joshluq.canvaskit.components.feedback
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,8 +32,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -57,20 +59,16 @@ enum class CanvasKitAlertVariant {
 }
 
 /**
- * CanvasKitBanner is a full-width, prominent notification ribbon following the
- * "Artisanal Precision" design language. It supports an animated enter/exit transition,
- * a colored left accent stripe that communicates the semantic variant, an optional
- * dismiss action, and a trailing action slot for contextual CTAs.
- *
- * It uses `LiveRegionMode.Polite` so screen readers announce banner content changes
- * immediately without interrupting the current focus.
+ * CanvasKitBanner is a premium, floating notification module following the
+ * Material 3 Expressive "Toast" style. It features a detached silhouette with
+ * 24dp rounding, elevation, and spring-based entry animations.
  *
  * @param variant The semantic state of the banner (Info, Success, Warning, Error).
  * @param message Composable content block for the body text of the banner.
  * @param modifier Root layout modifier.
  * @param visible Whether the banner should be visible. Drives the animated entry/exit.
  * @param title Optional composable for a bold banner headline above the message.
- * @param icon Optional leading icon slot. Defaults to a variant-appropriate icon.
+ * @param icon Optional leading icon slot. Defaults to a variant-appropriate icon inside a circle.
  * @param action Optional trailing composable for a CTA (e.g., a text button "Retry").
  * @param onDismiss When non-null, renders a close button that triggers this callback.
  */
@@ -88,51 +86,48 @@ fun CanvasKitBanner(
     val colors = CanvasKitTheme.colors
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
-    val motion = CanvasKitTheme.motion
 
     val (contentColor, containerColor) = variant.resolveColors(colors)
-    val accentColor = contentColor
 
-    val animSpec = tween<Float>(durationMillis = motion.medium1, easing = motion.standard)
+    val springSpec = spring<Float>(
+        dampingRatio = Spring.DampingRatioLowBouncy,
+        stiffness = Spring.StiffnessMediumLow
+    )
 
     AnimatedVisibility(
         visible = visible,
-        enter = expandVertically(
-            animationSpec = tween(durationMillis = motion.medium1, easing = motion.standard)
-        ) + fadeIn(animationSpec = animSpec),
-        exit = shrinkVertically(
-            animationSpec = tween(durationMillis = motion.short2, easing = motion.standard)
-        ) + fadeOut(animationSpec = tween(durationMillis = motion.short2, easing = motion.standard)),
+        enter = slideInVertically(initialOffsetY = { -it }) + 
+                fadeIn(animationSpec = springSpec) + 
+                scaleIn(initialScale = 0.9f, animationSpec = springSpec),
+        exit = slideOutVertically(targetOffsetY = { -it }) + 
+               fadeOut() + 
+               scaleOut(targetScale = 0.9f),
         modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = spacing.md, vertical = spacing.sm)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clip(shapes.medium)
+                .shadow(elevation = 8.dp, shape = shapes.container)
+                .clip(shapes.container)
                 .background(containerColor)
-                // Left accent stripe drawn via Canvas for pixel-perfect precision
-                .drawBehind {
-                    drawRect(
-                        color = accentColor,
-                        topLeft = Offset.Zero,
-                        size = androidx.compose.ui.geometry.Size(4.dp.toPx(), size.height)
-                    )
-                }
                 .semantics {
                     liveRegion = LiveRegionMode.Polite
                 }
-                .padding(start = spacing.md + 4.dp, end = spacing.sm, top = spacing.sm, bottom = spacing.sm)
+                .padding(spacing.md)
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.Top
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Leading icon
+                // Leading icon in a circular container
                 Box(
                     modifier = Modifier
-                        .padding(top = 2.dp)
-                        .size(20.dp),
+                        .size(40.dp)
+                        .clip(shapes.pill)
+                        .background(contentColor.copy(alpha = 0.12f)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (icon != null) {
@@ -147,7 +142,7 @@ fun CanvasKitBanner(
                     }
                 }
 
-                Spacer(modifier = Modifier.width(spacing.sm))
+                Spacer(modifier = Modifier.width(spacing.md))
 
                 // Text content column
                 Column(
@@ -173,7 +168,7 @@ fun CanvasKitBanner(
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = null,
-                            tint = contentColor.copy(alpha = 0.7f),
+                            tint = contentColor.copy(alpha = 0.5f),
                             modifier = Modifier.size(16.dp)
                         )
                     }
@@ -194,10 +189,10 @@ internal data class AlertColors(val contentColor: Color, val containerColor: Col
 internal fun CanvasKitAlertVariant.resolveColors(
     colors: es.joshluq.canvaskit.core.tokens.CanvasKitColors
 ): AlertColors = when (this) {
-    CanvasKitAlertVariant.Info -> AlertColors(colors.brandAccent, colors.brandAccent.copy(alpha = 0.10f))
-    CanvasKitAlertVariant.Success -> AlertColors(colors.success, colors.successContainer)
-    CanvasKitAlertVariant.Warning -> AlertColors(colors.warning, colors.warningContainer)
-    CanvasKitAlertVariant.Error -> AlertColors(colors.error, colors.errorContainer)
+    CanvasKitAlertVariant.Info -> AlertColors(colors.brandAccent, colors.backgroundPrimary)
+    CanvasKitAlertVariant.Success -> AlertColors(colors.success, colors.backgroundPrimary)
+    CanvasKitAlertVariant.Warning -> AlertColors(colors.warning, colors.backgroundPrimary)
+    CanvasKitAlertVariant.Error -> AlertColors(colors.error, colors.backgroundPrimary)
 }
 
 internal fun CanvasKitAlertVariant.defaultIcon() = when (this) {
