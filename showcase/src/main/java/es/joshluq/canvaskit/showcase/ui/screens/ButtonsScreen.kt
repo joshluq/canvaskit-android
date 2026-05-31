@@ -23,11 +23,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import es.joshluq.canvaskit.components.buttons.CanvasKitButton
 import es.joshluq.canvaskit.components.buttons.CanvasKitButtonVariant
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
+import es.joshluq.canvaskit.components.layout.CanvasKitLoadingScaffold
 import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
@@ -49,44 +49,46 @@ fun ButtonsScreen(
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
 
-    Column(
+    CanvasKitLoadingScaffold(
+        isLoading = false,
         modifier = modifier
             .fillMaxSize()
-            .background(colors.backgroundSecondary)
-    ) {
-        CanvasKitTopBar(
-            title = {
-                Column {
-                    Text(
-                        text = "Action Hierarchy",
-                        style = CanvasKitTheme.typography.headingLarge,
-                        color = colors.textPrimary
-                    )
-                    Text(
-                        text = "Refined buttons and tactile interactive states.",
-                        style = CanvasKitTheme.typography.labelSmall,
-                        color = colors.textSecondary
-                    )
+            .background(colors.backgroundSecondary),
+        topBar = {
+            CanvasKitTopBar(
+                title = {
+                    Column {
+                        Text(
+                            text = "Action Hierarchy",
+                            style = CanvasKitTheme.typography.headingLarge,
+                            color = colors.textPrimary
+                        )
+                        Text(
+                            text = "Refined buttons and tactile interactive states.",
+                            style = CanvasKitTheme.typography.labelSmall,
+                            color = colors.textSecondary
+                        )
+                    }
+                },
+                navigationIcon = {
+                    CanvasKitIconButton(
+                        onClick = onBack,
+                        contentDescription = "Back"
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = null
+                        )
+                    }
                 }
-            },
-            navigationIcon = {
-                CanvasKitIconButton(
-                    onClick = onBack,
-                    contentDescription = "Back"
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
-                    )
-                }
-            }
-        )
-
+            )
+        }
+    ) { paddingValues ->
         Column(
             modifier = Modifier
+                .padding(paddingValues)
                 .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(spacing.md),
+                .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
 
@@ -148,13 +150,19 @@ fun ButtonsScreen(
                         verticalArrangement = Arrangement.spacedBy(spacing.sm),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Secondary) {
+                        CanvasKitButton(
+                            onClick = onButtonClick,
+                            variant = CanvasKitButtonVariant.Secondary
+                        ) {
                             Text(
                                 "Secondary",
                                 style = CanvasKitTheme.typography.labelLarge
                             )
                         }
-                        CanvasKitButton(onClick = onButtonClick, variant = CanvasKitButtonVariant.Ghost) {
+                        CanvasKitButton(
+                            onClick = onButtonClick,
+                            variant = CanvasKitButtonVariant.Ghost
+                        ) {
                             Text(
                                 "Ghost Action",
                                 style = CanvasKitTheme.typography.labelLarge
@@ -210,4 +218,5 @@ fun ButtonsScreen(
             }
         }
     }
+
 }

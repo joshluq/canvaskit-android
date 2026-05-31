@@ -75,14 +75,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ShowcaseTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    containerColor = CanvasKitTheme.colors.backgroundPrimary
-                ) { innerPadding ->
-                    ShowcaseAppNavigation(
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                ShowcaseAppNavigation()
             }
         }
     }

@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
@@ -27,7 +27,8 @@ private fun SampleTopBarTitle(text: String) {
     Text(
         text = text,
         style = CanvasKitTheme.typography.headingMedium,
-        color = CanvasKitTheme.colors.textPrimary
+        color = CanvasKitTheme.colors.textPrimary,
+        maxLines = 1
     )
 }
 
@@ -36,10 +37,11 @@ private fun SampleBackIcon() {
     CanvasKitIconButton(
         onClick = {},
         contentDescription = "Back"
-    ) {
+    ) { contentColor ->
         Icon(
-            imageVector = Icons.Default.ArrowBack,
-            contentDescription = null
+            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+            contentDescription = null,
+            tint = contentColor
         )
     }
 }
@@ -59,10 +61,11 @@ private fun TopBarPreviewContainer() {
                 CanvasKitIconButton(
                     onClick = {},
                     contentDescription = "Search"
-                ) {
+                ) { contentColor ->
                     Icon(
                         imageVector = Icons.Default.Search,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = contentColor
                     )
                 }
             }
@@ -76,20 +79,22 @@ private fun TopBarPreviewContainer() {
             actions = {
                 CanvasKitIconButton(
                     onClick = {},
-                    contentDescription = "Save"
-                ) {
+                    contentDescription = "Check"
+                ) { contentColor ->
                     Icon(
                         imageVector = Icons.Default.Check,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = contentColor
                     )
                 }
                 CanvasKitIconButton(
                     onClick = {},
                     contentDescription = "Settings"
-                ) {
+                ) { contentColor ->
                     Icon(
                         imageVector = Icons.Default.Settings,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = contentColor
                     )
                 }
             }

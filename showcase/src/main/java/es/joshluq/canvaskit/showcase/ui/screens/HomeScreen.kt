@@ -15,9 +15,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Home
@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.components.layout.CanvasKitLoadingScaffold
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 @Composable
@@ -59,97 +60,125 @@ fun HomeScreen(
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
 
-    Column(
+    CanvasKitLoadingScaffold(
         modifier = modifier
-            .fillMaxSize()
             .background(colors.backgroundSecondary)
-            .verticalScroll(rememberScrollState())
             .padding(spacing.md),
-        verticalArrangement = Arrangement.spacedBy(spacing.lg)
-    ) {
-
-        val activeComponents = listOf(
-            Triple(
-                "Buttons",
-                "Refined Primary, Secondary, and Ghost variants.",
-                onNavigateToButtons
-            ),
-            Triple(
-                "Text Fields",
-                "Precision inputs with semantic error states.",
-                onNavigateToTextFields
-            ),
-            Triple("Dialogs", "Modal experiences with premium transitions.", onNavigateToDialogs),
-            Triple(
-                "Popups & Menus",
-                "Floating modules for contextual actions.",
-                onNavigateToPopups
-            ),
-            Triple(
-                "Cards & Containers",
-                "The core of our modular pureza modular.",
-                onNavigateToCards
-            ),
-            Triple(
-                "Top App Bar",
-                "Clean navigation headers with inset support.",
-                onNavigateToTopBar
-            ),
-            Triple("Bottom Bar", "Accessible and elegant app navigation.", onNavigateToBottomBar),
-            Triple(
-                "Switches & Toggles",
-                "Tactile interactive selection controls.",
-                onNavigateToToggles
-            ),
-            Triple(
-                "Banners & Alerts",
-                "System-wide notifications and inline alerts.",
-                onNavigateToBanners
-            ),
-            Triple("Chips", "Compact components for actions, filtering, or selection.", onNavigateToChips),
-            Triple("Skeletons", "Loading placeholders with premium shimmer effects.", onNavigateToSkeletons),
-            Triple("Loading Scaffold", "Advanced layout container for loading states.", onNavigateToLoadingScaffold)
-        )
+        isLoading = false
+    ) { paddingValues ->
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(shapes.container)
-                .background(colors.backgroundPrimary)
-                .padding(spacing.md),
-            verticalArrangement = Arrangement.spacedBy(spacing.md)
+            modifier = modifier
+                .background(colors.backgroundSecondary)
+                .padding(paddingValues)
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
-            Text(
-                text = "Core Components",
-                style = CanvasKitTheme.typography.headingMedium,
-                color = colors.textPrimary,
-                modifier = Modifier.padding(bottom = spacing.xs)
-            )
 
-            activeComponents.forEach { (name, description, onClick) ->
-                ComponentCard(
-                    name = name,
-                    description = description,
-                    iconVector = when (name) {
-                        "Buttons" -> Icons.Default.PlayArrow
-                        "Text Fields" -> Icons.Default.Edit
-                        "Dialogs" -> Icons.Default.Warning
-                        "Cards & Containers" -> Icons.AutoMirrored.Filled.List
-                        "Top App Bar" -> Icons.Default.Home
-                        "Bottom Bar" -> Icons.Default.Menu
-                        "Switches & Toggles" -> Icons.Default.Check
-                        "Banners & Alerts" -> Icons.Default.Notifications
-                        "Chips" -> Icons.Default.Add
-                        "Skeletons" -> Icons.Default.Info
-                        "Loading Scaffold" -> Icons.Default.Refresh
-                        else -> Icons.Default.Info
-                    },
-                    iconBg = colors.backgroundSecondary,
-                    iconColor = colors.brandPrimary,
-                    onClick = onClick
+            val activeComponents = listOf(
+                Triple(
+                    "Buttons",
+                    "Refined Primary, Secondary, and Ghost variants.",
+                    onNavigateToButtons
+                ),
+                Triple(
+                    "Text Fields",
+                    "Precision inputs with semantic error states.",
+                    onNavigateToTextFields
+                ),
+                Triple(
+                    "Dialogs",
+                    "Modal experiences with premium transitions.",
+                    onNavigateToDialogs
+                ),
+                Triple(
+                    "Popups & Menus",
+                    "Floating modules for contextual actions.",
+                    onNavigateToPopups
+                ),
+                Triple(
+                    "Cards & Containers",
+                    "The core of our modular pureza modular.",
+                    onNavigateToCards
+                ),
+                Triple(
+                    "Top App Bar",
+                    "Clean navigation headers with inset support.",
+                    onNavigateToTopBar
+                ),
+                Triple(
+                    "Bottom Bar",
+                    "Accessible and elegant app navigation.",
+                    onNavigateToBottomBar
+                ),
+                Triple(
+                    "Switches & Toggles",
+                    "Tactile interactive selection controls.",
+                    onNavigateToToggles
+                ),
+                Triple(
+                    "Banners & Alerts",
+                    "System-wide notifications and inline alerts.",
+                    onNavigateToBanners
+                ),
+                Triple(
+                    "Chips",
+                    "Compact components for actions, filtering, or selection.",
+                    onNavigateToChips
+                ),
+                Triple(
+                    "Skeletons",
+                    "Loading placeholders with premium shimmer effects.",
+                    onNavigateToSkeletons
+                ),
+                Triple(
+                    "Loading Scaffold",
+                    "Advanced layout container for loading states.",
+                    onNavigateToLoadingScaffold
                 )
-            }
-        }
+            )
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shapes.container)
+                    .background(colors.backgroundPrimary)
+                    .padding(spacing.md),
+                verticalArrangement = Arrangement.spacedBy(spacing.md)
+            ) {
+                Text(
+                    text = "Core Components",
+                    style = CanvasKitTheme.typography.headingMedium,
+                    color = colors.textPrimary,
+                    modifier = Modifier.padding(bottom = spacing.xs)
+                )
 
+                activeComponents.forEach { (name, description, onClick) ->
+                    ComponentCard(
+                        name = name,
+                        description = description,
+                        iconVector = when (name) {
+                            "Buttons" -> Icons.Default.PlayArrow
+                            "Text Fields" -> Icons.Default.Edit
+                            "Dialogs" -> Icons.Default.Warning
+                            "Popups & Menus" -> Icons.Default.Menu
+                            "Cards & Containers" -> Icons.Default.Info
+                            "Top App Bar" -> Icons.Default.Home
+                            "Bottom Bar" -> Icons.AutoMirrored.Filled.List
+                            "Switches & Toggles" -> Icons.Default.Check
+                            "Banners & Alerts" -> Icons.Default.Notifications
+                            "Chips" -> Icons.Default.Add
+                            "Skeletons" -> Icons.Default.Info
+                            "Loading Scaffold" -> Icons.Default.Refresh
+                            else -> Icons.Default.Info
+                        },
+                        iconBg = colors.backgroundSecondary,
+                        iconColor = colors.brandPrimary,
+                        onClick = onClick
+                    )
+                }
+            }
+
+        }
     }
 }
 
@@ -233,7 +262,7 @@ private fun ComponentCard(
 
         if (enabled) {
             Icon(
-                imageVector = Icons.Default.ArrowForward,
+                imageVector = Icons.AutoMirrored.Default.ArrowForward,
                 contentDescription = null,
                 tint = colors.brandPrimary.copy(alpha = 0.3f),
                 modifier = Modifier.size(20.dp)
