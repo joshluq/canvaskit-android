@@ -80,7 +80,9 @@ fun CanvasKitListItem(
                         role = Role.Button,
                         onClick = onClick
                     )
-                } else Modifier
+                } else {
+                    Modifier
+                }
             )
             .semantics(mergeDescendants = true) { }
             .padding(horizontal = spacing.md, vertical = spacing.sm),

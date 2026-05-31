@@ -116,7 +116,7 @@ fun HomeScreen(
                 ),
                 Triple(
                     "Switches & Toggles",
-                    "Tactile interactive selection controls.",
+                    "Tactile selection controls and range selectors.",
                     onNavigateToToggles
                 ),
                 Triple(
