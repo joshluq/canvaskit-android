@@ -3,7 +3,6 @@ package es.joshluq.canvaskit.showcase.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,9 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -25,14 +23,17 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
+import es.joshluq.canvaskit.components.navigation.CanvasKitBadge
 import es.joshluq.canvaskit.components.navigation.CanvasKitBottomBar
 import es.joshluq.canvaskit.components.navigation.CanvasKitBottomBarItem
 import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
- * BottomBarScreen showcases the "Artisanal Precision" app navigation.
+ * BottomBarScreen showcases the new Expressive and Floating navigation systems.
  */
 @Composable
 fun BottomBarScreen(
@@ -41,7 +42,8 @@ fun BottomBarScreen(
 ) {
     val colors = CanvasKitTheme.colors
     val spacing = CanvasKitTheme.spacing
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    var selectedIndex1 by remember { mutableIntStateOf(0) }
+    var selectedIndex2 by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = modifier
@@ -52,12 +54,12 @@ fun BottomBarScreen(
             title = {
                 Column {
                     Text(
-                        text = "App Navigation",
+                        text = "Expressive Navigation",
                         style = CanvasKitTheme.typography.headingLarge,
                         color = colors.textPrimary
                     )
                     Text(
-                        text = "Accessible and elegant bottom navigation bars.",
+                        text = "Refined Docked and Floating navigation bars.",
                         style = CanvasKitTheme.typography.labelSmall,
                         color = colors.textSecondary
                     )
@@ -69,7 +71,7 @@ fun BottomBarScreen(
                     contentDescription = "Back"
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = null,
                         tint = colors.brandPrimary
                     )
@@ -88,52 +90,82 @@ fun BottomBarScreen(
             // Introduction Section
             Column(modifier = Modifier.padding(horizontal = spacing.xs)) {
                 Text(
-                    text = "Refined\nNavigation",
+                    text = "Navigation\nPrecision",
                     style = CanvasKitTheme.typography.displayMedium,
                     color = colors.textPrimary
                 )
                 Spacer(modifier = Modifier.height(spacing.sm))
                 Text(
-                    text = "Bottom bars that prioritize ergonomics and visual purity. Built with high-contrast active states for maximum clarity.",
+                    text = "Combining circular focal points with spring-based motion for a high-end ergonomic experience.",
                     style = CanvasKitTheme.typography.bodyLarge,
                     color = colors.textSecondary
                 )
             }
 
-            // Section: Bottom Bar Variations
+            // Section: Docked Variant
             SpecSectionCard(
-                title = "Standard Navigation",
-                description = "Primary navigation with clear icons and labels."
+                title = "Docked Precision",
+                description = "Standard navigation anchored to the screen bottom."
             ) {
                 CanvasKitBottomBar(
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    CanvasKitBottomBarItem(
-                        selected = selectedIndex == 0,
-                        onClick = { selectedIndex = 0 },
-                        icon = { Icon(Icons.Default.Home, contentDescription = null) },
-                        label = { Text("Home") }
-                    )
-                    CanvasKitBottomBarItem(
-                        selected = selectedIndex == 1,
-                        onClick = { selectedIndex = 1 },
-                        icon = { Icon(Icons.Default.Search, contentDescription = null) },
-                        label = { Text("Search") }
-                    )
-                    CanvasKitBottomBarItem(
-                        selected = selectedIndex == 2,
-                        onClick = { selectedIndex = 2 },
-                        icon = { Icon(Icons.Default.Person, contentDescription = null) },
-                        label = { Text("Account") }
-                    )
-                    CanvasKitBottomBarItem(
-                        selected = selectedIndex == 3,
-                        onClick = { selectedIndex = 3 },
-                        icon = { Icon(Icons.Default.Settings, contentDescription = null) },
-                        label = { Text("Settings") }
-                    )
+                    SampleBottomBarItems(selectedIndex1) { selectedIndex1 = it }
+                }
+            }
+
+            // Section: Floating Variant
+            SpecSectionCard(
+                title = "Floating Dock",
+                description = "Detached navigation island for immersive interfaces."
+            ) {
+                CanvasKitBottomBar(
+                    isFloating = true,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    SampleBottomBarItems(selectedIndex2) { selectedIndex2 = it }
                 }
             }
         }
     }
+}
+
+@Composable
+private fun RowScope.SampleBottomBarItems(
+    selectedIndex: Int,
+    onSelect: (Int) -> Unit
+) {
+    CanvasKitBottomBarItem(
+        selected = selectedIndex == 0,
+        onClick = { onSelect(0) },
+        icon = { tint -> Icon(Icons.Default.Home, contentDescription = null, tint = tint) },
+        label = { tint -> Text("Inicio", color = tint, style = CanvasKitTheme.typography.labelSmall) }
+    )
+    CanvasKitBottomBarItem(
+        selected = selectedIndex == 1,
+        onClick = { onSelect(1) },
+        icon = { tint -> Icon(Icons.Default.Search, contentDescription = null, tint = tint) },
+        label = { tint -> Text("Buscar", color = tint, style = CanvasKitTheme.typography.labelSmall) }
+    )
+    CanvasKitBottomBarItem(
+        selected = selectedIndex == 2,
+        onClick = { onSelect(2) },
+        icon = { tint -> Icon(Icons.Default.Notifications, contentDescription = null, tint = tint) },
+        label = { tint -> Text("Avisos", color = tint, style = CanvasKitTheme.typography.labelSmall) },
+        badge = {
+            CanvasKitBadge {
+                Text(
+                    text = "5",
+                    style = CanvasKitTheme.typography.labelSmall,
+                    color = CanvasKitTheme.colors.backgroundPrimary
+                )
+            }
+        }
+    )
+    CanvasKitBottomBarItem(
+        selected = selectedIndex == 3,
+        onClick = { onSelect(3) },
+        icon = { tint -> Icon(Icons.Default.Settings, contentDescription = null, tint = tint) },
+        label = { tint -> Text("Ajustes", color = tint, style = CanvasKitTheme.typography.labelSmall) }
+    )
 }
