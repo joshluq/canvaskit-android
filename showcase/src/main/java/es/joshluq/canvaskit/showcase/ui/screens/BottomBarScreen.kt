@@ -139,19 +139,19 @@ private fun RowScope.SampleBottomBarItems(
         selected = selectedIndex == 0,
         onClick = { onSelect(0) },
         icon = { tint -> Icon(Icons.Default.Home, contentDescription = null, tint = tint) },
-        label = { tint -> Text("Inicio", color = tint, style = CanvasKitTheme.typography.labelSmall) }
+        label = { tint -> Text("Home", color = tint, style = CanvasKitTheme.typography.labelSmall) }
     )
     CanvasKitBottomBarItem(
         selected = selectedIndex == 1,
         onClick = { onSelect(1) },
         icon = { tint -> Icon(Icons.Default.Search, contentDescription = null, tint = tint) },
-        label = { tint -> Text("Buscar", color = tint, style = CanvasKitTheme.typography.labelSmall) }
+        label = { tint -> Text("Search", color = tint, style = CanvasKitTheme.typography.labelSmall) }
     )
     CanvasKitBottomBarItem(
         selected = selectedIndex == 2,
         onClick = { onSelect(2) },
         icon = { tint -> Icon(Icons.Default.Notifications, contentDescription = null, tint = tint) },
-        label = { tint -> Text("Avisos", color = tint, style = CanvasKitTheme.typography.labelSmall) },
+        label = { tint -> Text("Alerts", color = tint, style = CanvasKitTheme.typography.labelSmall) },
         badge = {
             CanvasKitBadge {
                 Text(
@@ -166,6 +166,6 @@ private fun RowScope.SampleBottomBarItems(
         selected = selectedIndex == 3,
         onClick = { onSelect(3) },
         icon = { tint -> Icon(Icons.Default.Settings, contentDescription = null, tint = tint) },
-        label = { tint -> Text("Ajustes", color = tint, style = CanvasKitTheme.typography.labelSmall) }
+        label = { tint -> Text("Settings", color = tint, style = CanvasKitTheme.typography.labelSmall) }
     )
 }

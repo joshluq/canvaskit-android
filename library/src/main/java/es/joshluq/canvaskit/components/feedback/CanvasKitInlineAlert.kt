@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -24,20 +25,14 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
  * CanvasKitInlineAlert is a compact, contextual alert block designed to be embedded
- * within content columns, form sections, or card bodies. Unlike [CanvasKitBanner]
- * which is a full-width system notification, the InlineAlert communicates localized
- * feedback directly adjacent to the content it relates to.
- *
- * It supports 4 semantic variants via [CanvasKitAlertVariant] and uses
- * `LiveRegionMode.Polite` so screen readers announce content changes without
- * interrupting current focus.
+ * within content columns.
  *
  * @param variant The semantic state of the alert (Info, Success, Warning, Error).
  * @param message Composable content block for the body text.
  * @param modifier Root layout modifier.
- * @param icon Optional leading icon slot. Defaults to a variant-appropriate icon.
- * @param title Optional composable for a bold headline above the message body.
- * @param action Optional trailing composable for an inline action (e.g., a text link).
+ * @param icon Optional leading icon slot.
+ * @param title Optional composable for a bold headline.
+ * @param action Optional trailing composable for an inline action.
  */
 @Composable
 fun CanvasKitInlineAlert(
@@ -52,64 +47,57 @@ fun CanvasKitInlineAlert(
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
 
-    val contentColor = when (variant) {
-        CanvasKitAlertVariant.Info -> colors.brandAccent
-        CanvasKitAlertVariant.Success -> colors.success
-        CanvasKitAlertVariant.Warning -> colors.warning
-        CanvasKitAlertVariant.Error -> colors.error
-    }
-    val containerColor = when (variant) {
-        CanvasKitAlertVariant.Info -> colors.brandAccent.copy(alpha = 0.08f)
-        CanvasKitAlertVariant.Success -> colors.successContainer
-        CanvasKitAlertVariant.Warning -> colors.warningContainer
-        CanvasKitAlertVariant.Error -> colors.errorContainer
-    }
-    val borderColor = contentColor.copy(alpha = 0.30f)
+    val (contentColor, containerColor) = variant.resolveColors(colors)
 
-    Row(
+    Box(
         modifier = modifier
             .fillMaxWidth()
-            .clip(shapes.medium)
+            .shadow(elevation = 2.dp, shape = shapes.large)
+            .clip(shapes.large)
             .background(containerColor)
-            .border(width = 0.5.dp, color = borderColor, shape = shapes.medium)
-            .padding(horizontal = spacing.sm, vertical = spacing.sm)
-            .semantics { liveRegion = LiveRegionMode.Polite },
-        verticalAlignment = Alignment.Top,
-        horizontalArrangement = Arrangement.spacedBy(spacing.sm)
+            .border(width = 0.5.dp, color = colors.borderSubtle, shape = shapes.large)
+            .padding(spacing.md)
+            .semantics { liveRegion = LiveRegionMode.Polite }
     ) {
-        // Leading icon
-        Box(
-            modifier = Modifier
-                .padding(top = 2.dp)
-                .size(18.dp),
-            contentAlignment = Alignment.Center
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(spacing.md)
         ) {
-            if (icon != null) {
-                icon()
-            } else {
-                Icon(
-                    imageVector = variant.defaultIcon(),
-                    contentDescription = null,
-                    tint = contentColor,
-                    modifier = Modifier.size(18.dp)
-                )
+            // Leading icon in a circular container
+            Box(
+                modifier = Modifier
+                    .size(32.dp)
+                    .clip(shapes.pill)
+                    .background(contentColor.copy(alpha = 0.1f)),
+                contentAlignment = Alignment.Center
+            ) {
+                if (icon != null) {
+                    icon()
+                } else {
+                    Icon(
+                        imageVector = variant.defaultIcon(),
+                        contentDescription = null,
+                        tint = contentColor,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
             }
-        }
 
-        // Text content column
-        Column(
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(2.dp)
-        ) {
-            title?.invoke()
-            message()
-        }
+            // Text content column
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(2.dp)
+            ) {
+                title?.invoke()
+                message()
+            }
 
-        // Optional trailing action
-        if (action != null) {
-            Spacer(modifier = Modifier.width(spacing.xxs))
-            Box(contentAlignment = Alignment.CenterStart) {
-                action()
+            // Optional trailing action
+            if (action != null) {
+                Spacer(modifier = Modifier.width(spacing.xxs))
+                Box(contentAlignment = Alignment.CenterStart) {
+                    action()
+                }
             }
         }
     }

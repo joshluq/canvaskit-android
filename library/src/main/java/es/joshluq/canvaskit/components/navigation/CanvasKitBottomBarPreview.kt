@@ -63,14 +63,14 @@ private fun RowScope.BottomBarItems(selectedIndex: Int, onSelect: (Int) -> Unit)
     CanvasKitBottomBarItem(
         selected = selectedIndex == 0,
         onClick = { onSelect(0) },
-        icon = { tint -> Icon(imageVector = Icons.Default.Home, contentDescription = "Inicio", tint = tint) },
-        label = { tint -> Text("Inicio", style = CanvasKitTheme.typography.labelSmall, color = tint) }
+        icon = { tint -> Icon(imageVector = Icons.Default.Home, contentDescription = "Home", tint = tint) },
+        label = { tint -> Text("Home", style = CanvasKitTheme.typography.labelSmall, color = tint) }
     )
     CanvasKitBottomBarItem(
         selected = selectedIndex == 1,
         onClick = { onSelect(1) },
-        icon = { tint -> Icon(imageVector = Icons.Default.Search, contentDescription = "Buscar", tint = tint) },
-        label = { tint -> Text("Buscar", style = CanvasKitTheme.typography.labelSmall, color = tint) }
+        icon = { tint -> Icon(imageVector = Icons.Default.Search, contentDescription = "Search", tint = tint) },
+        label = { tint -> Text("Search", style = CanvasKitTheme.typography.labelSmall, color = tint) }
     )
     CanvasKitBottomBarItem(
         selected = selectedIndex == 2,
@@ -78,11 +78,11 @@ private fun RowScope.BottomBarItems(selectedIndex: Int, onSelect: (Int) -> Unit)
         icon = { tint ->
             Icon(
                 imageVector = Icons.Default.Notifications,
-                contentDescription = "Avisos",
+                contentDescription = "Alerts",
                 tint = tint
             )
         },
-        label = { tint -> Text("Avisos", style = CanvasKitTheme.typography.labelSmall, color = tint) },
+        label = { tint -> Text("Alerts", style = CanvasKitTheme.typography.labelSmall, color = tint) },
         badge = {
             CanvasKitBadge {
                 Text(
@@ -103,7 +103,7 @@ private fun RowScope.BottomBarItems(selectedIndex: Int, onSelect: (Int) -> Unit)
                 tint = tint
             )
         },
-        label = { tint -> Text("Ajustes", style = CanvasKitTheme.typography.labelSmall, color = tint) }
+        label = { tint -> Text("Settings", style = CanvasKitTheme.typography.labelSmall, color = tint) }
     )
 }
 

@@ -27,6 +27,7 @@ import es.joshluq.canvaskit.showcase.ui.screens.BannersScreen
 import es.joshluq.canvaskit.showcase.ui.screens.ChipsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.SkeletonsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.LoadingScaffoldScreen
+import es.joshluq.canvaskit.showcase.ui.screens.SheetsScreen
 import es.joshluq.canvaskit.showcase.ui.theme.ShowcaseTheme
 import kotlinx.serialization.Serializable
 
@@ -69,6 +70,9 @@ object SkeletonsRoute : NavKey
 @Serializable
 object LoadingScaffoldRoute : NavKey
 
+@Serializable
+object SheetsRoute : NavKey
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +107,8 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToBanners = { backStack.add(BannersRoute) },
                     onNavigateToChips = { backStack.add(ChipsRoute) },
                     onNavigateToSkeletons = { backStack.add(SkeletonsRoute) },
-                    onNavigateToLoadingScaffold = { backStack.add(LoadingScaffoldRoute) }
+                    onNavigateToLoadingScaffold = { backStack.add(LoadingScaffoldRoute) },
+                    onNavigateToSheets = { backStack.add(SheetsRoute) }
                 )
             }
             entry<ButtonsRoute> {
@@ -141,6 +146,9 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
             }
             entry<LoadingScaffoldRoute> {
                 LoadingScaffoldScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<SheetsRoute> {
+                SheetsScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )

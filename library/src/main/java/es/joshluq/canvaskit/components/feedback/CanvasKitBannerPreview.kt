@@ -34,14 +34,14 @@ private fun AllBannersPreviewContent() {
             visible = true,
             title = {
                 Text(
-                    text = "Nueva versión disponible",
+                    text = "New version available",
                     style = CanvasKitTheme.typography.labelLarge,
                     color = colors.brandAccent
                 )
             },
             message = {
                 Text(
-                    text = "Actualiza para obtener las últimas mejoras del sistema.",
+                    text = "Update to get the latest system improvements.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
@@ -53,14 +53,14 @@ private fun AllBannersPreviewContent() {
             visible = true,
             title = {
                 Text(
-                    text = "Cambios guardados",
+                    text = "Changes saved",
                     style = CanvasKitTheme.typography.labelLarge,
                     color = colors.success
                 )
             },
             message = {
                 Text(
-                    text = "Tu configuración se aplicó correctamente.",
+                    text = "Your settings were applied successfully.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
@@ -72,14 +72,14 @@ private fun AllBannersPreviewContent() {
             visible = true,
             title = {
                 Text(
-                    text = "Conexión inestable",
+                    text = "Unstable connection",
                     style = CanvasKitTheme.typography.labelLarge,
                     color = colors.warning
                 )
             },
             message = {
                 Text(
-                    text = "Algunos datos podrían no estar sincronizados.",
+                    text = "Some data might not be synchronized.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
@@ -91,14 +91,14 @@ private fun AllBannersPreviewContent() {
             visible = true,
             title = {
                 Text(
-                    text = "Error al cargar",
+                    text = "Error loading",
                     style = CanvasKitTheme.typography.labelLarge,
                     color = colors.error
                 )
             },
             message = {
                 Text(
-                    text = "No se pudo procesar la solicitud. Inténtalo de nuevo.",
+                    text = "The request could not be processed. Try again.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
@@ -121,7 +121,7 @@ private fun AllInlineAlertsPreviewContent() {
             variant = CanvasKitAlertVariant.Info,
             message = {
                 Text(
-                    text = "Los cambios se aplicarán en el próximo ciclo de sincronización.",
+                    text = "Changes will be applied in the next sync cycle.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
@@ -131,7 +131,7 @@ private fun AllInlineAlertsPreviewContent() {
             variant = CanvasKitAlertVariant.Success,
             message = {
                 Text(
-                    text = "Archivo subido exitosamente.",
+                    text = "File uploaded successfully.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
@@ -141,7 +141,7 @@ private fun AllInlineAlertsPreviewContent() {
             variant = CanvasKitAlertVariant.Warning,
             message = {
                 Text(
-                    text = "Esta acción no puede deshacerse.",
+                    text = "This action cannot be undone.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
@@ -151,7 +151,7 @@ private fun AllInlineAlertsPreviewContent() {
             variant = CanvasKitAlertVariant.Error,
             message = {
                 Text(
-                    text = "El campo de email es obligatorio.",
+                    text = "Email field is required.",
                     style = CanvasKitTheme.typography.bodyMedium,
                     color = colors.textPrimary
                 )
