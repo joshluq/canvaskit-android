@@ -53,6 +53,7 @@ fun HomeScreen(
     onNavigateToChips: () -> Unit,
     onNavigateToSkeletons: () -> Unit,
     onNavigateToLoadingScaffold: () -> Unit,
+    onNavigateToLists: () -> Unit,
     onNavigateToSheets: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -138,6 +139,11 @@ fun HomeScreen(
                     onNavigateToLoadingScaffold
                 ),
                 Triple(
+                    "List Items",
+                    "High-density molecular rows for complex layouts.",
+                    onNavigateToLists
+                ),
+                Triple(
                     "Bottom Sheets",
                     "Refined modal overlays for contextual flows.",
                     onNavigateToSheets
@@ -175,6 +181,7 @@ fun HomeScreen(
                             "Chips" -> Icons.Default.Add
                             "Skeletons" -> Icons.Default.Info
                             "Loading Scaffold" -> Icons.Default.Refresh
+                            "List Items" -> Icons.AutoMirrored.Filled.List
                             "Bottom Sheets" -> Icons.Default.Menu
                             else -> Icons.Default.Info
                         },

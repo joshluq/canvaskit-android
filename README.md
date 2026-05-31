@@ -5,7 +5,7 @@
 [![Compose](https://img.shields.io/badge/Jetpack_Compose-1.7%2B-4285F4.svg?style=flat-square&logo=jetpackcompose)](https://developer.android.com/jetpack/compose)
 [![Ecosystem](https://img.shields.io/badge/Ecosystem-Kit-FF5722.svg?style=flat-square)](https://github.com/joshluq)
 
-**CanvasKit** is the foundational Design System and visual backbone of the **"Kit" ecosystem** (alongside `authKit`, `encryptionKit`, and `analyticsKit`). Inspired by high-end design languages like *Shopify Polaris* and *IBM Carbon*, CanvasKit treats UI components as artisanal craft—combining extreme aesthetic refinement with technical rigor and native accessibility.
+**CanvasKit** is the foundational Design System and visual backbone of the **"Kit" ecosystem** (alongside `authKit`, `encryptionKit`, and `analyticsKit`). Inspired by high-end design languages like *Shopify Polaris*, *IBM Carbon*, and **Material 3 Expressive**, CanvasKit treats UI components as artisanal craft—combining extreme aesthetic refinement with technical rigor and native accessibility.
 
 ---
 
@@ -19,7 +19,7 @@ CanvasKit is organized under atomic modular design principles to guarantee separ
 ├── core/
 │   └── tokens/         # Design Tokens: Colors, Typography, Shapes, Spacing, and Motion
 │
-├── components/         # Reusable Components (Buttons, Cards, Inputs, Feedback Banners)
+├── components/         # Reusable Components (Buttons, Cards, Lists, Sheets, Menus)
 │
 ├── foundations/        # Lower-level layouts, custom modifiers, and the Theme Engine
 │
