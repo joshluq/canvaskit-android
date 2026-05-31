@@ -1,9 +1,11 @@
 package es.joshluq.canvaskit.components.navigation
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,12 +18,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
@@ -32,12 +37,13 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
  * CanvasKitBottomBar is a premium, flexible bottom navigation container.
- * It natively handles window insets for system navigation bars, applies a top
- * border line separator, and lays out navigation items horizontally.
+ * It natively handles window insets for system navigation bars and applies
+ * Material 3 Expressive styling with support for floating and docked variants.
  *
  * @param modifier Root layout modifier.
  * @param backgroundColor Optional color override. Defaults to [CanvasKitColors.backgroundPrimary].
- * @param showTopBorder When true, renders a thin separator border at the top of the bar.
+ * @param showTopBorder When true, renders a thin separator border at the top of the bar (only for docked).
+ * @param isFloating When true, detaches the bar from the edges and applies a shadow and full rounding.
  * @param content Composable Row scope containing [CanvasKitBottomBarItem] elements.
  */
 @Composable
@@ -45,34 +51,53 @@ fun CanvasKitBottomBar(
     modifier: Modifier = Modifier,
     backgroundColor: Color = CanvasKitTheme.colors.backgroundPrimary,
     showTopBorder: Boolean = true,
+    isFloating: Boolean = false,
     content: @Composable RowScope.() -> Unit
 ) {
     val colors = CanvasKitTheme.colors
+    val shapes = CanvasKitTheme.shapes
+    val spacing = CanvasKitTheme.spacing
 
-    Column(
+    val containerShape = if (isFloating) {
+        shapes.pill // Fully rounded 24dp
+    } else {
+        RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+    }
+
+    val shadowElevation = if (isFloating) 12.dp else 0.dp
+
+    Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(backgroundColor)
             .navigationBarsPadding()
+            .then(if (isFloating) Modifier.padding(spacing.md) else Modifier)
     ) {
-        // Top separator border
-        if (showTopBorder) {
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(colors.borderSubtle)
-            )
-        }
-
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(80.dp),
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically
+                .shadow(shadowElevation, containerShape)
+                .clip(containerShape)
+                .background(backgroundColor)
         ) {
-            content()
+            // Top separator border (only for docked mode)
+            if (showTopBorder && !isFloating) {
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(colors.borderSubtle)
+                )
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(80.dp),
+                horizontalArrangement = Arrangement.SpaceAround,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                content()
+            }
         }
     }
 }
@@ -104,49 +129,57 @@ fun RowScope.CanvasKitBottomBarItem(
     val colors = CanvasKitTheme.colors
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
-    val motion = CanvasKitTheme.motion
 
     val activeColor = colors.brandAccent
     val inactiveColor = colors.textSecondary
     val iconColor = if (selected) activeColor else inactiveColor
     val textColor = if (selected) colors.textPrimary else inactiveColor
 
-    // Selection animation tokens
-    val animationSpec = tween<Float>(
-        durationMillis = motion.short2,
-        easing = motion.standard
+    val interactionSource = remember { MutableInteractionSource() }
+
+    // Selection animation tokens (Spring for Expressive feel)
+    val springSpec = spring<Float>(
+        dampingRatio = Spring.DampingRatioLowBouncy,
+        stiffness = Spring.StiffnessLow
     )
+
     val indicatorAlpha by animateFloatAsState(
         targetValue = if (selected) 1f else 0f,
-        animationSpec = animationSpec,
+        animationSpec = springSpec,
         label = "indicatorAlpha"
     )
-    val indicatorWidthScale by animateFloatAsState(
-        targetValue = if (selected) 1f else 0.5f,
-        animationSpec = animationSpec,
-        label = "indicatorWidthScale"
+    val indicatorScale by animateFloatAsState(
+        targetValue = if (selected) 1f else 0.8f,
+        animationSpec = springSpec,
+        label = "indicatorScale"
+    )
+
+    // Icon micro-interaction: subtle scale up when selected
+    val iconScale by animateFloatAsState(
+        targetValue = if (selected) 1.15f else 1.0f,
+        animationSpec = springSpec,
+        label = "iconScale"
     )
 
     // Label animation tokens
     val labelAlpha by animateFloatAsState(
         targetValue = if (alwaysShowLabel || selected) 1f else 0f,
-        animationSpec = animationSpec,
+        animationSpec = springSpec,
         label = "labelAlpha"
     )
     val labelYOffset by animateDpAsState(
         targetValue = if (alwaysShowLabel || selected) 0.dp else 4.dp,
-        animationSpec = tween(
-            durationMillis = motion.short2,
-            easing = motion.standard
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioNoBouncy,
+            stiffness = Spring.StiffnessMedium
         ),
         label = "labelYOffset"
     )
 
     val selectionStateDescription = if (selected) "Seleccionado" else "No seleccionado"
 
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = modifier
             .weight(1f)
             .fillMaxHeight()
@@ -154,7 +187,9 @@ fun RowScope.CanvasKitBottomBarItem(
                 selected = selected,
                 onClick = onClick,
                 enabled = enabled,
-                role = Role.Tab
+                role = Role.Tab,
+                interactionSource = interactionSource,
+                indication = null // REMOVE RIPPLE
             )
             .semantics(mergeDescendants = true) {
                 stateDescription = selectionStateDescription
@@ -163,56 +198,61 @@ fun RowScope.CanvasKitBottomBarItem(
                 alpha = if (enabled) 1.0f else 0.4f
             }
     ) {
-        // Icon Container with Active Pill Indicator
+        // Selection Indicator and Content Container
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier.height(32.dp)
+            modifier = Modifier
+                .graphicsLayer {
+                    scaleX = indicatorScale
+                    scaleY = indicatorScale
+                }
+                .padding(spacing.xxs)
+                .defaultMinSize(minWidth = 64.dp, minHeight = 64.dp)
+                .background(
+                    color = colors.brandAccent.copy(alpha = 0.12f * indicatorAlpha),
+                    shape = shapes.pill
+                )
         ) {
-            // Pill background
-            Box(
-                modifier = Modifier
-                    .height(32.dp)
-                    .width(64.dp)
-                    .graphicsLayer {
-                        alpha = indicatorAlpha
-                        scaleX = indicatorWidthScale
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                // Icon with optional Badge overlay
+                Box(
+                    modifier = Modifier.graphicsLayer {
+                        scaleX = iconScale
+                        scaleY = iconScale
                     }
-                    .background(
-                        color = colors.brandAccent.copy(alpha = 0.15f),
-                        shape = shapes.pill
-                    )
-            )
+                ) {
+                    icon(iconColor)
 
-            // Icon with optional Badge overlay
-            Box {
-                icon(iconColor)
-
-                if (badge != null) {
-                    Box(
-                        modifier = Modifier
-                            .align(Alignment.TopEnd)
-                            .graphicsLayer {
-                                translationX = 6.dp.toPx()
-                                translationY = (-4).dp.toPx()
-                            }
-                    ) {
-                        badge()
+                    if (badge != null) {
+                        Box(
+                            modifier = Modifier
+                                .align(Alignment.TopEnd)
+                                .graphicsLayer {
+                                    translationX = 6.dp.toPx()
+                                    translationY = (-4).dp.toPx()
+                                }
+                        ) {
+                            badge()
+                        }
                     }
                 }
-            }
-        }
 
-        // Animated text label
-        if (label != null) {
-            Spacer(modifier = Modifier.height(spacing.xxs))
-            Box(
-                modifier = Modifier
-                    .graphicsLayer {
-                        alpha = labelAlpha
-                        translationY = labelYOffset.toPx()
+                // Animated text label
+                if (label != null) {
+                    Spacer(modifier = Modifier.height(spacing.xxs))
+                    Box(
+                        modifier = Modifier
+                            .graphicsLayer {
+                                alpha = labelAlpha
+                                translationY = labelYOffset.toPx()
+                            }
+                    ) {
+                        label(textColor)
                     }
-            ) {
-                label(textColor)
+                }
             }
         }
     }
