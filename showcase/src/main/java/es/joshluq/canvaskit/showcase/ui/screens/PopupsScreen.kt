@@ -73,11 +73,11 @@ fun PopupsScreen(
                 CanvasKitIconButton(
                     onClick = onBack,
                     contentDescription = "Back"
-                ) {
+                ) { contentColor ->
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.ArrowBack,
                         contentDescription = null,
-                        tint = colors.brandPrimary
+                        tint = contentColor
                     )
                 }
             }

@@ -73,11 +73,11 @@ fun CardsScreen(
                 CanvasKitIconButton(
                     onClick = onBack,
                     contentDescription = "Back"
-                ) {
+                ) { contentColor ->
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
                         contentDescription = null,
-                        tint = colors.brandPrimary
+                        tint = contentColor
                     )
                 }
             }
