@@ -53,7 +53,9 @@ fun CanvasKitBottomSheet(
         scrimColor = scrimColor,
         dragHandle = if (showDragHandle) {
             { CanvasKitDragHandle() }
-        } else null,
+        } else {
+            null
+        },
         content = content
     )
 }

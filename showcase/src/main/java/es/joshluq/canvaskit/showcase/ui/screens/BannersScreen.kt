@@ -75,11 +75,11 @@ fun BannersScreen(
                 CanvasKitIconButton(
                     onClick = onBack,
                     contentDescription = "Back"
-                ) {
+                ) { contentColor ->
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = null,
-                        tint = colors.brandPrimary
+                        tint = contentColor
                     )
                 }
             }

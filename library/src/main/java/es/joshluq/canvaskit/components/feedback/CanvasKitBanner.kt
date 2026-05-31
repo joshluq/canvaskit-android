@@ -96,12 +96,12 @@ fun CanvasKitBanner(
 
     AnimatedVisibility(
         visible = visible,
-        enter = slideInVertically(initialOffsetY = { -it }) + 
-                fadeIn(animationSpec = springSpec) + 
-                scaleIn(initialScale = 0.9f, animationSpec = springSpec),
-        exit = slideOutVertically(targetOffsetY = { -it }) + 
-               fadeOut() + 
-               scaleOut(targetScale = 0.9f),
+        enter = slideInVertically(initialOffsetY = { -it }) +
+            fadeIn(animationSpec = springSpec) +
+            scaleIn(initialScale = 0.9f, animationSpec = springSpec),
+        exit = slideOutVertically(targetOffsetY = { -it }) +
+            fadeOut() +
+            scaleOut(targetScale = 0.9f),
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = spacing.md, vertical = spacing.sm)

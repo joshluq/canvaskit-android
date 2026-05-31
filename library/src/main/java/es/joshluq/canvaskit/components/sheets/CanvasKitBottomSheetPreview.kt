@@ -20,7 +20,7 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 @Composable
 private fun BottomSheetPreviewContent() {
     val spacing = CanvasKitTheme.spacing
-    
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,22 +32,22 @@ private fun BottomSheetPreviewContent() {
             style = CanvasKitTheme.typography.headingMedium,
             color = CanvasKitTheme.colors.textPrimary
         )
-        
+
         Text(
             text = "This component follows the Atelier design philosophy with organic rounding and refined interactions.",
             style = CanvasKitTheme.typography.bodyLarge,
             color = CanvasKitTheme.colors.textSecondary
         )
-        
+
         Spacer(modifier = Modifier.height(spacing.md))
-        
+
         CanvasKitButton(
             onClick = { },
             modifier = Modifier.fillMaxWidth()
         ) { contentColor ->
             Text("Primary Action", color = contentColor)
         }
-        
+
         Spacer(modifier = Modifier.height(spacing.xl))
     }
 }

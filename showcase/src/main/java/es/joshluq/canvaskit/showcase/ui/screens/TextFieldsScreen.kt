@@ -72,10 +72,11 @@ fun TextFieldsScreen(
                 CanvasKitIconButton(
                     onClick = onBack,
                     contentDescription = "Atrás"
-                ) {
+                ) { contentColor ->
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = contentColor
                     )
                 }
             }
