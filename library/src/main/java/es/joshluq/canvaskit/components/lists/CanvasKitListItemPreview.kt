@@ -28,7 +28,7 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 private fun ListItemPreviewContainer() {
     val colors = CanvasKitTheme.colors
     val typography = CanvasKitTheme.typography
-    
+
     var switchState by remember { mutableStateOf(true) }
 
     Column(modifier = Modifier.fillMaxWidth()) {
@@ -44,7 +44,11 @@ private fun ListItemPreviewContainer() {
                 Text(text = "Profile", style = typography.bodyLarge, color = colors.textPrimary)
             },
             supportingText = {
-                Text(text = "Manage your account and preferences", style = typography.bodyMedium, color = colors.textSecondary)
+                Text(
+                    text = "Manage your account and preferences",
+                    style = typography.bodyMedium,
+                    color = colors.textSecondary
+                )
             },
             leadingContent = {
                 Icon(Icons.Default.Person, contentDescription = null, tint = colors.brandPrimary)
@@ -52,7 +56,11 @@ private fun ListItemPreviewContainer() {
             onClick = { }
         )
 
-        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp, color = colors.borderSubtle)
+        HorizontalDivider(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            thickness = 0.5.dp,
+            color = colors.borderSubtle
+        )
 
         CanvasKitListItem(
             headline = {
@@ -66,7 +74,11 @@ private fun ListItemPreviewContainer() {
             }
         )
 
-        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp, color = colors.borderSubtle)
+        HorizontalDivider(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            thickness = 0.5.dp,
+            color = colors.borderSubtle
+        )
 
         CanvasKitListItem(
             headline = {
@@ -78,7 +90,7 @@ private fun ListItemPreviewContainer() {
             selected = true,
             onClick = { }
         )
-        
+
         CanvasKitListItem(
             headline = {
                 Text(text = "Disabled Item", style = typography.bodyLarge, color = colors.textPrimary)

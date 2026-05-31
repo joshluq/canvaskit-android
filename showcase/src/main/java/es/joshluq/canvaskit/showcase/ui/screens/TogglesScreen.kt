@@ -9,25 +9,31 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.VolumeDown
+import androidx.compose.material.icons.automirrored.filled.VolumeUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.cards.CanvasKitCard
 import es.joshluq.canvaskit.components.cards.CanvasKitCardVariant
 import es.joshluq.canvaskit.components.inputs.CanvasKitCheckbox
 import es.joshluq.canvaskit.components.inputs.CanvasKitRadioButton
+import es.joshluq.canvaskit.components.inputs.CanvasKitSlider
 import es.joshluq.canvaskit.components.inputs.CanvasKitSwitch
 import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
@@ -52,6 +58,9 @@ fun TogglesScreen(
     var checkbox1Checked by remember { mutableStateOf(true) }
     var selectedPaymentIndex by remember { mutableIntStateOf(1) }
     val paymentOptions = listOf("Standard", "Premium Plus", "Enterprise")
+
+    var slider1Value by remember { mutableFloatStateOf(0.4f) }
+    var slider2Value by remember { mutableFloatStateOf(60f) }
 
     Column(
         modifier = modifier
@@ -219,6 +228,60 @@ fun TogglesScreen(
                                 )
                             }
                         }
+                    }
+                }
+            }
+
+            // Sliders
+            SpecSectionCard(
+                title = "Range Selectors",
+                description = "Continuous and discrete sliders with reactive motion."
+            ) {
+                Column(verticalArrangement = Arrangement.spacedBy(spacing.xl)) {
+                    // Continuous
+                    Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
+                        Text(
+                            text = "Intensity: ${(slider1Value * 100).toInt()}%",
+                            style = typography.labelSmall,
+                            color = colors.textSecondary
+                        )
+                        CanvasKitSlider(
+                            value = slider1Value,
+                            onValueChange = { slider1Value = it },
+                            enabled = globalEnabled
+                        )
+                    }
+
+                    // Discrete with Icons
+                    Column(verticalArrangement = Arrangement.spacedBy(spacing.xs)) {
+                        Text(
+                            text = "Volume Levels (Stepped)",
+                            style = typography.labelSmall,
+                            color = colors.textSecondary
+                        )
+                        CanvasKitSlider(
+                            value = slider2Value,
+                            onValueChange = { slider2Value = it },
+                            valueRange = 0f..100f,
+                            steps = 4,
+                            enabled = globalEnabled,
+                            startIcon = {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.VolumeDown,
+                                    contentDescription = null,
+                                    tint = colors.brandPrimary,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            },
+                            endIcon = {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.VolumeUp,
+                                    contentDescription = null,
+                                    tint = colors.brandPrimary,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        )
                     }
                 }
             }

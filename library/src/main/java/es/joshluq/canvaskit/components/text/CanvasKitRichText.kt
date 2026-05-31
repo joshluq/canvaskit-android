@@ -32,7 +32,7 @@ class CanvasKitRichTextBuilder(
 
     /**
      * Appends a clickable link with artisanal styling.
-     * 
+     *
      * @param text The visible text for the link.
      * @param onClick Callback triggered when the link is clicked.
      */
@@ -66,7 +66,7 @@ fun CanvasKitRichText(
     builder: CanvasKitRichTextBuilder.() -> Unit
 ) {
     val colors = CanvasKitTheme.colors
-    
+
     // Artisanal link styling
     val linkStyle = remember(colors.brandAccent) {
         SpanStyle(
