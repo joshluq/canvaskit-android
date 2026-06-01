@@ -43,7 +43,13 @@ private fun AccordionPreviewContent() {
         CanvasKitAccordion(
             expanded = expanded1,
             onExpandedChange = { expanded1 = it },
-            headline = { Text("What is Atelier design philosophy?", style = typography.bodyLarge) },
+            headline = {
+                Text(
+                    "What is Atelier design philosophy?",
+                    style = typography.bodyLarge,
+                    color = colors.contentColor
+                )
+            },
             leadingContent = { Icon(Icons.Default.Info, contentDescription = null, tint = colors.brandPrimary) }
         ) {
             Text(
@@ -57,8 +63,14 @@ private fun AccordionPreviewContent() {
         CanvasKitAccordion(
             expanded = expanded2,
             onExpandedChange = { expanded2 = it },
-            headline = { Text("Privacy & Security", style = typography.bodyLarge) },
-            supportingText = { Text("Manage authentication and data", style = typography.bodyMedium) },
+            headline = { Text("Privacy & Security", style = typography.bodyLarge, color = colors.contentColor) },
+            supportingText = {
+                Text(
+                    "Manage authentication and data",
+                    style = typography.bodyMedium,
+                    color = colors.contentColor
+                )
+            },
             leadingContent = { Icon(Icons.Default.Lock, contentDescription = null, tint = colors.brandPrimary) },
             trailingContent = {
                 Text(
