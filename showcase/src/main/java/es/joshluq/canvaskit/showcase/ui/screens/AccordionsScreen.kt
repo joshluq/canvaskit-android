@@ -108,8 +108,8 @@ fun AccordionsScreen(
                     CanvasKitAccordion(
                         expanded = expandedSection == 0,
                         onExpandedChange = { expandedSection = if (it) 0 else null },
-                        headline = { Text("System Notifications", style = typography.bodyLarge) },
-                        supportingText = { Text("Push, Email and SMS settings", style = typography.bodyMedium) },
+                        headline = { Text("System Notifications", style = typography.bodyLarge, color = colors.contentColor) },
+                        supportingText = { Text("Push, Email and SMS settings", style = typography.bodyMedium, color = colors.contentColor) },
                         leadingContent = { Icon(Icons.Default.Notifications, contentDescription = null, tint = colors.brandPrimary) }
                     ) {
                         Row(
@@ -119,7 +119,7 @@ fun AccordionsScreen(
                             Text(
                                 text = "Enable Global Alerts",
                                 style = typography.bodyMedium,
-                                color = colors.textPrimary
+                                color = colors.contentColor
                             )
                             CanvasKitSwitch(
                                 checked = notificationState,
@@ -132,7 +132,7 @@ fun AccordionsScreen(
                     CanvasKitAccordion(
                         expanded = expandedSection == 1,
                         onExpandedChange = { expandedSection = if (it) 1 else null },
-                        headline = { Text("Interface Themes", style = typography.bodyLarge) },
+                        headline = { Text("Interface Themes", style = typography.bodyLarge, color = colors.contentColor) },
                         leadingContent = { Icon(Icons.Default.Palette, contentDescription = null, tint = colors.brandPrimary) },
                         trailingContent = {
                             Text(
@@ -153,7 +153,7 @@ fun AccordionsScreen(
                     CanvasKitAccordion(
                         expanded = expandedSection == 2,
                         onExpandedChange = { expandedSection = if (it) 2 else null },
-                        headline = { Text("Advanced Security", style = typography.bodyLarge) },
+                        headline = { Text("Advanced Security", style = typography.bodyLarge, color = colors.textPrimary) },
                         leadingContent = { Icon(Icons.Default.Build, contentDescription = null, tint = colors.brandPrimary) }
                     ) {
                         Column(verticalArrangement = Arrangement.spacedBy(spacing.md)) {
