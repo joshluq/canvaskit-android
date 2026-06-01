@@ -152,8 +152,8 @@ fun SheetsScreen(
                         }
                     },
                     modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Confirm Selection")
+                ) { contentColor ->
+                    Text("Confirm Selection", color = contentColor)
                 }
                 
                 Spacer(modifier = Modifier.height(spacing.xl))

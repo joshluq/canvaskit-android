@@ -75,7 +75,7 @@ fun CanvasKitListItem(
                 if (onClick != null) {
                     Modifier.clickable(
                         interactionSource = interactionSource,
-                        indication = null, // Pure Motion: No Ripple
+                        indication = null,
                         enabled = enabled,
                         role = Role.Button,
                         onClick = onClick

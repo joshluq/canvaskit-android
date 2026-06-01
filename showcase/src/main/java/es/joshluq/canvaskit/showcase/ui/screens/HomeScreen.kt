@@ -52,7 +52,9 @@ fun HomeScreen(
     onNavigateToBanners: () -> Unit,
     onNavigateToChips: () -> Unit,
     onNavigateToSkeletons: () -> Unit,
+    onNavigateToFeedbackStates: () -> Unit,
     onNavigateToLoadingScaffold: () -> Unit,
+    onNavigateToAccordions: () -> Unit,
     onNavigateToLists: () -> Unit,
     onNavigateToSheets: () -> Unit,
     onNavigateToTextLinks: () -> Unit,
@@ -135,9 +137,19 @@ fun HomeScreen(
                     onNavigateToSkeletons
                 ),
                 Triple(
+                    "Feedback States",
+                    "Unified views for Empty, Error, and Success states.",
+                    onNavigateToFeedbackStates
+                ),
+                Triple(
                     "Loading Scaffold",
                     "Advanced layout container for loading states.",
                     onNavigateToLoadingScaffold
+                ),
+                Triple(
+                    "Accordions",
+                    "Expressive collapsible content groups.",
+                    onNavigateToAccordions
                 ),
                 Triple(
                     "List Items",
@@ -186,7 +198,9 @@ fun HomeScreen(
                             "Banners & Alerts" -> Icons.Default.Notifications
                             "Chips" -> Icons.Default.Add
                             "Skeletons" -> Icons.Default.Info
+                            "Feedback States" -> Icons.Default.Warning
                             "Loading Scaffold" -> Icons.Default.Refresh
+                            "Accordions" -> Icons.AutoMirrored.Filled.List
                             "List Items" -> Icons.AutoMirrored.Filled.List
                             "Bottom Sheets" -> Icons.Default.Menu
                             "Rich Text & Links" -> Icons.Default.Info

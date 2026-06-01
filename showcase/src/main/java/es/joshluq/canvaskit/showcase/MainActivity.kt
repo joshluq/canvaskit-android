@@ -26,6 +26,8 @@ import es.joshluq.canvaskit.showcase.ui.screens.TogglesScreen
 import es.joshluq.canvaskit.showcase.ui.screens.BannersScreen
 import es.joshluq.canvaskit.showcase.ui.screens.ChipsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.SkeletonsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.AccordionsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.FeedbackStatesScreen
 import es.joshluq.canvaskit.showcase.ui.screens.LoadingScaffoldScreen
 import es.joshluq.canvaskit.showcase.ui.screens.ListsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.SheetsScreen
@@ -68,6 +70,12 @@ object ChipsRoute : NavKey
 
 @Serializable
 object SkeletonsRoute : NavKey
+
+@Serializable
+object AccordionsRoute : NavKey
+
+@Serializable
+object FeedbackStatesRoute : NavKey
 
 @Serializable
 object LoadingScaffoldRoute : NavKey
@@ -115,7 +123,9 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToBanners = { backStack.add(BannersRoute) },
                     onNavigateToChips = { backStack.add(ChipsRoute) },
                     onNavigateToSkeletons = { backStack.add(SkeletonsRoute) },
+                    onNavigateToFeedbackStates = { backStack.add(FeedbackStatesRoute) },
                     onNavigateToLoadingScaffold = { backStack.add(LoadingScaffoldRoute) },
+                    onNavigateToAccordions = { backStack.add(AccordionsRoute) },
                     onNavigateToLists = { backStack.add(ListsRoute) },
                     onNavigateToSheets = { backStack.add(SheetsRoute) },
                     onNavigateToTextLinks = { backStack.add(TextLinksRoute) }
@@ -156,6 +166,12 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
             }
             entry<LoadingScaffoldRoute> {
                 LoadingScaffoldScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<AccordionsRoute> {
+                AccordionsScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<FeedbackStatesRoute> {
+                FeedbackStatesScreen(onBack = { backStack.removeLastOrNull() })
             }
             entry<ListsRoute> {
                 ListsScreen(onBack = { backStack.removeLastOrNull() })
