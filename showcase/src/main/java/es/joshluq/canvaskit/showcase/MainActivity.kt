@@ -4,16 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
-import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 import es.joshluq.canvaskit.showcase.ui.screens.ButtonsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.CardsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.DialogsScreen
@@ -32,6 +28,8 @@ import es.joshluq.canvaskit.showcase.ui.screens.LoadingScaffoldScreen
 import es.joshluq.canvaskit.showcase.ui.screens.ListsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.SheetsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TextLinksScreen
+import es.joshluq.canvaskit.showcase.ui.screens.TypographyScreen
+import es.joshluq.canvaskit.showcase.ui.screens.DatePickerScreen
 import es.joshluq.canvaskit.showcase.ui.theme.ShowcaseTheme
 import kotlinx.serialization.Serializable
 
@@ -89,6 +87,12 @@ object SheetsRoute : NavKey
 @Serializable
 object TextLinksRoute : NavKey
 
+@Serializable
+object TypographyRoute : NavKey
+
+@Serializable
+object DatePickerRoute : NavKey
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,7 +132,9 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToAccordions = { backStack.add(AccordionsRoute) },
                     onNavigateToLists = { backStack.add(ListsRoute) },
                     onNavigateToSheets = { backStack.add(SheetsRoute) },
-                    onNavigateToTextLinks = { backStack.add(TextLinksRoute) }
+                    onNavigateToTextLinks = { backStack.add(TextLinksRoute) },
+                    onNavigateToTypography = { backStack.add(TypographyRoute) },
+                    onNavigateToDatePicker = { backStack.add(DatePickerRoute) },
                 )
             }
             entry<ButtonsRoute> {
@@ -181,6 +187,12 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
             }
             entry<TextLinksRoute> {
                 TextLinksScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<TypographyRoute> {
+                TypographyScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<DatePickerRoute> {
+                DatePickerScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )

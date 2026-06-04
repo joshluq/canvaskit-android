@@ -58,6 +58,8 @@ fun HomeScreen(
     onNavigateToLists: () -> Unit,
     onNavigateToSheets: () -> Unit,
     onNavigateToTextLinks: () -> Unit,
+    onNavigateToTypography: () -> Unit,
+    onNavigateToDatePicker: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -165,6 +167,16 @@ fun HomeScreen(
                     "Rich Text & Links",
                     "Programmatic and tag-based interactive paragraphs.",
                     onNavigateToTextLinks
+                ),
+                Triple(
+                    "Typography",
+                    "A technical and precise geometric scale.",
+                    onNavigateToTypography
+                ),
+                Triple(
+                    "Date Pickers",
+                    "Premium and accessible temporal inputs.",
+                    onNavigateToDatePicker
                 )
             )
             Column(
@@ -204,6 +216,8 @@ fun HomeScreen(
                             "List Items" -> Icons.AutoMirrored.Filled.List
                             "Bottom Sheets" -> Icons.Default.Menu
                             "Rich Text & Links" -> Icons.Default.Info
+                            "Typography" -> Icons.Default.Edit
+                            "Date Pickers" -> Icons.Default.PlayArrow
                             else -> Icons.Default.Info
                         },
                         iconBg = colors.backgroundSecondary,
