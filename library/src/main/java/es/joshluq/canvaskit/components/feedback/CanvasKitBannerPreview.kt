@@ -166,7 +166,7 @@ private fun AllInlineAlertsPreviewContent() {
 
 @Preview(name = "Banners — Light Mode", showBackground = true)
 @Composable
-fun CanvasKitBannersLightPreview() {
+internal fun CanvasKitBannersLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         AllBannersPreviewContent()
     }
@@ -174,7 +174,7 @@ fun CanvasKitBannersLightPreview() {
 
 @Preview(name = "Banners — Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitBannersDarkPreview() {
+internal fun CanvasKitBannersDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             AllBannersPreviewContent()
@@ -184,7 +184,7 @@ fun CanvasKitBannersDarkPreview() {
 
 @Preview(name = "Banners — RTL", showBackground = true)
 @Composable
-fun CanvasKitBannersRtlPreview() {
+internal fun CanvasKitBannersRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             AllBannersPreviewContent()
@@ -194,7 +194,7 @@ fun CanvasKitBannersRtlPreview() {
 
 @Preview(name = "Banners — Large Font (1.5x)", showBackground = true, fontScale = 1.5f)
 @Composable
-fun CanvasKitBannersFontScalePreview() {
+internal fun CanvasKitBannersFontScalePreview() {
     CanvasKitTheme {
         AllBannersPreviewContent()
     }
@@ -206,7 +206,7 @@ fun CanvasKitBannersFontScalePreview() {
 
 @Preview(name = "InlineAlert — Light Mode", showBackground = true)
 @Composable
-fun CanvasKitInlineAlertLightPreview() {
+internal fun CanvasKitInlineAlertLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         AllInlineAlertsPreviewContent()
     }
@@ -214,7 +214,7 @@ fun CanvasKitInlineAlertLightPreview() {
 
 @Preview(name = "InlineAlert — Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitInlineAlertDarkPreview() {
+internal fun CanvasKitInlineAlertDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             AllInlineAlertsPreviewContent()
@@ -224,7 +224,7 @@ fun CanvasKitInlineAlertDarkPreview() {
 
 @Preview(name = "InlineAlert — RTL", showBackground = true)
 @Composable
-fun CanvasKitInlineAlertRtlPreview() {
+internal fun CanvasKitInlineAlertRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             AllInlineAlertsPreviewContent()
@@ -234,7 +234,7 @@ fun CanvasKitInlineAlertRtlPreview() {
 
 @Preview(name = "InlineAlert — Large Font (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitInlineAlertFontScalePreview() {
+internal fun CanvasKitInlineAlertFontScalePreview() {
     CanvasKitTheme {
         AllInlineAlertsPreviewContent()
     }

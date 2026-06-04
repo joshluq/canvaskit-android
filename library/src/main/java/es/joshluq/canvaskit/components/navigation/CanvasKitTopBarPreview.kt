@@ -117,7 +117,7 @@ private fun TopBarPreviewContainer() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitTopBarLightPreview() {
+internal fun CanvasKitTopBarLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box(modifier = Modifier.padding(16.dp)) {
             TopBarPreviewContainer()
@@ -127,7 +127,7 @@ fun CanvasKitTopBarLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitTopBarDarkPreview() {
+internal fun CanvasKitTopBarDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.padding(16.dp)) {
             TopBarPreviewContainer()
@@ -137,7 +137,7 @@ fun CanvasKitTopBarDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitTopBarRtlPreview() {
+internal fun CanvasKitTopBarRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box(modifier = Modifier.padding(16.dp)) {
@@ -149,7 +149,7 @@ fun CanvasKitTopBarRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitTopBarFontScalePreview() {
+internal fun CanvasKitTopBarFontScalePreview() {
     CanvasKitTheme {
         Box(modifier = Modifier.padding(16.dp)) {
             TopBarPreviewContainer()

@@ -104,7 +104,7 @@ private fun TogglesPreviewContainer() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitTogglesLightPreview() {
+internal fun CanvasKitTogglesLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box(modifier = Modifier.padding(16.dp)) {
             TogglesPreviewContainer()
@@ -114,7 +114,7 @@ fun CanvasKitTogglesLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitTogglesDarkPreview() {
+internal fun CanvasKitTogglesDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.padding(16.dp)) {
             TogglesPreviewContainer()
@@ -124,7 +124,7 @@ fun CanvasKitTogglesDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitTogglesRtlPreview() {
+internal fun CanvasKitTogglesRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box(modifier = Modifier.padding(16.dp)) {
@@ -136,7 +136,7 @@ fun CanvasKitTogglesRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitTogglesFontScalePreview() {
+internal fun CanvasKitTogglesFontScalePreview() {
     CanvasKitTheme {
         Box(modifier = Modifier.padding(16.dp)) {
             TogglesPreviewContainer()

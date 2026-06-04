@@ -59,7 +59,7 @@ private fun SampleDialogContent() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitDialogContentLightPreview() {
+internal fun CanvasKitDialogContentLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box(modifier = Modifier.padding(16.dp)) {
             SampleDialogContent()
@@ -69,7 +69,7 @@ fun CanvasKitDialogContentLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitDialogContentDarkPreview() {
+internal fun CanvasKitDialogContentDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.padding(16.dp)) {
             SampleDialogContent()
@@ -79,7 +79,7 @@ fun CanvasKitDialogContentDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitDialogContentRtlPreview() {
+internal fun CanvasKitDialogContentRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box(modifier = Modifier.padding(16.dp)) {
@@ -91,7 +91,7 @@ fun CanvasKitDialogContentRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitDialogContentFontScalePreview() {
+internal fun CanvasKitDialogContentFontScalePreview() {
     CanvasKitTheme {
         Box(modifier = Modifier.padding(16.dp)) {
             SampleDialogContent()

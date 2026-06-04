@@ -101,7 +101,7 @@ private fun SliderPreviewContainer() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitSliderLightPreview() {
+internal fun CanvasKitSliderLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         SliderPreviewContainer()
     }
@@ -109,7 +109,7 @@ fun CanvasKitSliderLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitSliderDarkPreview() {
+internal fun CanvasKitSliderDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         SliderPreviewContainer()
     }
@@ -117,7 +117,7 @@ fun CanvasKitSliderDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitSliderRtlPreview() {
+internal fun CanvasKitSliderRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             SliderPreviewContainer()
@@ -127,7 +127,7 @@ fun CanvasKitSliderRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitSliderFontScalePreview() {
+internal fun CanvasKitSliderFontScalePreview() {
     CanvasKitTheme {
         SliderPreviewContainer()
     }

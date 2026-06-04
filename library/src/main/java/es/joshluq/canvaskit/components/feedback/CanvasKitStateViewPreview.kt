@@ -75,7 +75,7 @@ private fun PreviewStateView(
 
 @Preview(name = "Empty State - Light", showBackground = true)
 @Composable
-fun CanvasKitStateViewEmptyLightPreview() {
+internal fun CanvasKitStateViewEmptyLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         PreviewStateView("Empty")
     }
@@ -83,7 +83,7 @@ fun CanvasKitStateViewEmptyLightPreview() {
 
 @Preview(name = "Error State - Dark", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitStateViewErrorDarkPreview() {
+internal fun CanvasKitStateViewErrorDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         PreviewStateView("Error")
     }
@@ -91,7 +91,7 @@ fun CanvasKitStateViewErrorDarkPreview() {
 
 @Preview(name = "Success State - Light", showBackground = true)
 @Composable
-fun CanvasKitStateViewSuccessLightPreview() {
+internal fun CanvasKitStateViewSuccessLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         PreviewStateView("Success")
     }

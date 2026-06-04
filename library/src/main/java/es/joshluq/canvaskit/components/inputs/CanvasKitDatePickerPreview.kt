@@ -21,7 +21,7 @@ import java.time.LocalDate
  */
 @Preview(name = "Light Mode", showBackground = true)
 @Preview(name = "Dark Mode", showBackground = true, uiMode = android.content.res.Configuration.UI_MODE_NIGHT_YES)
-annotation class CanvasKitComponentPreview
+internal annotation class CanvasKitComponentPreview
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)

@@ -131,7 +131,7 @@ private fun MenuItemsContent() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitMenuLightPreview() {
+internal fun CanvasKitMenuLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box {
             MenuPreviewContainer()
@@ -141,7 +141,7 @@ fun CanvasKitMenuLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitMenuDarkPreview() {
+internal fun CanvasKitMenuDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box {
             MenuPreviewContainer()
@@ -151,7 +151,7 @@ fun CanvasKitMenuDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitMenuRtlPreview() {
+internal fun CanvasKitMenuRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box {
@@ -163,7 +163,7 @@ fun CanvasKitMenuRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitMenuFontScalePreview() {
+internal fun CanvasKitMenuFontScalePreview() {
     CanvasKitTheme {
         Box(modifier = Modifier.verticalScroll(rememberScrollState())) {
             MenuPreviewContainer()

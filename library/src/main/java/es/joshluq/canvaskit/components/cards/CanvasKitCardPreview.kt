@@ -101,7 +101,7 @@ private fun CardsPreviewContainer() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitCardLightPreview() {
+internal fun CanvasKitCardLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box(modifier = Modifier.padding(16.dp)) {
             CardsPreviewContainer()
@@ -111,7 +111,7 @@ fun CanvasKitCardLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitCardDarkPreview() {
+internal fun CanvasKitCardDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.padding(16.dp)) {
             CardsPreviewContainer()
@@ -121,7 +121,7 @@ fun CanvasKitCardDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitCardRtlPreview() {
+internal fun CanvasKitCardRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box(modifier = Modifier.padding(16.dp)) {
@@ -133,7 +133,7 @@ fun CanvasKitCardRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitCardFontScalePreview() {
+internal fun CanvasKitCardFontScalePreview() {
     CanvasKitTheme {
         Box(modifier = Modifier.padding(16.dp).verticalScroll(rememberScrollState())) {
             CardsPreviewContainer()

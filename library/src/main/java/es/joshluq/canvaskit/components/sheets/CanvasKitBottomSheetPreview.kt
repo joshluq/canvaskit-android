@@ -54,7 +54,7 @@ private fun BottomSheetPreviewContent() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitBottomSheetLightPreview() {
+internal fun CanvasKitBottomSheetLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         // We simulate the content since ModalBottomSheet requires a real context to render properly in Previews
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
@@ -68,7 +68,7 @@ fun CanvasKitBottomSheetLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitBottomSheetDarkPreview() {
+internal fun CanvasKitBottomSheetDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             Column {

@@ -198,7 +198,7 @@ private fun ButtonsPreviewContainer() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitButtonLightPreview() {
+internal fun CanvasKitButtonLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box {
             ButtonsPreviewContainer()
@@ -208,7 +208,7 @@ fun CanvasKitButtonLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitButtonDarkPreview() {
+internal fun CanvasKitButtonDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box {
             ButtonsPreviewContainer()
@@ -218,7 +218,7 @@ fun CanvasKitButtonDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitButtonRtlPreview() {
+internal fun CanvasKitButtonRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box {
@@ -230,7 +230,7 @@ fun CanvasKitButtonRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitButtonFontScalePreview() {
+internal fun CanvasKitButtonFontScalePreview() {
     CanvasKitTheme {
         Box(modifier = Modifier.verticalScroll(rememberScrollState())) {
             ButtonsPreviewContainer()
