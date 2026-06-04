@@ -21,7 +21,6 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 @Composable
 private fun SampleSkeletons() {
-    val spacing = CanvasKitTheme.spacing
     val shapes = CanvasKitTheme.shapes
 
     Column(
@@ -90,7 +89,7 @@ private fun SampleSkeletons() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitSkeletonLightPreview() {
+internal fun CanvasKitSkeletonLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             SampleSkeletons()
@@ -100,7 +99,7 @@ fun CanvasKitSkeletonLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitSkeletonDarkPreview() {
+internal fun CanvasKitSkeletonDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             SampleSkeletons()

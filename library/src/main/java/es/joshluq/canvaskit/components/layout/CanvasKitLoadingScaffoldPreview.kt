@@ -13,7 +13,7 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 @Preview(name = "Replace Content Strategy")
 @Composable
-fun CanvasKitLoadingScaffoldReplacePreview() {
+internal fun CanvasKitLoadingScaffoldReplacePreview() {
     CanvasKitTheme {
         CanvasKitLoadingScaffold(
             isLoading = true,
@@ -38,7 +38,7 @@ fun CanvasKitLoadingScaffoldReplacePreview() {
 
 @Preview(name = "Overlay Strategy")
 @Composable
-fun CanvasKitLoadingScaffoldOverlayPreview() {
+internal fun CanvasKitLoadingScaffoldOverlayPreview() {
     CanvasKitTheme {
         CanvasKitLoadingScaffold(
             isLoading = true,

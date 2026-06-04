@@ -93,7 +93,7 @@ private fun AccordionPreviewContent() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitAccordionLightPreview() {
+internal fun CanvasKitAccordionLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         AccordionPreviewContent()
     }
@@ -101,7 +101,7 @@ fun CanvasKitAccordionLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitAccordionDarkPreview() {
+internal fun CanvasKitAccordionDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         AccordionPreviewContent()
     }

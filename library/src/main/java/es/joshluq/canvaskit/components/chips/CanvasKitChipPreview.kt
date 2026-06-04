@@ -109,7 +109,7 @@ private fun SampleChips() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitChipLightPreview() {
+internal fun CanvasKitChipLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             SampleChips()
@@ -119,7 +119,7 @@ fun CanvasKitChipLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitChipDarkPreview() {
+internal fun CanvasKitChipDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             SampleChips()
@@ -129,7 +129,7 @@ fun CanvasKitChipDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitChipRtlPreview() {
+internal fun CanvasKitChipRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
@@ -141,7 +141,7 @@ fun CanvasKitChipRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitChipFontScalePreview() {
+internal fun CanvasKitChipFontScalePreview() {
     CanvasKitTheme {
         Box(modifier = Modifier.background(CanvasKitTheme.colors.backgroundPrimary)) {
             SampleChips()

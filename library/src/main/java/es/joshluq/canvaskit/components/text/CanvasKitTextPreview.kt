@@ -65,7 +65,7 @@ private fun TextLinksPreviewContainer() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitTextLinksLightPreview() {
+internal fun CanvasKitTextLinksLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         TextLinksPreviewContainer()
     }
@@ -73,7 +73,7 @@ fun CanvasKitTextLinksLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitTextLinksDarkPreview() {
+internal fun CanvasKitTextLinksDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         TextLinksPreviewContainer()
     }
@@ -81,7 +81,7 @@ fun CanvasKitTextLinksDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitTextLinksRtlPreview() {
+internal fun CanvasKitTextLinksRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             TextLinksPreviewContainer()
@@ -91,7 +91,7 @@ fun CanvasKitTextLinksRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitTextLinksFontScalePreview() {
+internal fun CanvasKitTextLinksFontScalePreview() {
     CanvasKitTheme {
         TextLinksPreviewContainer()
     }

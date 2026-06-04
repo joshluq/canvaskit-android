@@ -103,7 +103,7 @@ private fun ListItemPreviewContainer() {
 
 @Preview(name = "Light Mode", showBackground = true)
 @Composable
-fun CanvasKitListItemLightPreview() {
+internal fun CanvasKitListItemLightPreview() {
     CanvasKitTheme(darkTheme = false) {
         ListItemPreviewContainer()
     }
@@ -111,7 +111,7 @@ fun CanvasKitListItemLightPreview() {
 
 @Preview(name = "Dark Mode", showBackground = true, backgroundColor = 0xFF080C14)
 @Composable
-fun CanvasKitListItemDarkPreview() {
+internal fun CanvasKitListItemDarkPreview() {
     CanvasKitTheme(darkTheme = true) {
         ListItemPreviewContainer()
     }
@@ -119,7 +119,7 @@ fun CanvasKitListItemDarkPreview() {
 
 @Preview(name = "RTL Layout", showBackground = true)
 @Composable
-fun CanvasKitListItemRtlPreview() {
+internal fun CanvasKitListItemRtlPreview() {
     CanvasKitTheme {
         CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
             ListItemPreviewContainer()
@@ -129,7 +129,7 @@ fun CanvasKitListItemRtlPreview() {
 
 @Preview(name = "Large Font Scale (2.0x)", showBackground = true, fontScale = 2.0f)
 @Composable
-fun CanvasKitListItemFontScalePreview() {
+internal fun CanvasKitListItemFontScalePreview() {
     CanvasKitTheme {
         ListItemPreviewContainer()
     }
