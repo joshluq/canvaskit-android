@@ -7,6 +7,7 @@ import androidx.compose.material3.DatePickerDefaults
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
@@ -100,6 +101,18 @@ private fun canvasKitDatePickerColors(): DatePickerColors {
         selectedDayContainerColor = colors.brandAccent,
         todayContentColor = colors.brandAccent,
         dayInSelectionRangeContentColor = colors.brandAccent,
-        dayInSelectionRangeContainerColor = colors.brandAccent.copy(alpha = 0.12f)
+        dayInSelectionRangeContainerColor = colors.brandAccent.copy(alpha = 0.12f),
+        todayDateBorderColor = colors.brandAccent,
+        dateTextFieldColors = TextFieldDefaults.colors(
+            focusedTextColor = colors.textPrimary,
+            unfocusedTextColor = colors.textPrimary,
+            focusedContainerColor = colors.backgroundPrimary,
+            unfocusedContainerColor = colors.backgroundPrimary,
+            cursorColor = colors.brandAccent,
+            focusedIndicatorColor = colors.brandAccent,
+            unfocusedIndicatorColor = colors.borderSubtle,
+            focusedLabelColor = colors.brandAccent,
+            unfocusedLabelColor = colors.textSecondary
+            )
     )
 }
