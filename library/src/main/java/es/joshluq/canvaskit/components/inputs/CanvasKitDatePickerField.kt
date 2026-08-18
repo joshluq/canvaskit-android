@@ -1,6 +1,7 @@
 package es.joshluq.canvaskit.components.inputs
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -57,6 +58,7 @@ fun CanvasKitDatePickerField(
 ) {
     var showDialog by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState(initialSelectedDateMillis = selectedDateMillis)
+    val interactionSource = remember { MutableInteractionSource() }
 
     val formattedDate = remember(selectedDateMillis, dateFormat) {
         selectedDateMillis?.let {
@@ -89,7 +91,11 @@ fun CanvasKitDatePickerField(
         Box(
             modifier = Modifier
                 .matchParentSize()
-                .clickable(enabled = enabled) {
+                .clickable(
+                    enabled = enabled,
+                    interactionSource = interactionSource,
+                    indication = null
+                ) {
                     showDialog = true
                 }
         )
