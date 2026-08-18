@@ -43,6 +43,15 @@ enum class CanvasKitCardVariant {
  * It follows Composition over Configuration principles, providing slot layouts for
  * header, footer, and main content while managing interactive states and scale motions.
  *
+ * ### Structural Slots:
+ * To maintain visual consistency across the application, use the predefined slots:
+ * - **Header:** For titles, subtitles, or top-aligned icons.
+ * - **Content:** For the main body of information.
+ * - **Footer:** For actions, buttons, or secondary metadata.
+ *
+ * Using these slots ensures that horizontal separators and internal paddings are applied
+ * according to the Atelier Design System.
+ *
  * @param onClick Optional callback when card is clicked. When provided, card is focusable and interactive.
  * @param modifier Root layout modifier.
  * @param variant Visual variant of the card container (Outlined, Elevated, Flat).
@@ -55,8 +64,8 @@ enum class CanvasKitCardVariant {
  */
 @Composable
 fun CanvasKitCard(
-    onClick: (() -> Unit)? = null,
     modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
     variant: CanvasKitCardVariant = CanvasKitCardVariant.Outlined,
     selected: Boolean = false,
     enabled: Boolean = true,

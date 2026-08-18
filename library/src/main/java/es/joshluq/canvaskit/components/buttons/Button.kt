@@ -28,6 +28,12 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import es.joshluq.canvaskit.components.feedback.CanvasKitLoadingSpinner
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
@@ -41,28 +47,60 @@ enum class CanvasKitButtonVariant {
 }
 
 /**
+ * Size variants for the CanvasKitButton component.
+ */
+enum class CanvasKitButtonSize {
+    Small,
+    Medium,
+    Large
+}
+
+/**
+ * Icon positions for the CanvasKitButton component.
+ */
+enum class CanvasKitButtonIconPosition {
+    Leading,
+    Trailing
+}
+
+/**
  * CanvasKitButton is a highly-polished, customizable, and accessible button component.
  * It strictly adheres to design tokens for colors, typography, shapes, and motion.
+ *
+ * ### Best Practices:
+ * - **Standard Use:** Prefer [text] and [icon] parameters for the majority of use cases. This ensures the button correctly applies system-standard spacing and alignment.
+ * - **Custom Content:** Only use the [content] slot for non-standard layouts. If [content] is provided, [text] and [icon] are ignored.
+ * - **Sizing:** Use [size] to adjust the button's scale (Small, Medium, Large) which automatically manages paddings and typography scales.
+ * - **Feedback:** Includes built-in haptic feedback and scale-based motion for a premium interactive feel.
  *
  * @param onClick Callback to run on click.
  * @param modifier Root layout modifier.
  * @param variant Visual button variant (Primary, Secondary, Ghost).
+ * @param size Scale of the button (Small, Medium, Large).
  * @param enabled Controls whether the button is clickable and visual state.
  * @param loading Shows a progress spinner and prevents clicks when true.
+ * @param text Optional label text for the button.
+ * @param icon Optional leading or trailing icon.
+ * @param iconPosition Position of the icon relative to the text.
  * @param interactionSource Custom interaction source to track state.
- * @param content Composable slot for the button content.
+ * @param content Custom composable slot for the button content. If provided, [text] and [icon] are ignored.
  */
 @Composable
 fun CanvasKitButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     variant: CanvasKitButtonVariant = CanvasKitButtonVariant.Primary,
+    size: CanvasKitButtonSize = CanvasKitButtonSize.Medium,
     enabled: Boolean = true,
     loading: Boolean = false,
+    text: String? = null,
+    icon: ImageVector? = null,
+    iconPosition: CanvasKitButtonIconPosition = CanvasKitButtonIconPosition.Leading,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: @Composable RowScope.(contentColor: Color) -> Unit
+    content: (@Composable RowScope.(contentColor: Color) -> Unit)? = null
 ) {
     val isPressed by interactionSource.collectIsPressedAsState()
+    val haptic = LocalHapticFeedback.current
     val theme = CanvasKitTheme
 
     val scale by animateFloatAsState(
@@ -97,11 +135,42 @@ fun CanvasKitButton(
         else -> null
     }
 
+    // Size-based adjustments
+    val minHeight = when (size) {
+        CanvasKitButtonSize.Small -> 32.dp
+        CanvasKitButtonSize.Medium -> 44.dp
+        CanvasKitButtonSize.Large -> 56.dp
+    }
+
+    val horizontalPadding = when (size) {
+        CanvasKitButtonSize.Small -> spacing.sm
+        CanvasKitButtonSize.Medium -> spacing.md
+        CanvasKitButtonSize.Large -> spacing.lg
+    }
+
+    val verticalPadding = when (size) {
+        CanvasKitButtonSize.Small -> spacing.xs
+        CanvasKitButtonSize.Medium -> spacing.sm
+        CanvasKitButtonSize.Large -> spacing.md
+    }
+
+    val textStyle = when (size) {
+        CanvasKitButtonSize.Small -> theme.typography.labelSmall
+        CanvasKitButtonSize.Medium -> theme.typography.labelLarge
+        CanvasKitButtonSize.Large -> theme.typography.headingMedium
+    }
+
+    val iconSize = when (size) {
+        CanvasKitButtonSize.Small -> 16.dp
+        CanvasKitButtonSize.Medium -> 20.dp
+        CanvasKitButtonSize.Large -> 24.dp
+    }
+
     Box(
         modifier = modifier
             .graphicsLayer(scaleX = scale, scaleY = scale)
             .alpha(contentAlpha)
-            .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
+            .defaultMinSize(minWidth = minHeight, minHeight = minHeight)
             .clip(shapes.pill)
             .then(
                 if (borderStroke != null) Modifier.border(borderStroke, shapes.pill) else Modifier
@@ -112,9 +181,12 @@ fun CanvasKitButton(
                 indication = null,
                 enabled = enabled && !loading,
                 role = Role.Button,
-                onClick = onClick
+                onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                    onClick()
+                }
             )
-            .padding(horizontal = spacing.md, vertical = spacing.sm)
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding)
             .semantics(mergeDescendants = true) {
                 role = Role.Button
                 if (loading) {
@@ -124,7 +196,7 @@ fun CanvasKitButton(
         contentAlignment = Alignment.Center
     ) {
         if (loading) {
-            CanvasKitLoadingSpinner(color = contentColor)
+            CanvasKitLoadingSpinner(color = contentColor, modifier = Modifier.size(iconSize))
         } else {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -133,7 +205,35 @@ fun CanvasKitButton(
                 ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                content(contentColor)
+                if (content != null) {
+                    content(contentColor)
+                } else {
+                    if (icon != null && iconPosition == CanvasKitButtonIconPosition.Leading) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            modifier = Modifier.size(iconSize),
+                            tint = contentColor
+                        )
+                    }
+
+                    if (text != null) {
+                        Text(
+                            text = text,
+                            style = textStyle,
+                            color = contentColor
+                        )
+                    }
+
+                    if (icon != null && iconPosition == CanvasKitButtonIconPosition.Trailing) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            modifier = Modifier.size(iconSize),
+                            tint = contentColor
+                        )
+                    }
+                }
             }
         }
     }

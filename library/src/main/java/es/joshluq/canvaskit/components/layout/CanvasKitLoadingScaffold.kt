@@ -8,8 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.FabPosition
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.runtime.Composable
@@ -26,6 +29,11 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 /**
  * CanvasKitLoadingScaffold is an advanced layout container that automatically handles
  * application loading states with artisanal precision.
+ *
+ * ### Loading Strategies:
+ * - **ReplaceContent:** (Default) Hides the main content and shows a central spinner. Best for initial data loads.
+ * - **OverlayFullscreen:** Blocks the entire screen (including top/bottom bars) with a semi-transparent overlay. Use for critical blocking operations (e.g. submitting a payment).
+ * - **ProgressLine:** Shows a subtle linear progress bar below the TopBar. Best for background refreshes where the user can still interact with the current content.
  *
  * @param isLoading Whether the screen is currently in a loading state.
  * @param loadingStrategy Defines how the loading state is presented to the user.
@@ -97,6 +105,25 @@ fun CanvasKitLoadingScaffold(
                     ) {
                         loadingContent()
                     }
+                }
+            }
+
+            // Progress Line Strategy
+            if (loadingStrategy == CanvasKitLoadingStrategy.ProgressLine) {
+                AnimatedVisibility(
+                    visible = isLoading,
+                    enter = fadeIn(),
+                    exit = fadeOut(),
+                    modifier = Modifier
+                        .padding(paddingValues)
+                        .fillMaxWidth()
+                        .align(Alignment.TopCenter)
+                ) {
+                    LinearProgressIndicator(
+                        modifier = Modifier.fillMaxWidth(),
+                        color = CanvasKitTheme.colors.brandAccent,
+                        trackColor = CanvasKitTheme.colors.brandAccent.copy(alpha = 0.1f)
+                    )
                 }
             }
         }

@@ -73,7 +73,7 @@ private fun PreviewStateView(
     }
 }
 
-@Preview(name = "Empty State - Light", showBackground = true)
+@Preview(name = "Empty State - Light", showBackground = false, showSystemUi = true)
 @Composable
 internal fun CanvasKitStateViewEmptyLightPreview() {
     CanvasKitTheme(darkTheme = false) {

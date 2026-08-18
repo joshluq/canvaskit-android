@@ -27,6 +27,7 @@ import es.joshluq.canvaskit.components.buttons.CanvasKitButtonVariant
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.inputs.CanvasKitDatePicker
 import es.joshluq.canvaskit.components.inputs.CanvasKitDatePickerDialog
+import es.joshluq.canvaskit.components.inputs.CanvasKitDatePickerField
 import es.joshluq.canvaskit.components.layout.CanvasKitLoadingScaffold
 import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
@@ -46,6 +47,7 @@ fun DatePickerScreen(
     var showDialog by remember { mutableStateOf(false) }
     val datePickerState = rememberDatePickerState()
     val inlineDatePickerState = rememberDatePickerState()
+    var fieldDateMillis by remember { mutableStateOf<Long?>(null) }
     
     val dateFormatter = remember { SimpleDateFormat("dd MMM yyyy", Locale.getDefault()) }
     val selectedDateText = datePickerState.selectedDateMillis?.let {
@@ -139,6 +141,19 @@ fun DatePickerScreen(
                         showModeToggle = false,
                         title = null,
                         headline = null
+                    )
+                }
+
+                // Section: Picker Field
+                SpecSectionCard(
+                    title = "Picker Field",
+                    description = "Combination of a read-only text input and a modal selector."
+                ) {
+                    CanvasKitDatePickerField(
+                        label = "Event Date",
+                        selectedDateMillis = fieldDateMillis,
+                        onDateSelected = { fieldDateMillis = it },
+                        placeholder = "Choose a date..."
                     )
                 }
             }
