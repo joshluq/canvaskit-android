@@ -47,7 +47,12 @@ enum class CanvasKitTextFieldVariant {
 
 /**
  * CanvasKitTextField is a highly customizable modern text input component following the latest M3 guidelines.
- * Supports filled and outlined variations, floating animated labels, support text, error status, and custom icons.
+ * Supports filled and outlined variations, built-in labels, support text, error status, and custom icons.
+ *
+ * ### Best Practices:
+ * - **Labeling:** Use the [label] parameter directly. Do NOT wrap this component in a `Column { Text; CanvasKitTextField }` as it already handles label positioning and accessibility semantics internally.
+ * - **Units:** Use [prefix] or [suffix] for units (e.g. "Km", "€"). This ensures correct alignment and consistent styling compared to using manual icons for text.
+ * - **Read-Only:** Use [readOnly] for detail screens where the value must be displayed but not edited, preventing keyboard pop-ups while maintaining visual brand identity.
  *
  * @param value Input text.
  * @param onValueChange Callback to fire when input text changes.
@@ -76,11 +81,14 @@ fun CanvasKitTextField(
     placeholder: String? = null,
     variant: CanvasKitTextFieldVariant = CanvasKitTextFieldVariant.Outlined,
     enabled: Boolean = true,
+    readOnly: Boolean = false,
     isError: Boolean = false,
     helperText: String? = null,
     errorText: String? = null,
     leadingIcon: (@Composable () -> Unit)? = null,
     trailingIcon: (@Composable () -> Unit)? = null,
+    prefix: String? = null,
+    suffix: String? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
@@ -132,7 +140,7 @@ fun CanvasKitTextField(
                 text = label,
                 color = if (isError) colors.error else colors.textPrimary,
                 style = typography.labelSmall,
-                modifier = Modifier.padding(bottom = spacing.xs, start = spacing.lg)
+                modifier = Modifier.padding(bottom = spacing.xxs, start = spacing.lg)
             )
         }
         BasicTextField(
@@ -143,6 +151,7 @@ fun CanvasKitTextField(
                 .focusRequester(focusRequester)
                 .onFocusChanged { isFocused = it.isFocused },
             enabled = enabled,
+            readOnly = readOnly,
             textStyle = typography.bodyMedium.copy(
                 color = if (enabled) colors.textPrimary else colors.textSecondary
             ),
@@ -180,6 +189,15 @@ fun CanvasKitTextField(
                             }
                         }
 
+                        if (!prefix.isNullOrEmpty()) {
+                            Text(
+                                text = prefix,
+                                style = typography.bodyMedium,
+                                color = colors.textSecondary,
+                                modifier = Modifier.padding(end = spacing.xs)
+                            )
+                        }
+
                         Box(
                             modifier = Modifier
                                 .weight(1f)
@@ -200,6 +218,15 @@ fun CanvasKitTextField(
                             ) {
                                 innerTextField()
                             }
+                        }
+
+                        if (!suffix.isNullOrEmpty()) {
+                            Text(
+                                text = suffix,
+                                style = typography.bodyMedium,
+                                color = colors.textSecondary,
+                                modifier = Modifier.padding(start = spacing.xs)
+                            )
                         }
 
                         if (trailingIcon != null) {

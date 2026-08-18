@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.pluginkit.android.application)
     alias(libs.plugins.pluginkit.android.compose)
     alias(libs.plugins.pluginkit.android.hilt)
+    alias(libs.plugins.pluginkit.android.navigation)
     alias(libs.plugins.pluginkit.quality)
     alias(libs.plugins.pluginkit.android.testing)
     alias(libs.plugins.kotlin.serialization)
@@ -21,6 +22,4 @@ configure<ApplicationExtension> {
 
 dependencies {
     implementation(project(":canvaskit"))
-    implementation("androidx.navigation3:navigation3-runtime:1.1.2")
-    implementation("androidx.navigation3:navigation3-ui:1.1.2")
 }
