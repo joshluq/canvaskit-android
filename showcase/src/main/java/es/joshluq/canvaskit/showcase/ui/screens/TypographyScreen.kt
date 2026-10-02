@@ -134,13 +134,28 @@ fun TypographyScreen(
                         TypographyItem("Label Small", CanvasKitTheme.typography.labelSmall)
                     }
                 }
+
+                // Section: Precision & Micro-Typography (Atelier DNA)
+                SpecSectionCard(
+                    title = "Precision & Micro-Typography",
+                    description = "Specialized styles featuring OpenType tabular numerals (tnum) and overline tracking."
+                ) {
+                    Column(verticalArrangement = Arrangement.spacedBy(spacing.lg)) {
+                        TypographyItem("Overline (Kicker / Tag)", CanvasKitTheme.typography.overline, sampleText = "SYSTEM STATUS: OPERATIONAL")
+                        TypographyItem("Tabular Number (Metrics)", CanvasKitTheme.typography.tabularNumber, sampleText = "+$14,920.50 (99.98%)")
+                    }
+                }
             }
         }
     }
 }
 
 @Composable
-private fun TypographyItem(name: String, style: TextStyle) {
+private fun TypographyItem(
+    name: String,
+    style: TextStyle,
+    sampleText: String = "Atelier Design System"
+) {
     val colors = CanvasKitTheme.colors
     val spacing = CanvasKitTheme.spacing
     
@@ -152,7 +167,7 @@ private fun TypographyItem(name: String, style: TextStyle) {
             modifier = Modifier.padding(bottom = spacing.xs)
         )
         Text(
-            text = "Atelier Design System",
+            text = sampleText,
             style = style,
             color = colors.textPrimary
         )
