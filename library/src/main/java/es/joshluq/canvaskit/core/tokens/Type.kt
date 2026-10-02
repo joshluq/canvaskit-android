@@ -35,6 +35,7 @@ data class CanvasKitTypography(
             fontSize = 42.sp,
             lineHeight = 48.sp,
             letterSpacing = (-1.5).sp,
+            fontFeatureSettings = "tnum",
         ),
     val displayMedium: TextStyle =
         TextStyle(
@@ -43,6 +44,7 @@ data class CanvasKitTypography(
             fontSize = 34.sp,
             lineHeight = 40.sp,
             letterSpacing = (-1).sp,
+            fontFeatureSettings = "tnum",
         ),
     val headingLarge: TextStyle =
         TextStyle(
@@ -51,6 +53,7 @@ data class CanvasKitTypography(
             fontSize = 26.sp,
             lineHeight = 34.sp,
             letterSpacing = (-0.5).sp,
+            fontFeatureSettings = "tnum",
         ),
     val headingMedium: TextStyle =
         TextStyle(
@@ -59,6 +62,7 @@ data class CanvasKitTypography(
             fontSize = 22.sp,
             lineHeight = 30.sp,
             letterSpacing = (-0.25).sp,
+            fontFeatureSettings = "tnum",
         ),
     val bodyLarge: TextStyle =
         TextStyle(
@@ -91,6 +95,24 @@ data class CanvasKitTypography(
             fontSize = 11.sp,
             lineHeight = 16.sp,
             letterSpacing = 0.1.sp,
+        ),
+    val overline: TextStyle =
+        TextStyle(
+            fontFamily = InterFontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 10.sp,
+            lineHeight = 14.sp,
+            letterSpacing = 1.5.sp,
+            fontFeatureSettings = "tnum",
+        ),
+    val tabularNumber: TextStyle =
+        TextStyle(
+            fontFamily = InterFontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 16.sp,
+            lineHeight = 24.sp,
+            letterSpacing = 0.sp,
+            fontFeatureSettings = "tnum",
         ),
 )
 

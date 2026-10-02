@@ -76,14 +76,45 @@ Replaces generic circular Android ripples with tactile, artisanal micro-interact
 | Package | Components | Highlights |
 |---|---|---|
 | **`navigation`** | `CanvasKitSegmentedControl`<br>`CanvasKitPagerIndicator`<br>`CanvasKitTabRow` & `CanvasKitTab`<br>`CanvasKitTopBar`<br>`CanvasKitBottomBar` | Elastic sliding pill indicator, Worm & Dots page transitions, Underline & Pill tab indicators. |
-| **`feedback`** | `CanvasKitLinearProgressBar`<br>`CanvasKitCircularProgressBar`<br>`CanvasKitStepIndicator`<br>`CanvasKitBanner`<br>`CanvasKitDialog`<br>`CanvasKitSkeleton` | Spring-backed determinate & continuous sweep indeterminate modes, Horizontal wizard & Vertical timeline steppers. |
-| **`inputs`** | `CanvasKitOtpField`<br>`CanvasKitSearchField`<br>`CanvasKitSwitch`<br>`CanvasKitCheckbox`<br>`CanvasKitRadioButton`<br>`CanvasKitSlider`<br>`TextField` | Single-field consolidated OTP (SMS auto-fill compatible, masked PIN support), pill search bar with animated clear & loading states. |
+| **`feedback`** | `CanvasKitStatusDot`<br>`CanvasKitLinearProgressBar`<br>`CanvasKitCircularProgressBar`<br>`CanvasKitStepIndicator`<br>`CanvasKitBanner`<br>`CanvasKitDialog`<br>`CanvasKitSkeleton` | Tactical radar LED status indicators with live pulse waves, spring-backed determinate & continuous sweep indeterminate modes, Horizontal wizard & Vertical timeline steppers. |
+| **`inputs`** | `CanvasKitOtpField`<br>`CanvasKitSearchField`<br>`CanvasKitSwitch`<br>`CanvasKitCheckbox`<br>`CanvasKitRadioButton`<br>`CanvasKitSlider`<br>`TextField` | Single-field consolidated OTP (SMS auto-fill compatible, masked PIN support), tactile haptic switch toggle, pill search bar with animated clear & loading states. |
 | **`content`** | `CanvasKitBadge`<br>`CanvasKitBadgedBox`<br>`CanvasKitAvatar`<br>`CanvasKitAvatarGroup` | Spring pop-in notification dots and 99+ counters, user initials extraction fallback, presence indicators with cutout rings, overlapping avatar stacks. |
 | **`lists`** | `CanvasKitSwipeToDismissBox`<br>`CanvasKitListItem` | Spring rebound dismiss gestures, bidirectional archive/delete reveal, custom TalkBack accessibility actions. |
 | **`layout`** | `CanvasKitDivider`<br>`CanvasKitVerticalDivider`<br>`CanvasKitAccordion`<br>`CanvasKitLoadingScaffold` | Tokenized hairline strokes, inset text alignment margins, collapsible animated groups. |
-| **`buttons`** | `CanvasKitButton`<br>`CanvasKitIconButton` | Primary, Secondary, Ghost variants, tactile press scaling, slot-based content. |
-| **`cards`** | `CanvasKitCard` | Elevated, Outlined, and Flat card containers with slot-based headers and footers. |
-| **`chips`** | `CanvasKitChip` | Filter, Suggestion, and Assist chips with active borders and selection states. |
+| **`buttons`** | `CanvasKitButton`<br>`CanvasKitIconButton` | Primary, Secondary, Ghost variants, tactile mechanical haptics, spring press scaling, slot-based content. |
+| **`cards`** | `CanvasKitCard` | Atelier specular hairline highlight, Elevated, Outlined, and Flat containers with slot-based headers and footers. |
+| **`chips`** | `CanvasKitChip` | Filter, Suggestion, and Assist chips with tactile haptics, active borders, and selection states. |
+
+---
+
+## 🎨 Multi-Palette & Theming System
+
+CanvasKit features a **curated multi-palette engine** (`CanvasPalette`) that completely decouples visual identity from specific brand names, enabling any application in the ecosystem to switch identities in a single line of code with **100% certified WCAG AA contrast ratios**:
+
+| Palette | Identity / Tone | Primary (`brandPrimary`) | Accent (`brandAccent`) | Best For |
+|---|---|---|---|---|
+| **`CanvasPalette.Navy`** *(Default)* | Deep Navy + Electric Blue | `#001E50` | `#00B0F0` | Kilomenos, Corporate, Fintech |
+| **`CanvasPalette.Emerald`** | Pine Green + Emerald Mint | `#064E3B` | `#059669` (Light) / `#34D399` (Dark) | Sustainability, Logistics, Health |
+| **`CanvasPalette.Crimson`** | Deep Burgundy + Ruby Rose | `#881337` | `#E11D48` (Light) / `#FB7185` (Dark) | Retail, Promotions, Lifestyle |
+| **`CanvasPalette.Amber`** | Warm Bronze + Vivid Amber | `#78350F` | `#C2410C` (Light) / `#FBBF24` (Dark) | Delivery, Energy, Mobility |
+| **`CanvasPalette.Amethyst`** | Royal Purple + Vivid Violet | `#3B0764` | `#7C3AED` (Light) / `#A78BFA` (Dark) | Media, Streaming, Web3, Loyalty |
+
+*(Note: `CanvasPalette.Kilomenos` is preserved as a deprecated alias pointing directly to `CanvasPalette.Navy` for seamless backward compatibility).*
+
+---
+
+## 💎 Atelier Signature Identity ("Atelier Precision")
+
+CanvasKit incorporates a distinctive visual and tactile signature inspired by high-end precision instruments:
+
+1. **Specular Top Hairline (`Modifier.specularBorder`):** Outlined cards and containers feature a directional specular highlight that catches the top rim (subtle brand accent in Light Mode, moonlight white in Dark Mode), creating an architectural beveled appearance without blurry drop shadows.
+2. **Precision Micro-Typography (`tnum` & `overline`):**
+   * **Tabular Numerals (`tnum`):** Pre-configured in all display styles and headings. Metrics, prices, and counters never jitter or shift width when updating.
+   * **`CanvasKitTheme.typography.overline`:** `10.sp`, `SemiBold`, `letterSpacing = 1.5.sp` in uppercase for kickers, category tags, and system labels.
+   * **`CanvasKitTheme.typography.tabularNumber`:** `16.sp`, `SemiBold` with tabular alignment for data tables and financial amounts.
+3. **Tactical Focus Halo (`Modifier.tacticalFocusHalo`):** Dual-layer focus indicator (1.5dp inner isolation gap + 2dp outer focus ring) conforming strictly to **WCAG 2.2**, guaranteeing $\ge 3:1$ contrast against any background surface.
+4. **Tactical Radar Status Dot (`CanvasKitStatusDot`):** Dual-ring optical LED indicator with solid core and optional concentric radar pulse wave. Calibrated to prevent visual fatigue (static by default).
+5. **Mechanical Haptics ("True Touch"):** Replaces the absence of system ripples with purposeful physical feedback via `LocalHapticFeedback` (decisive press click on primary buttons, mechanical ticks on switches, chips, and cards).
 
 ---
 
@@ -97,26 +128,80 @@ Every public CanvasKit component is accompanied by a dedicated `ComponentNamePre
 
 ---
 
-## 🛠️ Usage & Integration
+## 🛠️ Usage & Integration for Consuming Apps
 
-### 1. Theme Configuration
-Wrap your application's root in the `CanvasKitTheme` provider to feed custom design tokens through CompositionLocals:
+### 1. Theme & Palette Configuration
+Wrap your application's root in `CanvasKitTheme`, specifying your desired palette:
 
 ```kotlin
+import es.joshluq.canvaskit.core.tokens.palettes.CanvasPalette
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
-import es.joshluq.canvaskit.components.buttons.CanvasKitButton
 
 setContent {
     CanvasKitTheme(
-        darkTheme = isSystemInDarkTheme()
+        darkTheme = isSystemInDarkTheme(),
+        palette = CanvasPalette.Emerald // Or Navy, Crimson, Amber, Amethyst
     ) {
-        CanvasKitButton(
-            onClick = { /* Handle action */ }
-        ) {
-            Text("Canvas Button")
-        }
+        AppNavigation()
     }
 }
+```
+
+### 2. Containers with Specular Hairline
+```kotlin
+import es.joshluq.canvaskit.components.cards.CanvasKitCard
+import es.joshluq.canvaskit.components.cards.CanvasKitCardVariant
+
+CanvasKitCard(
+    variant = CanvasKitCardVariant.Outlined,
+    specularHighlight = true, // Enabled by default
+    header = {
+        Text(
+            text = "METRICS OVERVIEW",
+            style = CanvasKitTheme.typography.overline,
+            color = CanvasKitTheme.colors.textSecondary
+        )
+    }
+) {
+    Text(
+        text = "$28,450.00",
+        style = CanvasKitTheme.typography.headingLarge,
+        color = CanvasKitTheme.colors.textPrimary
+    )
+}
+```
+
+### 3. Precision Status Indicators (Status Dots)
+```kotlin
+import es.joshluq.canvaskit.components.feedback.CanvasKitStatusDot
+import es.joshluq.canvaskit.components.feedback.CanvasKitStatusDotVariant
+
+// Static tactical halo
+CanvasKitStatusDot(
+    variant = CanvasKitStatusDotVariant.Success,
+    label = { Text("Systems Operational", style = CanvasKitTheme.typography.labelSmall) }
+)
+
+// Live active radar pulse
+CanvasKitStatusDot(
+    variant = CanvasKitStatusDotVariant.Brand,
+    animatePulse = true,
+    label = { Text("Synchronizing Node...", style = CanvasKitTheme.typography.labelSmall) }
+)
+```
+
+### 4. Tactical Focus Halo for Custom Components
+```kotlin
+import es.joshluq.canvaskit.foundations.modifiers.tacticalFocusHalo
+
+Box(
+    modifier = Modifier
+        .tacticalFocusHalo(
+            interactionSource = interactionSource,
+            shape = CanvasKitTheme.shapes.small
+        )
+        .clickable(interactionSource = interactionSource, indication = null) { ... }
+)
 ```
 
 ---

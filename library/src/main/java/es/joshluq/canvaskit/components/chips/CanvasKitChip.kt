@@ -26,6 +26,8 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
@@ -102,6 +104,8 @@ fun CanvasKitChip(
         CanvasKitChipVariant.Primary, CanvasKitChipVariant.Ghost -> null
     }
 
+    val haptic = LocalHapticFeedback.current
+
     Box(
         modifier = modifier
             .graphicsLayer(scaleX = scale, scaleY = scale)
@@ -117,7 +121,10 @@ fun CanvasKitChip(
                 indication = null, // Disable ripple for custom scale animation
                 enabled = enabled,
                 role = Role.Button,
-                onClick = onClick
+                onClick = {
+                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    onClick()
+                }
             )
             .padding(horizontal = spacing.sm, vertical = spacing.xs)
             .semantics(mergeDescendants = true) {
