@@ -20,15 +20,15 @@ data class CanvasKitSpacing(
     val xl: Dp = 32.dp,
     val xxl: Dp = 48.dp,
     val xxxl: Dp = 64.dp,
-
     // Semantic Screen Margins
     val screenHorizontal: Dp = 24.dp,
-    val screenVertical: Dp = 16.dp
+    val screenVertical: Dp = 16.dp,
 )
 
 /**
  * CompositionLocal key for [CanvasKitSpacing].
  */
-val LocalCanvasKitSpacing = staticCompositionLocalOf {
-    CanvasKitSpacing()
-}
+val LocalCanvasKitSpacing =
+    staticCompositionLocalOf {
+        CanvasKitSpacing()
+    }

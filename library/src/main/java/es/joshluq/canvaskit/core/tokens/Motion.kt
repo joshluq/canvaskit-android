@@ -19,19 +19,18 @@ data class CanvasKitMotion(
     val medium2: Int = 400,
     val long1: Int = 500,
     val long2: Int = 800,
-
     // Easings
     val standard: Easing = FastOutSlowInEasing,
     val decelerate: Easing = LinearOutSlowInEasing,
     val accelerate: Easing = FastOutLinearInEasing,
-
     // Scales
-    val pressedScale: Float = 0.97f
+    val pressedScale: Float = 0.97f,
 )
 
 /**
  * CompositionLocal key for [CanvasKitMotion].
  */
-val LocalCanvasKitMotion = staticCompositionLocalOf {
-    CanvasKitMotion()
-}
+val LocalCanvasKitMotion =
+    staticCompositionLocalOf {
+        CanvasKitMotion()
+    }

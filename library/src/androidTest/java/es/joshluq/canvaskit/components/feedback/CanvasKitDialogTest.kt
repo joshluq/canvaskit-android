@@ -15,7 +15,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitDialogTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -26,18 +25,18 @@ class CanvasKitDialogTest {
         composeTestRule.setContent {
             CanvasKitTheme {
                 CanvasKitDialog(
-                    onDismissRequest = { dismissCalled = true }
+                    onDismissRequest = { dismissCalled = true },
                 ) {
                     CanvasKitDialogContent(
                         title = { Text("Dialog Title") },
                         content = { Text("Dialog Content Body") },
                         buttons = {
                             CanvasKitButton(
-                                onClick = { dismissCalled = true }
+                                onClick = { dismissCalled = true },
                             ) {
                                 Text("Dismiss")
                             }
-                        }
+                        },
                     )
                 }
             }

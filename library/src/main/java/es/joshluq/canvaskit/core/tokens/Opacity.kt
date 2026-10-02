@@ -12,12 +12,13 @@ data class CanvasKitOpacity(
     val disabled: Float = 0.38f,
     val subtle: Float = 0.5f,
     val medium: Float = 0.7f,
-    val full: Float = 1.0f
+    val full: Float = 1.0f,
 )
 
 /**
  * CompositionLocal key for [CanvasKitOpacity].
  */
-val LocalCanvasKitOpacity = staticCompositionLocalOf {
-    CanvasKitOpacity()
-}
+val LocalCanvasKitOpacity =
+    staticCompositionLocalOf {
+        CanvasKitOpacity()
+    }
