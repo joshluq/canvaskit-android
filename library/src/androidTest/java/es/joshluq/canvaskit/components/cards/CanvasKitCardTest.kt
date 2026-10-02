@@ -22,7 +22,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitCardTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -32,7 +31,7 @@ class CanvasKitCardTest {
             CanvasKitTheme {
                 CanvasKitCard(
                     header = { Text("Header Text") },
-                    footer = { Text("Footer Text") }
+                    footer = { Text("Footer Text") },
                 ) {
                     Text("Body Content")
                 }
@@ -50,7 +49,7 @@ class CanvasKitCardTest {
         composeTestRule.setContent {
             CanvasKitTheme {
                 CanvasKitCard(
-                    onClick = { clicked = true }
+                    onClick = { clicked = true },
                 ) {
                     Text("Clickable Card")
                 }
@@ -74,7 +73,7 @@ class CanvasKitCardTest {
             CanvasKitTheme {
                 CanvasKitCard(
                     onClick = { clicked = true },
-                    enabled = false
+                    enabled = false,
                 ) {
                     Text("Disabled Card")
                 }
@@ -94,12 +93,12 @@ class CanvasKitCardTest {
             CanvasKitTheme {
                 Column {
                     CanvasKitCard(
-                        selected = true
+                        selected = true,
                     ) {
                         Text("Selected Card")
                     }
                     CanvasKitCard(
-                        selected = false
+                        selected = false,
                     ) {
                         Text("Unselected Card")
                     }
@@ -108,10 +107,12 @@ class CanvasKitCardTest {
         }
 
         // Verify state description
-        composeTestRule.onNodeWithText("Selected Card")
+        composeTestRule
+            .onNodeWithText("Selected Card")
             .assert(hasStateDescription("Seleccionado"))
 
-        composeTestRule.onNodeWithText("Unselected Card")
+        composeTestRule
+            .onNodeWithText("Unselected Card")
             .assert(hasStateDescription("No seleccionado"))
     }
 }

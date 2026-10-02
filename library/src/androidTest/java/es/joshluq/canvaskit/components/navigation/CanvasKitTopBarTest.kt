@@ -15,7 +15,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitTopBarTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -26,7 +25,7 @@ class CanvasKitTopBarTest {
                 CanvasKitTopBar(
                     title = { Text("App Title") },
                     navigationIcon = { Text("BackIcon") },
-                    actions = { Text("SettingsAction") }
+                    actions = { Text("SettingsAction") },
                 )
             }
         }
@@ -43,7 +42,7 @@ class CanvasKitTopBarTest {
             CanvasKitTheme {
                 CanvasKitTopBar(
                     title = { Text("Centered Title") },
-                    centeredTitle = true
+                    centeredTitle = true,
                 )
             }
         }
@@ -63,7 +62,7 @@ class CanvasKitTopBarTest {
                     navigationIcon = {
                         CanvasKitIconButton(
                             onClick = { navClicked = true },
-                            contentDescription = "Back"
+                            contentDescription = "Back",
                         ) {
                             Text("Back")
                         }
@@ -71,11 +70,11 @@ class CanvasKitTopBarTest {
                     actions = {
                         CanvasKitIconButton(
                             onClick = { actionClicked = true },
-                            contentDescription = "Save"
+                            contentDescription = "Save",
                         ) {
                             Text("Save")
                         }
-                    }
+                    },
                 )
             }
         }

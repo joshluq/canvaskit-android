@@ -15,7 +15,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitLoadingScaffoldTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -25,7 +24,7 @@ class CanvasKitLoadingScaffoldTest {
             CanvasKitTheme {
                 CanvasKitLoadingScaffold(
                     isLoading = true,
-                    loadingStrategy = CanvasKitLoadingStrategy.ReplaceContent
+                    loadingStrategy = CanvasKitLoadingStrategy.ReplaceContent,
                 ) {
                     Text("Hidden Content")
                 }
@@ -42,7 +41,7 @@ class CanvasKitLoadingScaffoldTest {
             CanvasKitTheme {
                 CanvasKitLoadingScaffold(
                     isLoading = false,
-                    loadingStrategy = CanvasKitLoadingStrategy.ReplaceContent
+                    loadingStrategy = CanvasKitLoadingStrategy.ReplaceContent,
                 ) { padding ->
                     Box(modifier = Modifier.padding(padding)) {
                         Text("Visible Content")
@@ -61,7 +60,7 @@ class CanvasKitLoadingScaffoldTest {
             CanvasKitTheme {
                 CanvasKitLoadingScaffold(
                     isLoading = true,
-                    loadingStrategy = CanvasKitLoadingStrategy.OverlayFullscreen
+                    loadingStrategy = CanvasKitLoadingStrategy.OverlayFullscreen,
                 ) {
                     Text("Background Content")
                 }

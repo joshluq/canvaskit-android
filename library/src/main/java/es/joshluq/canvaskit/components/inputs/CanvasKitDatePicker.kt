@@ -84,7 +84,7 @@ fun CanvasKitDatePickerDialog(
 @Composable
 private fun canvasKitDatePickerColors(): DatePickerColors {
     val colors = CanvasKitTheme.colors
-    
+
     return DatePickerDefaults.colors(
         containerColor = colors.backgroundPrimary,
         titleContentColor = colors.textSecondary,

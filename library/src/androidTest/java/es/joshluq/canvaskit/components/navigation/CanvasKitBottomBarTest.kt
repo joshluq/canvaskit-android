@@ -11,8 +11,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.assertIsNotSelected
+import androidx.compose.ui.test.assertIsSelected
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
@@ -26,7 +26,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitBottomBarTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -39,13 +38,13 @@ class CanvasKitBottomBarTest {
                         selected = true,
                         onClick = {},
                         icon = { tint -> Icon(imageVector = Icons.Default.Home, contentDescription = "HomeIcon", tint = tint) },
-                        label = { tint -> Text("Inicio", color = tint) }
+                        label = { tint -> Text("Inicio", color = tint) },
                     )
                     CanvasKitBottomBarItem(
                         selected = false,
                         onClick = {},
                         icon = { tint -> Icon(imageVector = Icons.Default.Search, contentDescription = "SearchIcon", tint = tint) },
-                        label = { tint -> Text("Buscar", color = tint) }
+                        label = { tint -> Text("Buscar", color = tint) },
                     )
                 }
             }
@@ -73,7 +72,7 @@ class CanvasKitBottomBarTest {
                             selectedIndex = 0
                         },
                         icon = { tint -> Icon(imageVector = Icons.Default.Home, contentDescription = "HomeIcon", tint = tint) },
-                        label = { tint -> Text("Inicio", color = tint) }
+                        label = { tint -> Text("Inicio", color = tint) },
                     )
                     CanvasKitBottomBarItem(
                         selected = activeIndex == 1,
@@ -82,7 +81,7 @@ class CanvasKitBottomBarTest {
                             selectedIndex = 1
                         },
                         icon = { tint -> Icon(imageVector = Icons.Default.Search, contentDescription = "SearchIcon", tint = tint) },
-                        label = { tint -> Text("Buscar", color = tint) }
+                        label = { tint -> Text("Buscar", color = tint) },
                     )
                 }
             }
@@ -115,7 +114,7 @@ class CanvasKitBottomBarTest {
                             CanvasKitBadge {
                                 Text("5")
                             }
-                        }
+                        },
                     )
                 }
             }

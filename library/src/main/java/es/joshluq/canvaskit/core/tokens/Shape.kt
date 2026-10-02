@@ -16,12 +16,13 @@ data class CanvasKitShapes(
     val large: CornerBasedShape = RoundedCornerShape(16.dp),
     val extraLarge: CornerBasedShape = RoundedCornerShape(24.dp),
     val container: CornerBasedShape = RoundedCornerShape(24.dp),
-    val pill: CornerBasedShape = RoundedCornerShape(9999.dp)
+    val pill: CornerBasedShape = RoundedCornerShape(9999.dp),
 )
 
 /**
  * CompositionLocal key for [CanvasKitShapes].
  */
-val LocalCanvasKitShapes = staticCompositionLocalOf {
-    CanvasKitShapes()
-}
+val LocalCanvasKitShapes =
+    staticCompositionLocalOf {
+        CanvasKitShapes()
+    }

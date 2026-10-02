@@ -46,7 +46,7 @@ data class CanvasKitColors(
     val warning: Color,
     val warningContainer: Color,
     val onBrandAccent: Color,
-    val isDark: Boolean
+    val isDark: Boolean,
 )
 
 /**
@@ -68,24 +68,25 @@ fun lightCanvasKitColors(
     warning: Color = Amber500,
     warningContainer: Color = AmberBg,
     onBrandAccent: Color = White,
-): CanvasKitColors = CanvasKitColors(
-    backgroundPrimary = backgroundPrimary,
-    backgroundSecondary = backgroundSecondary,
-    brandPrimary = brandPrimary,
-    brandAccent = brandAccent,
-    textPrimary = textPrimary,
-    textSecondary = textSecondary,
-    contentColor = contentColor,
-    borderSubtle = borderSubtle,
-    error = error,
-    errorContainer = errorContainer,
-    success = success,
-    successContainer = successContainer,
-    warning = warning,
-    warningContainer = warningContainer,
-    onBrandAccent = onBrandAccent,
-    isDark = false
-)
+): CanvasKitColors =
+    CanvasKitColors(
+        backgroundPrimary = backgroundPrimary,
+        backgroundSecondary = backgroundSecondary,
+        brandPrimary = brandPrimary,
+        brandAccent = brandAccent,
+        textPrimary = textPrimary,
+        textSecondary = textSecondary,
+        contentColor = contentColor,
+        borderSubtle = borderSubtle,
+        error = error,
+        errorContainer = errorContainer,
+        success = success,
+        successContainer = successContainer,
+        warning = warning,
+        warningContainer = warningContainer,
+        onBrandAccent = onBrandAccent,
+        isDark = false,
+    )
 
 /**
  * Creates a Dark Mode instance of [CanvasKitColors].
@@ -106,28 +107,30 @@ fun darkCanvasKitColors(
     warning: Color = AmberDark,
     warningContainer: Color = AmberDarkBg,
     onBrandAccent: Color = White,
-): CanvasKitColors = CanvasKitColors(
-    backgroundPrimary = backgroundPrimary,
-    backgroundSecondary = backgroundSecondary,
-    brandPrimary = brandPrimary,
-    brandAccent = brandAccent,
-    textPrimary = textPrimary,
-    textSecondary = textSecondary,
-    contentColor = contentColor,
-    borderSubtle = borderSubtle,
-    error = error,
-    errorContainer = errorContainer,
-    success = success,
-    successContainer = successContainer,
-    warning = warning,
-    warningContainer = warningContainer,
-    onBrandAccent = onBrandAccent,
-    isDark = true
-)
+): CanvasKitColors =
+    CanvasKitColors(
+        backgroundPrimary = backgroundPrimary,
+        backgroundSecondary = backgroundSecondary,
+        brandPrimary = brandPrimary,
+        brandAccent = brandAccent,
+        textPrimary = textPrimary,
+        textSecondary = textSecondary,
+        contentColor = contentColor,
+        borderSubtle = borderSubtle,
+        error = error,
+        errorContainer = errorContainer,
+        success = success,
+        successContainer = successContainer,
+        warning = warning,
+        warningContainer = warningContainer,
+        onBrandAccent = onBrandAccent,
+        isDark = true,
+    )
 
 /**
  * CompositionLocal key for [CanvasKitColors].
  */
-val LocalCanvasKitColors = staticCompositionLocalOf {
-    lightCanvasKitColors()
-}
+val LocalCanvasKitColors =
+    staticCompositionLocalOf {
+        lightCanvasKitColors()
+    }

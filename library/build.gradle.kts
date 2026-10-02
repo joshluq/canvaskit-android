@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.pluginkit.android.library)
     alias(libs.plugins.pluginkit.android.compose)
     alias(libs.plugins.pluginkit.quality)
+    alias(libs.plugins.pluginkit.formatting)
     alias(libs.plugins.pluginkit.android.testing)
     alias(libs.plugins.pluginkit.android.publishing)
 }
@@ -22,21 +23,22 @@ dependencies {
 pluginkitQuality {
     sonarHost = "https://sonarcloud.io"
     sonarProjectKey = "joshluq_canvaskit-android"
-    koverExclusions = listOf(
-        "**.showcase.*",
-        "**.di.*",
-        "**.*_di_*",
-        "**.BuildConfig",
-        "**.R",
-        "**.R$*",
-        "**.Dagger*",
-        "**.*_Factory",
-        "**.*_Factory*",
-        "**.*_MembersInjector",
-        "**.*_HiltModules*",
-        "**.Hilt_*",
-        "**.*_Provide*Factory*"
-    )
+    koverExclusions =
+        listOf(
+            "**.showcase.*",
+            "**.di.*",
+            "**.*_di_*",
+            "**.BuildConfig",
+            "**.R",
+            "**.R$*",
+            "**.Dagger*",
+            "**.*_Factory",
+            "**.*_Factory*",
+            "**.*_MembersInjector",
+            "**.*_HiltModules*",
+            "**.Hilt_*",
+            "**.*_Provide*Factory*",
+        )
 }
 
 androidPublishing {

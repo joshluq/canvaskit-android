@@ -20,7 +20,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitChipTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -31,12 +30,13 @@ class CanvasKitChipTest {
             CanvasKitTheme {
                 CanvasKitChip(
                     onClick = { clicked = true },
-                    label = { Text("Filter") }
+                    label = { Text("Filter") },
                 )
             }
         }
 
-        composeTestRule.onNodeWithText("Filter")
+        composeTestRule
+            .onNodeWithText("Filter")
             .assertIsDisplayed()
             .assertHasClickAction()
             .performClick()
@@ -51,12 +51,13 @@ class CanvasKitChipTest {
                 CanvasKitChip(
                     onClick = {},
                     selected = true,
-                    label = { Text("Selected Chip") }
+                    label = { Text("Selected Chip") },
                 )
             }
         }
 
-        composeTestRule.onNodeWithText("Selected Chip")
+        composeTestRule
+            .onNodeWithText("Selected Chip")
             .assertIsSelected()
     }
 
@@ -67,12 +68,13 @@ class CanvasKitChipTest {
                 CanvasKitChip(
                     onClick = {},
                     selected = false,
-                    label = { Text("Unselected Chip") }
+                    label = { Text("Unselected Chip") },
                 )
             }
         }
 
-        composeTestRule.onNodeWithText("Unselected Chip")
+        composeTestRule
+            .onNodeWithText("Unselected Chip")
             .assertIsNotSelected()
     }
 
@@ -84,7 +86,7 @@ class CanvasKitChipTest {
                     onClick = {},
                     leadingIcon = { Text("L_ICON") },
                     trailingIcon = { Text("T_ICON") },
-                    label = { Text("Chip with Icons") }
+                    label = { Text("Chip with Icons") },
                 )
             }
         }
@@ -102,7 +104,7 @@ class CanvasKitChipTest {
                     CanvasKitChip(
                         onClick = {},
                         variant = variant,
-                        label = { Text("Variant ${variant.name}") }
+                        label = { Text("Variant ${variant.name}") },
                     )
                 }
             }

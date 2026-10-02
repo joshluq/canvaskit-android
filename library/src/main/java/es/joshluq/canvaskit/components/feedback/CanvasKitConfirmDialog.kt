@@ -79,7 +79,7 @@ fun CanvasKitConfirmDialog(
                     },
                     variant = CanvasKitButtonVariant.Primary,
                     text = confirmText,
-                    // We could add a 'destructive' variant to Button later, 
+                    // We could add a 'destructive' variant to Button later,
                     // for now we can override content color if needed, but Primary is okay.
                 )
             }
