@@ -40,6 +40,7 @@ import es.joshluq.canvaskit.showcase.ui.screens.ProgressScreen
 import es.joshluq.canvaskit.showcase.ui.screens.AdvancedInputsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.AvatarsBadgesScreen
 import es.joshluq.canvaskit.showcase.ui.screens.GesturesScreen
+import es.joshluq.canvaskit.showcase.ui.screens.HapticsScreen
 import es.joshluq.canvaskit.showcase.ui.theme.ShowcaseTheme
 import kotlinx.serialization.Serializable
 
@@ -118,6 +119,9 @@ object AvatarsBadgesRoute : NavKey
 @Serializable
 object GesturesRoute : NavKey
 
+@Serializable
+object HapticsRoute : NavKey
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -176,6 +180,7 @@ fun ShowcaseAppNavigation(
                     onNavigateToAdvancedInputs = { backStack.add(AdvancedInputsRoute) },
                     onNavigateToAvatarsBadges = { backStack.add(AvatarsBadgesRoute) },
                     onNavigateToGestures = { backStack.add(GesturesRoute) },
+                    onNavigateToHaptics = { backStack.add(HapticsRoute) },
                 )
             }
             entry<ButtonsRoute> {
@@ -249,6 +254,9 @@ fun ShowcaseAppNavigation(
             }
             entry<GesturesRoute> {
                 GesturesScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<HapticsRoute> {
+                HapticsScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )

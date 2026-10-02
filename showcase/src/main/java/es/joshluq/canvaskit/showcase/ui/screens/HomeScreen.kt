@@ -70,6 +70,7 @@ fun HomeScreen(
     onNavigateToAdvancedInputs: () -> Unit,
     onNavigateToAvatarsBadges: () -> Unit,
     onNavigateToGestures: () -> Unit,
+    onNavigateToHaptics: () -> Unit,
     selectedPalette: CanvasPalette = CanvasPalette.Navy,
     onPaletteSelected: (CanvasPalette) -> Unit = {},
     modifier: Modifier = Modifier
@@ -254,6 +255,11 @@ fun HomeScreen(
                     "Gestures & Surfaces",
                     "Swipe to dismiss action rows and hairline dividers.",
                     onNavigateToGestures
+                ),
+                Triple(
+                    "Haptics Lab",
+                    "Semantic vibration engine testing and tactile feedback.",
+                    onNavigateToHaptics
                 )
             )
             Column(
@@ -300,6 +306,7 @@ fun HomeScreen(
                             "OTP & Search Inputs" -> Icons.Default.Edit
                             "Avatars & Badges" -> Icons.Default.Person
                             "Gestures & Surfaces" -> Icons.AutoMirrored.Filled.ArrowForward
+                            "Haptics Lab" -> Icons.Default.PlayArrow
                             else -> Icons.Default.Info
                         },
                         iconBg = colors.backgroundSecondary,

@@ -44,14 +44,15 @@ The library components are grouped in a clear taxonomic structure following atom
 /library/src/main/java/es/joshluq/canvaskit/
 │
 ├── core/
-│   └── tokens/         # Core foundations: colors, typography, shapes, spacing, motion, opacity, stroke.
-│       ├── Color.kt    # Base palette and Semantic Color Schemes.
-│       ├── Type.kt     # Typography systems and custom FontFamilies.
-│       ├── Shape.kt    # Shape/Corner-radius tokens.
-│       ├── Spacing.kt  # Grid scale (4dp/8dp base increments).
-│       ├── Motion.kt   # Easing curves and transition durations.
-│       ├── Opacity.kt  # Full and disabled alpha values.
-│       └── Stroke.kt   # Hairline and border stroke thicknesses.
+│   ├── tokens/         # Core foundations: colors, typography, shapes, spacing, motion, opacity, stroke.
+│   │   ├── Color.kt    # Base palette and Semantic Color Schemes.
+│   │   ├── Type.kt     # Typography systems and custom FontFamilies.
+│   │   ├── Shape.kt    # Shape/Corner-radius tokens.
+│   │   ├── Spacing.kt  # Grid scale (4dp/8dp base increments).
+│   │   ├── Motion.kt   # Easing curves and transition durations.
+│   │   ├── Opacity.kt  # Full and disabled alpha values.
+│   │   └── Stroke.kt   # Hairline and border stroke thicknesses.
+│   └── haptics/        # Haptic Feedback Engine: CanvasKitHapticFeedback, Android native implementation.
 │
 ├── components/         # Reusable interactive and content elements.
 │   ├── buttons/        # Atomic: Primary, Secondary, Ghost, Icon buttons.

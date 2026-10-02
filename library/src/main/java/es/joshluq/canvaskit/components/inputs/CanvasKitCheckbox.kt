@@ -80,10 +80,14 @@ fun CanvasKitCheckbox(
     )
 
     val toggleableModifier = if (onCheckedChange != null) {
+        val haptics = CanvasKitTheme.haptics
         Modifier
             .toggleable(
                 value = checked,
-                onValueChange = onCheckedChange,
+                onValueChange = { newValue ->
+                    haptics.click()
+                    onCheckedChange(newValue)
+                },
                 enabled = enabled,
                 role = Role.Checkbox,
                 interactionSource = interactionSource,

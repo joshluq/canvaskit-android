@@ -19,6 +19,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -83,15 +84,27 @@ fun CanvasKitOtpField(
     val spacing = CanvasKitTheme.spacing
     val typography = CanvasKitTheme.typography
 
+    val haptics = CanvasKitTheme.haptics
     val contentAlpha = if (enabled) opacity.full else opacity.disabled
+
+    // Haptic feedback on error trigger
+    LaunchedEffect(isError) {
+        if (isError) {
+            haptics.error()
+        }
+    }
 
     BasicTextField(
         value = value,
         onValueChange = { input ->
             // Only accept digits up to otpLength
             val filtered = input.filter { it.isDigit() }.take(otpLength)
+            if (filtered != value) {
+                haptics.click()
+            }
             onValueChange(filtered)
-            if (filtered.length == otpLength) {
+            if (filtered.length == otpLength && value.length != otpLength) {
+                haptics.success()
                 onComplete?.invoke(filtered)
             }
         },
@@ -102,6 +115,7 @@ fun CanvasKitOtpField(
         keyboardActions = KeyboardActions(
             onDone = {
                 if (value.length == otpLength) {
+                    haptics.success()
                     onComplete?.invoke(value)
                 }
             }
