@@ -10,6 +10,11 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import es.joshluq.canvaskit.core.tokens.palettes.CanvasPalette
 import es.joshluq.canvaskit.showcase.ui.screens.ButtonsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.CardsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.DialogsScreen
@@ -118,15 +123,24 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ShowcaseTheme {
-                ShowcaseAppNavigation()
+            var currentPaletteName by rememberSaveable { mutableStateOf(CanvasPalette.Navy.name) }
+            val currentPalette = CanvasPalette.values.firstOrNull { it.name == currentPaletteName } ?: CanvasPalette.Navy
+            ShowcaseTheme(palette = currentPalette) {
+                ShowcaseAppNavigation(
+                    currentPalette = currentPalette,
+                    onPaletteSelected = { currentPaletteName = it.name }
+                )
             }
         }
     }
 }
 
 @Composable
-fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
+fun ShowcaseAppNavigation(
+    currentPalette: CanvasPalette = CanvasPalette.Navy,
+    onPaletteSelected: (CanvasPalette) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
     val backStack = rememberNavBackStack(HomeRoute)
 
     NavDisplay(
@@ -141,6 +155,8 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToDialogs = { backStack.add(DialogsRoute) },
                     onNavigateToPopups = { backStack.add(PopupsRoute) },
                     onNavigateToCards = { backStack.add(CardsRoute) },
+                    selectedPalette = currentPalette,
+                    onPaletteSelected = onPaletteSelected,
                     onNavigateToTopBar = { backStack.add(TopBarRoute) },
                     onNavigateToBottomBar = { backStack.add(BottomBarRoute) },
                     onNavigateToToggles = { backStack.add(TogglesRoute) },

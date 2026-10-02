@@ -32,12 +32,16 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.components.chips.CanvasKitChip
+import es.joshluq.canvaskit.components.chips.CanvasKitChipVariant
 import es.joshluq.canvaskit.components.layout.CanvasKitLoadingScaffold
+import es.joshluq.canvaskit.core.tokens.palettes.CanvasPalette
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 @Composable
@@ -66,6 +70,8 @@ fun HomeScreen(
     onNavigateToAdvancedInputs: () -> Unit,
     onNavigateToAvatarsBadges: () -> Unit,
     onNavigateToGestures: () -> Unit,
+    selectedPalette: CanvasPalette = CanvasPalette.Navy,
+    onPaletteSelected: (CanvasPalette) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
 
@@ -87,6 +93,46 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(spacing.lg)
         ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clip(shapes.container)
+                    .background(colors.backgroundPrimary)
+                    .padding(spacing.md),
+                verticalArrangement = Arrangement.spacedBy(spacing.sm)
+            ) {
+                Text(
+                    text = "Active Palette",
+                    style = CanvasKitTheme.typography.headingMedium,
+                    color = colors.textPrimary
+                )
+                Text(
+                    text = "Switch between curated brand palettes. Changes propagate dynamically through the entire design system.",
+                    style = CanvasKitTheme.typography.bodyMedium,
+                    color = colors.textSecondary
+                )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState()),
+                    horizontalArrangement = Arrangement.spacedBy(spacing.sm)
+                ) {
+                    CanvasPalette.values.forEach { palette ->
+                        val isSelected = palette == selectedPalette
+                        CanvasKitChip(
+                            onClick = { onPaletteSelected(palette) },
+                            selected = isSelected,
+                            variant = if (isSelected) CanvasKitChipVariant.Primary else CanvasKitChipVariant.Outlined,
+                            label = {
+                                Text(
+                                    text = palette.name,
+                                    style = CanvasKitTheme.typography.labelSmall
+                                )
+                            }
+                        )
+                    }
+                }
+            }
 
             val activeComponents = listOf(
                 Triple(

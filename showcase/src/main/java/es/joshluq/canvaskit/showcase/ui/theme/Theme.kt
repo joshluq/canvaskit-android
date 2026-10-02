@@ -5,16 +5,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import es.joshluq.canvaskit.core.tokens.darkCanvasKitColors
-import es.joshluq.canvaskit.core.tokens.lightCanvasKitColors
+import es.joshluq.canvaskit.core.tokens.palettes.CanvasPalette
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 @Composable
 fun ShowcaseTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+    palette: CanvasPalette = CanvasPalette.Navy,
     content: @Composable () -> Unit
 ) {
-    val canvasColors = if (darkTheme) darkCanvasKitColors() else lightCanvasKitColors()
+    val canvasColors = palette.colors(darkTheme)
 
     val materialColorScheme = if (darkTheme) {
         darkColorScheme(
@@ -38,6 +38,7 @@ fun ShowcaseTheme(
 
     CanvasKitTheme(
         darkTheme = darkTheme,
+        palette = palette,
         colors = canvasColors
     ) {
         MaterialTheme(
