@@ -19,7 +19,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitBannerTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -34,7 +33,7 @@ class CanvasKitBannerTest {
                 CanvasKitBanner(
                     variant = CanvasKitAlertVariant.Info,
                     visible = true,
-                    message = { Text("Banner visible message") }
+                    message = { Text("Banner visible message") },
                 )
             }
         }
@@ -48,7 +47,7 @@ class CanvasKitBannerTest {
                 CanvasKitBanner(
                     variant = CanvasKitAlertVariant.Error,
                     visible = false,
-                    message = { Text("Hidden banner message") }
+                    message = { Text("Hidden banner message") },
                 )
             }
         }
@@ -65,7 +64,7 @@ class CanvasKitBannerTest {
                     variant = CanvasKitAlertVariant.Warning,
                     visible = true,
                     message = { Text("Dismissible banner") },
-                    onDismiss = { dismissed = true }
+                    onDismiss = { dismissed = true },
                 )
             }
         }
@@ -82,7 +81,7 @@ class CanvasKitBannerTest {
                     variant = CanvasKitAlertVariant.Success,
                     visible = true,
                     message = { Text("Non-dismissible banner") },
-                    onDismiss = null
+                    onDismiss = null,
                 )
             }
         }
@@ -97,7 +96,7 @@ class CanvasKitBannerTest {
                     CanvasKitBanner(
                         variant = variant,
                         visible = true,
-                        message = { Text("Message for ${variant.name}") }
+                        message = { Text("Message for ${variant.name}") },
                     )
                 }
             }
@@ -116,7 +115,7 @@ class CanvasKitBannerTest {
                     variant = CanvasKitAlertVariant.Error,
                     visible = true,
                     title = { Text("Error title") },
-                    message = { Text("Error description") }
+                    message = { Text("Error description") },
                 )
             }
         }
@@ -133,7 +132,7 @@ class CanvasKitBannerTest {
                     variant = CanvasKitAlertVariant.Info,
                     visible = visible,
                     message = { Text("Toggle banner") },
-                    onDismiss = { visible = false }
+                    onDismiss = { visible = false },
                 )
             }
         }
@@ -154,7 +153,7 @@ class CanvasKitBannerTest {
             CanvasKitTheme {
                 CanvasKitInlineAlert(
                     variant = CanvasKitAlertVariant.Info,
-                    message = { Text("Inline alert message") }
+                    message = { Text("Inline alert message") },
                 )
             }
         }
@@ -168,7 +167,7 @@ class CanvasKitBannerTest {
                 CanvasKitInlineAlert(
                     variant = CanvasKitAlertVariant.Warning,
                     title = { Text("Warning title") },
-                    message = { Text("This cannot be undone.") }
+                    message = { Text("This cannot be undone.") },
                 )
             }
         }
@@ -183,7 +182,7 @@ class CanvasKitBannerTest {
                 CanvasKitAlertVariant.entries.forEach { variant ->
                     CanvasKitInlineAlert(
                         variant = variant,
-                        message = { Text("Inline ${variant.name}") }
+                        message = { Text("Inline ${variant.name}") },
                     )
                 }
             }

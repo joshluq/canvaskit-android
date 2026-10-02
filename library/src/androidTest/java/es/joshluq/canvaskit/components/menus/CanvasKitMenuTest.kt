@@ -15,7 +15,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitMenuTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -25,15 +24,15 @@ class CanvasKitMenuTest {
             CanvasKitTheme {
                 CanvasKitDropdownMenu(
                     expanded = true,
-                    onDismissRequest = {}
+                    onDismissRequest = {},
                 ) {
                     CanvasKitDropdownMenuItem(
                         text = "Item 1",
-                        onClick = {}
+                        onClick = {},
                     )
                     CanvasKitDropdownMenuItem(
                         text = "Item 2",
-                        onClick = {}
+                        onClick = {},
                     )
                 }
             }
@@ -50,11 +49,11 @@ class CanvasKitMenuTest {
             CanvasKitTheme {
                 CanvasKitDropdownMenu(
                     expanded = true,
-                    onDismissRequest = {}
+                    onDismissRequest = {},
                 ) {
                     CanvasKitDropdownMenuItem(
                         text = "Clickable Item",
-                        onClick = { clicked = true }
+                        onClick = { clicked = true },
                     )
                 }
             }
@@ -70,12 +69,12 @@ class CanvasKitMenuTest {
             CanvasKitTheme {
                 CanvasKitDropdownMenu(
                     expanded = true,
-                    onDismissRequest = {}
+                    onDismissRequest = {},
                 ) {
                     CanvasKitDropdownMenuItem(
                         text = "Disabled Item",
                         onClick = {},
-                        enabled = false
+                        enabled = false,
                     )
                 }
             }
@@ -90,14 +89,14 @@ class CanvasKitMenuTest {
             CanvasKitTheme {
                 CanvasKitDropdownMenu(
                     expanded = true,
-                    onDismissRequest = {}
+                    onDismissRequest = {},
                 ) {
                     CanvasKitDropdownMenuItem(
                         text = "Main Text",
                         onClick = {},
                         trailingContent = {
                             Text("Badge")
-                        }
+                        },
                     )
                 }
             }

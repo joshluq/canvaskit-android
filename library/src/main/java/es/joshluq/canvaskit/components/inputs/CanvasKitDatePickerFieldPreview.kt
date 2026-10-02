@@ -44,7 +44,7 @@ fun CanvasKitDatePickerFieldSelectedPreview() {
 @Composable
 fun CanvasKitDatePickerFieldDarkPreview() {
     var selectedDate by remember { mutableStateOf<Long?>(null) }
-    
+
     CanvasKitTheme(darkTheme = true) {
         Column(modifier = Modifier.padding(16.dp)) {
             CanvasKitDatePickerField(
@@ -53,9 +53,9 @@ fun CanvasKitDatePickerFieldDarkPreview() {
                 onDateSelected = { selectedDate = it },
                 helperText = "Select the date for your next event"
             )
-            
+
             Spacer(modifier = Modifier.height(16.dp))
-            
+
             CanvasKitDatePickerField(
                 label = "Disabled Field",
                 selectedDateMillis = null,

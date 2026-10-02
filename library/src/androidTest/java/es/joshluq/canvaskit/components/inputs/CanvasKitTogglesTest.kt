@@ -4,15 +4,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.test.SemanticsMatcher
+import androidx.compose.ui.test.assertIsNotSelected
 import androidx.compose.ui.test.assertIsOff
 import androidx.compose.ui.test.assertIsOn
 import androidx.compose.ui.test.assertIsSelected
-import androidx.compose.ui.test.assertIsNotSelected
-import androidx.compose.ui.semantics.SemanticsProperties
-import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.performClick
-import androidx.compose.ui.semantics.Role
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 import org.junit.Assert.assertFalse
@@ -23,7 +23,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class CanvasKitTogglesTest {
-
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -39,7 +38,7 @@ class CanvasKitTogglesTest {
                     onCheckedChange = {
                         checked = it
                         switchState = it
-                    }
+                    },
                 )
             }
         }
@@ -71,7 +70,7 @@ class CanvasKitTogglesTest {
                     onCheckedChange = {
                         checked = it
                         checkboxState = it
-                    }
+                    },
                 )
             }
         }
@@ -98,7 +97,7 @@ class CanvasKitTogglesTest {
                     onClick = {
                         selected = true
                         selectedState = true
-                    }
+                    },
                 )
             }
         }
