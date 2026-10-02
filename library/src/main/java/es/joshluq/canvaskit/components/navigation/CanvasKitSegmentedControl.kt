@@ -169,6 +169,7 @@ fun CanvasKitSegmentedControl(
     val stroke = CanvasKitTheme.stroke
     val opacity = CanvasKitTheme.opacity
     val motion = CanvasKitTheme.motion
+    val haptics = CanvasKitTheme.haptics
 
     val controlAlpha = if (enabled) opacity.full else opacity.disabled
 
@@ -246,7 +247,12 @@ fun CanvasKitSegmentedControl(
                             indication = null,
                             enabled = isSegmentEnabled,
                             role = Role.Tab,
-                            onClick = { onSegmentSelected(index) }
+                            onClick = {
+                                if (index != selectedIndex) {
+                                    haptics.click()
+                                }
+                                onSegmentSelected(index)
+                            }
                         )
                         .semantics {
                             role = Role.Tab

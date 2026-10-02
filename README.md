@@ -17,7 +17,8 @@ CanvasKit is organized under atomic modular design principles to guarantee separ
 /library/src/main/java/es/joshluq/canvaskit/
 │
 ├── core/
-│   └── tokens/         # Tokens: Color, Type, Shape, Spacing, Motion, Opacity, Stroke
+│   ├── tokens/         # Tokens: Color, Type, Shape, Spacing, Motion, Opacity, Stroke
+│   └── haptics/        # Haptic Feedback Engine: CanvasKitHapticFeedback, native Android providers
 │
 ├── components/         # Reusable interactive components
 │   ├── buttons/        # Primary, Secondary, Ghost, Icon buttons
@@ -58,12 +59,17 @@ CanvasKit leverages Jetpack Compose Slot APIs (`content: @Composable () -> Unit`
 * **Dynamic Scaling:** Resilient layouts without fixed vertical heights (`wrapContentHeight`), rendering beautifully at `2.0x` font scaling without text clipping.
 * **WCAG AA Compliance:** Strict text-to-background contrast enforcement (minimum 4.5:1 for body text, 3:1 for large text/icons).
 
-### 4. Pure Motion (No System Ripple)
-Replaces generic circular Android ripples with tactile, artisanal micro-interactions:
-* Spring-backed scale compression on touch down (`CanvasKitTheme.motion.pressedScale` ~ `0.97f`).
-* Immediate visual feedback (<16ms) and tokenized surface fades.
-* Active indicators, pills, and connectors glide elastically using `spring(dampingRatio = LowBouncy, stiffness = MediumLow)`.
-* Durations and easing curves derived strictly from `CanvasKitTheme.motion` (`short1`, `medium1`, `standard`, etc.).
+### 4. Pure Motion & Tactile Haptics (No System Ripple)
+Replaces generic circular Android ripples with tactile, artisanal micro-interactions synchronized with an expressive haptic feedback engine:
+* **Spring Dynamics:** Press compression on touch down (`CanvasKitTheme.motion.pressedScale` ~ `0.97f`), sliding pills, and connectors glide elastically using `spring(dampingRatio = LowBouncy, stiffness = MediumLow)`.
+* **Immediate Feedback:** Immediate visual response (<16ms) and tokenized surface fades.
+* **CanvasKitHaptics Engine:** Native decoupled haptic layer (`CanvasKitTheme.haptics`) mapped to modern Android 11–15 physical vibrations:
+  * `click()`: Ultra-light mechanical click on toggles, checkboxes, and segmented switches.
+  * `tick()`: Micro-tick for sliders, pagers, and step transitions.
+  * `success()`: Tactile confirmation pulse on completion.
+  * `error()`: Rejection buzz on validation failures (e.g. invalid OTP).
+  * `gestureThreshold()`: Magnetic snap feedback when a swipe gesture crosses an activation threshold.
+* **Accessibility Honored:** Fully respects system `HAPTIC_FEEDBACK_ENABLED` preferences and fails gracefully as a zero-overhead no-op when disabled.
 
 ### 5. Compose Compiler Stability & Zero Vendor Lock-In
 * **Zero DI Lock-In:** Core library components have zero dependency on Hilt or Koin at the public API level, relying entirely on Compose `CompositionLocalProvider` (`LocalCanvasKitColors`, `LocalCanvasKitTypography`, etc.).
@@ -114,7 +120,7 @@ CanvasKit incorporates a distinctive visual and tactile signature inspired by hi
    * **`CanvasKitTheme.typography.tabularNumber`:** `16.sp`, `SemiBold` with tabular alignment for data tables and financial amounts.
 3. **Tactical Focus Halo (`Modifier.tacticalFocusHalo`):** Dual-layer focus indicator (1.5dp inner isolation gap + 2dp outer focus ring) conforming strictly to **WCAG 2.2**, guaranteeing $\ge 3:1$ contrast against any background surface.
 4. **Tactical Radar Status Dot (`CanvasKitStatusDot`):** Dual-ring optical LED indicator with solid core and optional concentric radar pulse wave. Calibrated to prevent visual fatigue (static by default).
-5. **Mechanical Haptics ("True Touch"):** Replaces the absence of system ripples with purposeful physical feedback via `LocalHapticFeedback` (decisive press click on primary buttons, mechanical ticks on switches, chips, and cards).
+5. **Mechanical Haptics ("True Touch"):** Replaces the absence of system ripples with purposeful physical feedback via `CanvasKitTheme.haptics` (`click()`, `tick()`, `success()`, `error()`, `gestureThreshold()`), mapping to modern Android 11–15 physical vibrations while honoring accessibility preferences.
 
 ---
 
@@ -201,6 +207,19 @@ Box(
             shape = CanvasKitTheme.shapes.small
         )
         .clickable(interactionSource = interactionSource, indication = null) { ... }
+)
+```
+
+### 5. Accessing Expressive Haptics Programmatically
+```kotlin
+val haptics = CanvasKitTheme.haptics
+
+CanvasKitButton(
+    text = "Confirm Transaction",
+    onClick = {
+        haptics.success()
+        viewModel.onConfirm()
+    }
 )
 ```
 

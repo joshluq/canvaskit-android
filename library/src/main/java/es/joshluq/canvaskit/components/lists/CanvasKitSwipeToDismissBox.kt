@@ -23,6 +23,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.IntOffset
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
+import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
  * Direction in which the swipe action is being executed.
@@ -62,6 +63,7 @@ fun CanvasKitSwipeToDismissBox(
 ) {
     val coroutineScope = rememberCoroutineScope()
     val offsetX = remember { Animatable(0f) }
+    val haptics = CanvasKitTheme.haptics
 
     BoxWithConstraints(modifier = modifier.fillMaxWidth()) {
         val widthPx = constraints.maxWidth.toFloat()
@@ -125,6 +127,7 @@ fun CanvasKitSwipeToDismissBox(
                         onDragStopped = {
                             val isDismissed = Math.abs(offsetX.value) >= thresholdPx
                             if (isDismissed) {
+                                haptics.gestureThreshold()
                                 val direction = if (offsetX.value > 0) {
                                     CanvasKitDismissDirection.StartToEnd
                                 } else {

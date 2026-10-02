@@ -18,6 +18,9 @@ import es.joshluq.canvaskit.core.tokens.LocalCanvasKitShapes
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitSpacing
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitStroke
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitTypography
+import es.joshluq.canvaskit.core.haptics.CanvasKitHapticFeedback
+import es.joshluq.canvaskit.core.haptics.LocalCanvasKitHapticFeedback
+import es.joshluq.canvaskit.core.haptics.rememberCanvasKitHapticFeedback
 import es.joshluq.canvaskit.core.tokens.palettes.CanvasPalette
 import es.joshluq.canvaskit.core.tokens.palettes.LocalCanvasPalette
 
@@ -35,6 +38,7 @@ fun CanvasKitTheme(
     motion: CanvasKitMotion = CanvasKitMotion(),
     opacity: CanvasKitOpacity = CanvasKitOpacity(),
     stroke: CanvasKitStroke = CanvasKitStroke(),
+    haptics: CanvasKitHapticFeedback = rememberCanvasKitHapticFeedback(),
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -46,6 +50,7 @@ fun CanvasKitTheme(
         LocalCanvasKitMotion provides motion,
         LocalCanvasKitOpacity provides opacity,
         LocalCanvasKitStroke provides stroke,
+        LocalCanvasKitHapticFeedback provides haptics,
         content = content
     )
 }
@@ -93,4 +98,9 @@ object CanvasKitTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalCanvasKitStroke.current
+
+    val haptics: CanvasKitHapticFeedback
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCanvasKitHapticFeedback.current
 }

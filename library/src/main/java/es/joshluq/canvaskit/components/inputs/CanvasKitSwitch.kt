@@ -18,8 +18,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -89,14 +87,14 @@ fun CanvasKitSwitch(
         label = "switchThumbColor"
     )
 
-    val haptic = LocalHapticFeedback.current
+    val haptics = CanvasKitTheme.haptics
 
     val toggleableModifier = if (onCheckedChange != null) {
         Modifier
             .toggleable(
                 value = checked,
                 onValueChange = { newValue ->
-                    haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                    haptics.click()
                     onCheckedChange(newValue)
                 },
                 enabled = enabled,
