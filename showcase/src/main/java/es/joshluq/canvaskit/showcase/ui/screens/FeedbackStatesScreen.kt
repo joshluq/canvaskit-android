@@ -23,11 +23,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitButton
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.chips.CanvasKitChip
 import es.joshluq.canvaskit.components.feedback.CanvasKitStateView
+import es.joshluq.canvaskit.components.feedback.CanvasKitStatusDot
+import es.joshluq.canvaskit.components.feedback.CanvasKitStatusDotVariant
 import es.joshluq.canvaskit.components.navigation.CanvasKitTopBar
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
@@ -91,6 +94,46 @@ fun FeedbackStatesScreen(
                         )
                     }
                 }
+            }
+        }
+
+        // Atelier Status Dots Section
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = spacing.md, vertical = spacing.xs)
+                .clip(CanvasKitTheme.shapes.container)
+                .background(colors.backgroundPrimary)
+                .padding(spacing.md),
+            verticalArrangement = Arrangement.spacedBy(spacing.sm)
+        ) {
+            Text(
+                text = "Precision Status Indicators",
+                style = CanvasKitTheme.typography.headingMedium,
+                color = colors.textPrimary
+            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                CanvasKitStatusDot(
+                    variant = CanvasKitStatusDotVariant.Success,
+                    animatePulse = true,
+                    label = { Text("Live Node", style = CanvasKitTheme.typography.labelSmall) }
+                )
+                CanvasKitStatusDot(
+                    variant = CanvasKitStatusDotVariant.Brand,
+                    label = { Text("Syncing", style = CanvasKitTheme.typography.labelSmall) }
+                )
+                CanvasKitStatusDot(
+                    variant = CanvasKitStatusDotVariant.Warning,
+                    label = { Text("Queued", style = CanvasKitTheme.typography.labelSmall) }
+                )
+                CanvasKitStatusDot(
+                    variant = CanvasKitStatusDotVariant.Error,
+                    label = { Text("Offline", style = CanvasKitTheme.typography.labelSmall) }
+                )
             }
         }
 

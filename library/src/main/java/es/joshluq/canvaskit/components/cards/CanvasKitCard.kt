@@ -23,11 +23,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.foundations.modifiers.rememberSpecularBorderBrush
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
@@ -58,6 +61,7 @@ enum class CanvasKitCardVariant {
  * @param variant Visual variant of the card container (Outlined, Elevated, Flat).
  * @param selected Whether the card is currently selected. Triggers accent borders and screen-reader announcements.
  * @param enabled Whether the card interactions are enabled (ignored if onClick is null).
+ * @param specularHighlight Whether to render the signature Atelier specular hairline highlight along the top rim.
  * @param shape Shape of the card container. Defaults to CanvasKitTheme.shapes.medium.
  * @param header Composable slot for the header section of the card.
  * @param footer Composable slot for the footer section of the card.
@@ -70,6 +74,7 @@ fun CanvasKitCard(
     variant: CanvasKitCardVariant = CanvasKitCardVariant.Outlined,
     selected: Boolean = false,
     enabled: Boolean = true,
+    specularHighlight: Boolean = true,
     shape: Shape = CanvasKitTheme.shapes.container,
     header: (@Composable () -> Unit)? = null,
     footer: (@Composable () -> Unit)? = null,
@@ -98,14 +103,18 @@ fun CanvasKitCard(
         CanvasKitCardVariant.Elevated -> colors.backgroundPrimary
     }
 
+    val specularBrush = rememberSpecularBorderBrush()
     val borderStroke = when {
         selected -> BorderStroke(width = 2.dp, color = colors.brandAccent)
+        variant == CanvasKitCardVariant.Outlined && specularHighlight -> BorderStroke(width = 1.dp, brush = specularBrush)
         variant == CanvasKitCardVariant.Outlined -> BorderStroke(width = 0.5.dp, color = colors.borderSubtle)
         else -> null
     }
 
     // 3. Elevation shadow
     val shadowElevation = if (variant == CanvasKitCardVariant.Elevated) 4.dp else 0.dp
+
+    val haptic = LocalHapticFeedback.current
 
     // 4. Root Card Container
     Box(
@@ -124,7 +133,10 @@ fun CanvasKitCard(
                         indication = null, // Custom scale animation replaces default ripple
                         enabled = enabled,
                         role = Role.Button,
-                        onClick = onClick
+                        onClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.TextHandleMove)
+                            onClick()
+                        }
                     )
                 } else {
                     Modifier
