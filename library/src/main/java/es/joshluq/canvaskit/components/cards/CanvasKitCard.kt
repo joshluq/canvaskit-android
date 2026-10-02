@@ -1,7 +1,8 @@
 package es.joshluq.canvaskit.components.cards
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -82,10 +83,10 @@ fun CanvasKitCard(
     val isPressed by interactionSource.collectIsPressedAsState()
 
     val scale by animateFloatAsState(
-        targetValue = if (isPressed && enabled && onClick != null) 0.98f else 1.0f,
-        animationSpec = tween(
-            durationMillis = CanvasKitTheme.motion.short1,
-            easing = CanvasKitTheme.motion.standard
+        targetValue = if (isPressed && enabled && onClick != null) CanvasKitTheme.motion.pressedScale else 1.0f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioNoBouncy,
+            stiffness = Spring.StiffnessMedium
         ),
         label = "CardPressScale"
     )

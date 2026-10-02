@@ -1,7 +1,8 @@
 package es.joshluq.canvaskit.components.buttons
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -105,7 +106,10 @@ fun CanvasKitButton(
 
     val scale by animateFloatAsState(
         targetValue = if (isPressed && enabled && !loading) theme.motion.pressedScale else 1.0f,
-        animationSpec = tween(durationMillis = theme.motion.short1, easing = theme.motion.standard),
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioNoBouncy,
+            stiffness = Spring.StiffnessMedium
+        ),
         label = "ButtonScale"
     )
 
@@ -115,55 +119,75 @@ fun CanvasKitButton(
     val shapes = theme.shapes
     val spacing = theme.spacing
 
-    val backgroundColor = when (variant) {
-        CanvasKitButtonVariant.Primary -> if (enabled) colors.brandAccent else colors.borderSubtle
-        CanvasKitButtonVariant.Secondary -> Color.Transparent
-        CanvasKitButtonVariant.Ghost -> Color.Transparent
+    // Memoize style derivations — only recompute when variant, enabled, or theme tokens change.
+    // Keys are @Immutable data class instances — Compose equality checks invalidate correctly.
+    val backgroundColor = remember(variant, enabled, colors) {
+        when (variant) {
+            CanvasKitButtonVariant.Primary -> if (enabled) colors.brandAccent else colors.borderSubtle
+            CanvasKitButtonVariant.Secondary -> Color.Transparent
+            CanvasKitButtonVariant.Ghost -> Color.Transparent
+        }
     }
 
-    val contentColor = when (variant) {
-        CanvasKitButtonVariant.Primary -> if (enabled) colors.onBrandAccent else colors.brandPrimary
-        CanvasKitButtonVariant.Secondary -> colors.brandPrimary
-        CanvasKitButtonVariant.Ghost -> colors.brandPrimary
+    val contentColor = remember(variant, enabled, colors) {
+        when (variant) {
+            CanvasKitButtonVariant.Primary -> if (enabled) colors.onBrandAccent else colors.brandPrimary
+            CanvasKitButtonVariant.Secondary -> colors.brandPrimary
+            CanvasKitButtonVariant.Ghost -> colors.brandPrimary
+        }
     }
 
-    val borderStroke = when (variant) {
-        CanvasKitButtonVariant.Secondary -> BorderStroke(
-            width = theme.stroke.thin,
-            color = colors.borderSubtle
-        )
-        else -> null
+    val stroke = theme.stroke   // pre-read @ReadOnlyComposable before entering remember lambda
+    val borderStroke = remember(variant, colors, stroke) {
+        when (variant) {
+            CanvasKitButtonVariant.Secondary -> BorderStroke(
+                width = stroke.thin,
+                color = colors.borderSubtle
+            )
+            else -> null
+        }
     }
 
-    // Size-based adjustments
-    val minHeight = when (size) {
-        CanvasKitButtonSize.Small -> 32.dp
-        CanvasKitButtonSize.Medium -> 44.dp
-        CanvasKitButtonSize.Large -> 56.dp
+    // Size-based adjustments — only recompute when size or spacing changes
+    val minHeight = remember(size) {
+        when (size) {
+            CanvasKitButtonSize.Small -> 32.dp
+            CanvasKitButtonSize.Medium -> 44.dp
+            CanvasKitButtonSize.Large -> 56.dp
+        }
     }
 
-    val horizontalPadding = when (size) {
-        CanvasKitButtonSize.Small -> spacing.sm
-        CanvasKitButtonSize.Medium -> spacing.md
-        CanvasKitButtonSize.Large -> spacing.lg
+    val horizontalPadding = remember(size, spacing) {
+        when (size) {
+            CanvasKitButtonSize.Small -> spacing.sm
+            CanvasKitButtonSize.Medium -> spacing.md
+            CanvasKitButtonSize.Large -> spacing.lg
+        }
     }
 
-    val verticalPadding = when (size) {
-        CanvasKitButtonSize.Small -> spacing.xs
-        CanvasKitButtonSize.Medium -> spacing.sm
-        CanvasKitButtonSize.Large -> spacing.md
+    val verticalPadding = remember(size, spacing) {
+        when (size) {
+            CanvasKitButtonSize.Small -> spacing.xs
+            CanvasKitButtonSize.Medium -> spacing.sm
+            CanvasKitButtonSize.Large -> spacing.md
+        }
     }
 
-    val textStyle = when (size) {
-        CanvasKitButtonSize.Small -> theme.typography.labelSmall
-        CanvasKitButtonSize.Medium -> theme.typography.labelLarge
-        CanvasKitButtonSize.Large -> theme.typography.headingMedium
+    val typography = theme.typography  // pre-read @ReadOnlyComposable before entering remember lambda
+    val textStyle = remember(size, typography) {
+        when (size) {
+            CanvasKitButtonSize.Small -> typography.labelSmall
+            CanvasKitButtonSize.Medium -> typography.labelLarge
+            CanvasKitButtonSize.Large -> typography.headingMedium
+        }
     }
 
-    val iconSize = when (size) {
-        CanvasKitButtonSize.Small -> 16.dp
-        CanvasKitButtonSize.Medium -> 20.dp
-        CanvasKitButtonSize.Large -> 24.dp
+    val iconSize = remember(size) {
+        when (size) {
+            CanvasKitButtonSize.Small -> 16.dp
+            CanvasKitButtonSize.Medium -> 20.dp
+            CanvasKitButtonSize.Large -> 24.dp
+        }
     }
 
     Box(

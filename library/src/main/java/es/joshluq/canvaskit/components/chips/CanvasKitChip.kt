@@ -1,7 +1,8 @@
 package es.joshluq.canvaskit.components.chips
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
-import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -71,13 +72,16 @@ fun CanvasKitChip(
 
     // 1. Press micro-animation (Scale down on press)
     val scale by animateFloatAsState(
-        targetValue = if (isPressed && enabled) 0.96f else 1.0f,
-        animationSpec = tween(durationMillis = CanvasKitTheme.motion.short1, easing = CanvasKitTheme.motion.standard),
+        targetValue = if (isPressed && enabled) CanvasKitTheme.motion.pressedScale else 1.0f,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioNoBouncy,
+            stiffness = Spring.StiffnessMedium
+        ),
         label = "ChipScale"
     )
 
-    // 2. Disabled alpha
-    val contentAlpha = if (enabled) 1.0f else 0.38f
+    // 2. Disabled alpha — resolved from design token (never hardcoded)
+    val contentAlpha = if (enabled) CanvasKitTheme.opacity.full else CanvasKitTheme.opacity.disabled
 
     // 3. Dynamic styling based on variant & theme tokens
     val colors = CanvasKitTheme.colors

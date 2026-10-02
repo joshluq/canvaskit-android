@@ -1,6 +1,7 @@
 package es.joshluq.canvaskit.components.layout
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.expandVertically
@@ -59,10 +60,13 @@ fun CanvasKitAccordion(
     val shapes = CanvasKitTheme.shapes
     val spacing = CanvasKitTheme.spacing
 
-    // Rotation animation for the expansion indicator
+    // Rotation animation for the expansion indicator — spring-backed for organic feel
     val rotation by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f,
-        animationSpec = spring(),
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioNoBouncy,
+            stiffness = Spring.StiffnessMedium
+        ),
         label = "AccordionChevronRotation"
     )
 
@@ -103,11 +107,21 @@ fun CanvasKitAccordion(
             modifier = Modifier.fillMaxWidth()
         )
 
-        // Collapsible Content Body
+        // Collapsible Content Body — spring-backed expand/collapse
         AnimatedVisibility(
             visible = expanded,
-            enter = expandVertically() + fadeIn(),
-            exit = shrinkVertically() + fadeOut()
+            enter = expandVertically(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMediumLow
+                )
+            ) + fadeIn(),
+            exit = shrinkVertically(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioNoBouncy,
+                    stiffness = Spring.StiffnessMediumLow
+                )
+            ) + fadeOut()
         ) {
             Box(
                 modifier = Modifier
