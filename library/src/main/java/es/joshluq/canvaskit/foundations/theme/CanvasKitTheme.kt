@@ -18,8 +18,8 @@ import es.joshluq.canvaskit.core.tokens.LocalCanvasKitShapes
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitSpacing
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitStroke
 import es.joshluq.canvaskit.core.tokens.LocalCanvasKitTypography
-import es.joshluq.canvaskit.core.tokens.darkCanvasKitColors
-import es.joshluq.canvaskit.core.tokens.lightCanvasKitColors
+import es.joshluq.canvaskit.core.tokens.palettes.CanvasPalette
+import es.joshluq.canvaskit.core.tokens.palettes.LocalCanvasPalette
 
 /**
  * CanvasKitTheme is the custom CompositionLocalProvider theme entry point.
@@ -27,7 +27,8 @@ import es.joshluq.canvaskit.core.tokens.lightCanvasKitColors
 @Composable
 fun CanvasKitTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    colors: CanvasKitColors = if (darkTheme) darkCanvasKitColors() else lightCanvasKitColors(),
+    palette: CanvasPalette = CanvasPalette.Navy,
+    colors: CanvasKitColors = palette.colors(darkTheme),
     typography: CanvasKitTypography = CanvasKitTypography(),
     shapes: CanvasKitShapes = CanvasKitShapes(),
     spacing: CanvasKitSpacing = CanvasKitSpacing(),
@@ -37,6 +38,7 @@ fun CanvasKitTheme(
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
+        LocalCanvasPalette provides palette,
         LocalCanvasKitColors provides colors,
         LocalCanvasKitTypography provides typography,
         LocalCanvasKitShapes provides shapes,
@@ -52,6 +54,11 @@ fun CanvasKitTheme(
  * Static lookup object for accessing CanvasKit Design System tokens from Composables.
  */
 object CanvasKitTheme {
+    val palette: CanvasPalette
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalCanvasPalette.current
+
     val colors: CanvasKitColors
         @Composable
         @ReadOnlyComposable
