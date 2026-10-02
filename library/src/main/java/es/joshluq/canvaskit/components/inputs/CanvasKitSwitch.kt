@@ -19,6 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
@@ -29,17 +32,20 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
  * @param onCheckedChange Callback triggered when state switches. If null, component is static.
  * @param modifier Root layout modifier.
  * @param enabled When false, reduces opacity and disables interactions.
+ * @param contentDescription Accessibility label describing the purpose of this switch (e.g., "Push notifications").
  */
 @Composable
 fun CanvasKitSwitch(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    contentDescription: String? = null
 ) {
     val colors = CanvasKitTheme.colors
     val shapes = CanvasKitTheme.shapes
     val motion = CanvasKitTheme.motion
+    val opacity = CanvasKitTheme.opacity
 
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -82,24 +88,32 @@ fun CanvasKitSwitch(
     )
 
     val toggleableModifier = if (onCheckedChange != null) {
-        Modifier.toggleable(
-            value = checked,
-            onValueChange = onCheckedChange,
-            enabled = enabled,
-            role = Role.Switch,
-            interactionSource = interactionSource,
-            indication = null
-        )
+        Modifier
+            .toggleable(
+                value = checked,
+                onValueChange = onCheckedChange,
+                enabled = enabled,
+                role = Role.Switch,
+                interactionSource = interactionSource,
+                indication = null
+            )
+            .semantics {
+                contentDescription?.let { desc -> this.contentDescription = desc }
+                stateDescription = if (checked) "On" else "Off"
+            }
     } else {
         Modifier
     }
+
+    // Read opacity token in @Composable scope before passing into graphicsLayer
+    val contentAlpha = if (enabled) opacity.full else opacity.disabled
 
     Box(
         modifier = modifier
             .then(toggleableModifier)
             .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp) // Accessibility min touch targets
             .graphicsLayer {
-                alpha = if (enabled) 1.0f else 0.4f
+                alpha = contentAlpha
             },
         contentAlignment = Alignment.Center
     ) {

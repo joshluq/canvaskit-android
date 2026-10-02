@@ -89,19 +89,24 @@ fun CanvasKitBanner(
 
     val (contentColor, containerColor) = variant.resolveColors(colors)
 
-    val springSpec = spring<Float>(
+    // Correctly-typed spring specs per animation target type
+    val floatSpring = spring<Float>(
+        dampingRatio = Spring.DampingRatioLowBouncy,
+        stiffness = Spring.StiffnessMediumLow
+    )
+    val intOffsetSpring = spring<androidx.compose.ui.unit.IntOffset>(
         dampingRatio = Spring.DampingRatioLowBouncy,
         stiffness = Spring.StiffnessMediumLow
     )
 
     AnimatedVisibility(
         visible = visible,
-        enter = slideInVertically(initialOffsetY = { -it }) +
-            fadeIn(animationSpec = springSpec) +
-            scaleIn(initialScale = 0.9f, animationSpec = springSpec),
-        exit = slideOutVertically(targetOffsetY = { -it }) +
-            fadeOut() +
-            scaleOut(targetScale = 0.9f),
+        enter = slideInVertically(animationSpec = intOffsetSpring, initialOffsetY = { -it }) +
+            fadeIn(animationSpec = floatSpring) +
+            scaleIn(initialScale = 0.9f, animationSpec = floatSpring),
+        exit = slideOutVertically(animationSpec = intOffsetSpring, targetOffsetY = { -it }) +
+            fadeOut(animationSpec = floatSpring) +
+            scaleOut(targetScale = 0.9f, animationSpec = floatSpring),
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = spacing.md, vertical = spacing.sm)
@@ -162,8 +167,8 @@ fun CanvasKitBanner(
                 if (onDismiss != null) {
                     CanvasKitIconButton(
                         onClick = onDismiss,
-                        contentDescription = "Close notification",
-                        modifier = Modifier.size(32.dp)
+                        contentDescription = "Close notification"
+                        // No size modifier here — CanvasKitIconButton's own defaultMinSize(48.dp) governs the touch target
                     ) {
                         Icon(
                             imageVector = Icons.Default.Close,
