@@ -20,7 +20,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
@@ -84,7 +86,14 @@ fun CanvasKitListItem(
                     Modifier
                 }
             )
-            .semantics(mergeDescendants = true) { }
+            .semantics(mergeDescendants = true) {
+                if (onClick != null) {
+                    role = Role.Button
+                }
+                if (selected) {
+                    stateDescription = "Selected"
+                }
+            }
             .padding(horizontal = spacing.md, vertical = spacing.sm),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(spacing.md)

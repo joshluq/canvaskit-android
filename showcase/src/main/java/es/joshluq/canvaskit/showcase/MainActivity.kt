@@ -30,6 +30,11 @@ import es.joshluq.canvaskit.showcase.ui.screens.SheetsScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TextLinksScreen
 import es.joshluq.canvaskit.showcase.ui.screens.TypographyScreen
 import es.joshluq.canvaskit.showcase.ui.screens.DatePickerScreen
+import es.joshluq.canvaskit.showcase.ui.screens.NavigationScreen
+import es.joshluq.canvaskit.showcase.ui.screens.ProgressScreen
+import es.joshluq.canvaskit.showcase.ui.screens.AdvancedInputsScreen
+import es.joshluq.canvaskit.showcase.ui.screens.AvatarsBadgesScreen
+import es.joshluq.canvaskit.showcase.ui.screens.GesturesScreen
 import es.joshluq.canvaskit.showcase.ui.theme.ShowcaseTheme
 import kotlinx.serialization.Serializable
 
@@ -93,6 +98,21 @@ object TypographyRoute : NavKey
 @Serializable
 object DatePickerRoute : NavKey
 
+@Serializable
+object NavigationRoute : NavKey
+
+@Serializable
+object ProgressRoute : NavKey
+
+@Serializable
+object AdvancedInputsRoute : NavKey
+
+@Serializable
+object AvatarsBadgesRoute : NavKey
+
+@Serializable
+object GesturesRoute : NavKey
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -135,6 +155,11 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
                     onNavigateToTextLinks = { backStack.add(TextLinksRoute) },
                     onNavigateToTypography = { backStack.add(TypographyRoute) },
                     onNavigateToDatePicker = { backStack.add(DatePickerRoute) },
+                    onNavigateToNavigation = { backStack.add(NavigationRoute) },
+                    onNavigateToProgress = { backStack.add(ProgressRoute) },
+                    onNavigateToAdvancedInputs = { backStack.add(AdvancedInputsRoute) },
+                    onNavigateToAvatarsBadges = { backStack.add(AvatarsBadgesRoute) },
+                    onNavigateToGestures = { backStack.add(GesturesRoute) },
                 )
             }
             entry<ButtonsRoute> {
@@ -193,6 +218,21 @@ fun ShowcaseAppNavigation(modifier: Modifier = Modifier) {
             }
             entry<DatePickerRoute> {
                 DatePickerScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<NavigationRoute> {
+                NavigationScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<ProgressRoute> {
+                ProgressScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<AdvancedInputsRoute> {
+                AdvancedInputsScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<AvatarsBadgesRoute> {
+                AvatarsBadgesScreen(onBack = { backStack.removeLastOrNull() })
+            }
+            entry<GesturesRoute> {
+                GesturesScreen(onBack = { backStack.removeLastOrNull() })
             }
         }
     )

@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Warning
@@ -60,6 +61,11 @@ fun HomeScreen(
     onNavigateToTextLinks: () -> Unit,
     onNavigateToTypography: () -> Unit,
     onNavigateToDatePicker: () -> Unit,
+    onNavigateToNavigation: () -> Unit,
+    onNavigateToProgress: () -> Unit,
+    onNavigateToAdvancedInputs: () -> Unit,
+    onNavigateToAvatarsBadges: () -> Unit,
+    onNavigateToGestures: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -177,6 +183,31 @@ fun HomeScreen(
                     "Date Pickers",
                     "Premium and accessible temporal inputs.",
                     onNavigateToDatePicker
+                ),
+                Triple(
+                    "Navigation & Pagination",
+                    "Segmented controls, pager dots, and tabs.",
+                    onNavigateToNavigation
+                ),
+                Triple(
+                    "Progress & Steppers",
+                    "Linear/circular progress and multi-step indicators.",
+                    onNavigateToProgress
+                ),
+                Triple(
+                    "OTP & Search Inputs",
+                    "PIN code cells and search bar with micro-animations.",
+                    onNavigateToAdvancedInputs
+                ),
+                Triple(
+                    "Avatars & Badges",
+                    "User profiles, overlapping groups, and counters.",
+                    onNavigateToAvatarsBadges
+                ),
+                Triple(
+                    "Gestures & Surfaces",
+                    "Swipe to dismiss action rows and hairline dividers.",
+                    onNavigateToGestures
                 )
             )
             Column(
@@ -218,6 +249,11 @@ fun HomeScreen(
                             "Rich Text & Links" -> Icons.Default.Info
                             "Typography" -> Icons.Default.Edit
                             "Date Pickers" -> Icons.Default.PlayArrow
+                            "Navigation & Pagination" -> Icons.Default.Menu
+                            "Progress & Steppers" -> Icons.Default.Refresh
+                            "OTP & Search Inputs" -> Icons.Default.Edit
+                            "Avatars & Badges" -> Icons.Default.Person
+                            "Gestures & Surfaces" -> Icons.AutoMirrored.Filled.ArrowForward
                             else -> Icons.Default.Info
                         },
                         iconBg = colors.backgroundSecondary,

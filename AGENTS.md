@@ -44,26 +44,31 @@ The library components are grouped in a clear taxonomic structure following atom
 /library/src/main/java/es/joshluq/canvaskit/
 │
 ├── core/
-│   └── tokens/         # Core foundations: colors, typography, shapes, spacing, and animations.
+│   └── tokens/         # Core foundations: colors, typography, shapes, spacing, motion, opacity, stroke.
 │       ├── Color.kt    # Base palette and Semantic Color Schemes.
 │       ├── Type.kt     # Typography systems and custom FontFamilies.
 │       ├── Shape.kt    # Shape/Corner-radius tokens.
 │       ├── Spacing.kt  # Grid scale (4dp/8dp base increments).
-│       └── Motion.kt   # Easing curves and transition durations.
+│       ├── Motion.kt   # Easing curves and transition durations.
+│       ├── Opacity.kt  # Full and disabled alpha values.
+│       └── Stroke.kt   # Hairline and border stroke thicknesses.
 │
-├── components/         # Reusable interactive elements.
+├── components/         # Reusable interactive and content elements.
 │   ├── buttons/        # Atomic: Primary, Secondary, Ghost, Icon buttons.
 │   ├── cards/          # Molecular: Content containers, selectable cards.
-│   ├── inputs/         # Molecular: Text fields, switches, checkboxes.
-│   ├── lists/          # Molecular: List items and group containers.
-│   ├── sheets/         # Molecular: Modal and persistent bottom sheets.
+│   ├── chips/          # Molecular: Filter, Suggestion, and Assist chips.
+│   ├── content/        # Molecular: Avatars, Avatar groups, Badges, Badged boxes.
+│   ├── feedback/       # Molecular: Linear/circular progress, Step indicators, Banners, Skeletons, Dialogs.
+│   ├── inputs/         # Molecular: OTP/PIN fields, Search bars, Text fields, Switches, Checkboxes, Sliders.
+│   ├── layout/         # Molecular: Dividers, Vertical dividers, Accordions, Loading scaffolds.
+│   ├── lists/          # Molecular: Swipe-to-dismiss boxes, List items, Group containers.
 │   ├── menus/          # Molecular: Expressive dropdown menus.
-│   └── feedback/       # Molecular: Banners, toasts, snackbars.
+│   ├── navigation/     # Molecular: Segmented controls, Pager indicators, Tab rows, Top & Bottom bars.
+│   ├── sheets/         # Molecular: Modal and persistent bottom sheets.
+│   └── text/           # Atomic: Typography wrappers and interactive text links.
 │
-├── foundations/        # Lower-level layout building blocks and system modifiers.
-│   ├── layout/         # Base layout constraints, grid utilities, and dividers.
-│   ├── modifiers/      # Custom modifiers (e.g., bounce effects, custom focus borders).
-│   └── theme/          # Custom CanvasTheme composition local providers.
+├── foundations/        # Lower-level layout building blocks, system modifiers, and Theme Engine.
+│   └── theme/          # CanvasKitTheme composition local providers.
 │
 └── showcase/           # Showcase/Catalog Application (separate module for documentation and previews).
 ```
@@ -142,3 +147,34 @@ The library components are grouped in a clear taxonomic structure following atom
 *   **Explain the "Why" First:** When proposing refactors, bug fixes, or new components, you must present the architectural and design system context (e.g., how this affects recomposition, accessibility, theme customization) before presenting code snippets.
 *   **Preserve Documentation & Comments:** Maintain all existing comments, KDoc documentation, and license headers. Ensure new public components have clear, descriptive KDoc comments explaining their purpose, parameters, and design tokens.
 *   **Verify Compilation & Layouts:** When building components, ensure they compile cleanly without warnings, and check preview rendering layout sizes to avoid layout breaks or container overflows.
+
+---
+
+## 7. Agent Skills Ecosystem
+
+The following specialized skills are registered in `.agents/skills/` and must be activated by the agent for the corresponding task domain. Read the `SKILL.md` before executing any task in that domain.
+
+### Workspace Skills (Project-Specific)
+
+| Skill | Activate When... |
+|---|---|
+| `android-staff-engineer-compose` | **Architectural reviews, Staff-level audits.** Use for holistic reviews of Compose stability (`@Immutable`/`@Stable`), API surface correctness, Slot API compliance, modifier contracts, or when evaluating a full component against all `AGENTS.md` standards. |
+| `canvaskit-component-craftsman` | **Creating or refactoring any `Canvas[Name]` component.** Enforces tokenization, Slot APIs, defensive visibility, mandatory `Canvas[Name]Preview.kt` generation, and zero `MaterialTheme` leakage. |
+| `compose-accessibility-auditor` | **A11y reviews, WCAG AA validation, or semantics testing.** Use when auditing 48dp touch targets, TalkBack semantics (`Role`, `stateDescription`, `mergeDescendants`), LiveRegions for feedback components, 2.0x font scale resilience, or contrast ratios. |
+| `compose-micro-motion-craftsman` | **Implementing or reviewing interaction physics.** Use when replacing system ripples with spring-backed press motion, animating surface fades, or working with `CanvasTheme.motion` tokens (`pressedScale`, duration, easing). |
+| `performance-optimization-tips` | **Performance profiling and recomposition diagnosis.** Use when investigating frame drops, excessive allocations, unstable Compose parameters, or identifying hot paths in the composition tree. |
+| `senior-debugging-engineer` | **Crash investigations, Gradle build failures, or unexpected regressions.** Use for root-cause analysis of runtime exceptions, flaky tests, or dependency conflicts. |
+
+### Global Skills (Machine-Wide)
+
+| Skill | Activate When... |
+|---|---|
+| `android-cli` | **Running Gradle tasks, managing AVD emulators, or interacting with connected devices.** Use to compile, test, install APKs, capture screenshots, or inspect UI hierarchy from the command line. |
+| `performance-optimization-tips` | Available globally as well; see above. |
+
+### Skill Activation Priority
+When multiple skills apply to a task, prefer activating them in this order:
+1. `canvaskit-component-craftsman` (component shape & API)
+2. `compose-accessibility-auditor` (A11y certification)
+3. `compose-micro-motion-craftsman` (motion polish)
+4. `android-staff-engineer-compose` (final Staff review gate)

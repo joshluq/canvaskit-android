@@ -21,6 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
@@ -31,17 +34,20 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
  * @param onCheckedChange Callback fired when checked state toggles. If null, it is static.
  * @param modifier Root layout modifier.
  * @param enabled When false, reduces opacity and disables interactions.
+ * @param contentDescription Accessibility label describing the purpose of this checkbox (e.g., "Remember me").
  */
 @Composable
 fun CanvasKitCheckbox(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    contentDescription: String? = null
 ) {
     val colors = CanvasKitTheme.colors
     val shapes = CanvasKitTheme.shapes
     val motion = CanvasKitTheme.motion
+    val opacity = CanvasKitTheme.opacity
 
     val interactionSource = remember { MutableInteractionSource() }
 
@@ -62,44 +68,44 @@ fun CanvasKitCheckbox(
         label = "checkboxBorderColor"
     )
 
-    // Checkmark animations
-    val checkScale by animateFloatAsState(
-        targetValue = if (checked) 1f else 0.7f,
-        animationSpec = tween(
-            durationMillis = motion.short2,
-            easing = motion.standard
-        ),
-        label = "checkboxCheckScale"
-    )
-
-    val checkAlpha by animateFloatAsState(
+    // Checkmark animation — single progress value drives both alpha and scale,
+    // eliminating one redundant animator. lerp(0.7f, 1f, t) reproduces the original scale curve.
+    val checkProgress by animateFloatAsState(
         targetValue = if (checked) 1f else 0f,
         animationSpec = tween(
             durationMillis = motion.short2,
             easing = motion.standard
         ),
-        label = "checkboxCheckAlpha"
+        label = "checkboxProgress"
     )
 
     val toggleableModifier = if (onCheckedChange != null) {
-        Modifier.toggleable(
-            value = checked,
-            onValueChange = onCheckedChange,
-            enabled = enabled,
-            role = Role.Checkbox,
-            interactionSource = interactionSource,
-            indication = null
-        )
+        Modifier
+            .toggleable(
+                value = checked,
+                onValueChange = onCheckedChange,
+                enabled = enabled,
+                role = Role.Checkbox,
+                interactionSource = interactionSource,
+                indication = null
+            )
+            .semantics {
+                contentDescription?.let { desc -> this.contentDescription = desc }
+                stateDescription = if (checked) "Checked" else "Not checked"
+            }
     } else {
         Modifier
     }
+
+    // Read opacity token in @Composable scope before passing into graphicsLayer
+    val contentAlpha = if (enabled) opacity.full else opacity.disabled
 
     Box(
         modifier = modifier
             .then(toggleableModifier)
             .defaultMinSize(minWidth = 48.dp, minHeight = 48.dp) // Touch target size compliance
             .graphicsLayer {
-                alpha = if (enabled) 1.0f else 0.4f
+                alpha = contentAlpha
             },
         contentAlignment = Alignment.Center
     ) {
@@ -117,9 +123,12 @@ fun CanvasKitCheckbox(
                 modifier = Modifier
                     .size(16.dp)
                     .graphicsLayer {
-                        scaleX = checkScale
-                        scaleY = checkScale
-                        alpha = checkAlpha
+                        // checkProgress: 0f (unchecked) → 1f (checked)
+                        // Scale lerps from 0.7 → 1.0 matching the original two-animator behavior
+                        val scale = 0.7f + (0.3f * checkProgress)
+                        scaleX = scale
+                        scaleY = scale
+                        alpha = checkProgress
                     }
             )
         }
