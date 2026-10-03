@@ -21,7 +21,7 @@ class CanvasPaletteTest {
         assertEquals(5, names.size)
         assertTrue(names.contains("Navy"))
         assertTrue(names.contains("Emerald"))
-        assertTrue(names.contains("Crimson"))
+        assertTrue(names.contains("Onyx"))
         assertTrue(names.contains("Amber"))
         assertTrue(names.contains("Amethyst"))
     }
@@ -31,6 +31,13 @@ class CanvasPaletteTest {
         @Suppress("DEPRECATION")
         val kilomenos = CanvasPalette.Kilomenos
         assertEquals(CanvasPalette.Navy, kilomenos)
+    }
+
+    @Test
+    fun `crimson alias points to onyx for backward compatibility`() {
+        @Suppress("DEPRECATION")
+        val crimson = CanvasPalette.Crimson
+        assertEquals(CanvasPalette.Onyx, crimson)
     }
 
     @Test

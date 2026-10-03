@@ -99,13 +99,13 @@ CanvasKit features a **curated multi-palette engine** (`CanvasPalette`) that com
 
 | Palette | Identity / Tone | Primary (`brandPrimary`) | Accent (`brandAccent`) | Best For |
 |---|---|---|---|---|
-| **`CanvasPalette.Navy`** *(Default)* | Deep Navy + Electric Blue | `#001E50` | `#00B0F0` | Kilomenos, Corporate, Fintech |
+| **`CanvasPalette.Navy`** *(Default)* | Deep Navy + Electric Blue | `#001E50` | `#00B0F0` | Kilomenos, Corporate, Banking |
 | **`CanvasPalette.Emerald`** | Pine Green + Emerald Mint | `#064E3B` | `#059669` (Light) / `#34D399` (Dark) | Sustainability, Logistics, Health |
-| **`CanvasPalette.Crimson`** | Deep Burgundy + Ruby Rose | `#881337` | `#E11D48` (Light) / `#FB7185` (Dark) | Retail, Promotions, Lifestyle |
+| **`CanvasPalette.Onyx`** | High-Contrast Monochrome (Uber-Style) | `#09090B` (Light) / `#FFFFFF` (Dark) | `#09090B` (Light: Black Buttons) / `#FFFFFF` (Dark: White Buttons) | Mobility, High-Tech, E-Commerce, Minimalist |
 | **`CanvasPalette.Amber`** | Warm Bronze + Vivid Amber | `#78350F` | `#C2410C` (Light) / `#FBBF24` (Dark) | Delivery, Energy, Mobility |
 | **`CanvasPalette.Amethyst`** | Royal Purple + Vivid Violet | `#3B0764` | `#7C3AED` (Light) / `#A78BFA` (Dark) | Media, Streaming, Web3, Loyalty |
 
-*(Note: `CanvasPalette.Kilomenos` is preserved as a deprecated alias pointing directly to `CanvasPalette.Navy` for seamless backward compatibility).*
+*(Note: `CanvasPalette.Kilomenos` and `CanvasPalette.Crimson` are preserved as deprecated aliases for seamless backward compatibility).*
 
 ---
 
@@ -146,7 +146,7 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 setContent {
     CanvasKitTheme(
         darkTheme = isSystemInDarkTheme(),
-        palette = CanvasPalette.Emerald // Or Navy, Crimson, Amber, Amethyst
+        palette = CanvasPalette.Onyx // Or Navy, Emerald, Amber, Amethyst
     ) {
         AppNavigation()
     }
