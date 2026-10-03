@@ -5,7 +5,6 @@ import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 class CanvasKitStatusDotTest {
-
     @Test
     fun `status dot variants coverage`() {
         val variants = CanvasKitStatusDotVariant.entries

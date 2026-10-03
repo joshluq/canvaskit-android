@@ -33,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
@@ -46,6 +47,7 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 @Composable
 fun HomeScreen(
+    modifier: Modifier = Modifier,
     onNavigateToButtons: () -> Unit,
     onNavigateToTextFields: () -> Unit,
     onNavigateToDialogs: () -> Unit,
@@ -73,7 +75,6 @@ fun HomeScreen(
     onNavigateToHaptics: () -> Unit,
     selectedPalette: CanvasPalette = CanvasPalette.Navy,
     onPaletteSelected: (CanvasPalette) -> Unit = {},
-    modifier: Modifier = Modifier
 ) {
 
     val colors = CanvasKitTheme.colors
@@ -121,12 +122,14 @@ fun HomeScreen(
                     CanvasPalette.values.forEach { palette ->
                         val isSelected = palette == selectedPalette
                         CanvasKitChip(
+                            modifier = Modifier.defaultMinSize(minWidth = 60.dp),
                             onClick = { onPaletteSelected(palette) },
                             selected = isSelected,
-                            variant = if (isSelected) CanvasKitChipVariant.Primary else CanvasKitChipVariant.Outlined,
+                            variant = CanvasKitChipVariant.Primary,
                             label = {
                                 Text(
                                     text = palette.name,
+                                    color = if (isSelected) colors.onBrandAccent else colors.textSecondary,
                                     style = CanvasKitTheme.typography.labelSmall
                                 )
                             }

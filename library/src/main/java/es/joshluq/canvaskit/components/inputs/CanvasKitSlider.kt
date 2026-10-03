@@ -64,6 +64,19 @@ fun CanvasKitSlider(
         label = "SliderThumbScale"
     )
 
+    val sliderColors = SliderDefaults.colors(
+        thumbColor = colors.brandAccent,
+        activeTrackColor = colors.brandAccent,
+        inactiveTrackColor = colors.borderSubtle,
+        activeTickColor = colors.backgroundPrimary,
+        inactiveTickColor = colors.textSecondary.copy(alpha = 0.38f),
+        disabledThumbColor = colors.textSecondary.copy(alpha = 0.38f),
+        disabledActiveTrackColor = colors.brandAccent.copy(alpha = 0.38f),
+        disabledInactiveTrackColor = colors.borderSubtle.copy(alpha = 0.38f),
+        disabledActiveTickColor = colors.backgroundPrimary.copy(alpha = 0.38f),
+        disabledInactiveTickColor = colors.textSecondary.copy(alpha = 0.20f)
+    )
+
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
@@ -81,18 +94,13 @@ fun CanvasKitSlider(
             valueRange = valueRange,
             steps = steps,
             interactionSource = interactionSource,
-            colors = SliderDefaults.colors(
-                thumbColor = colors.brandAccent,
-                activeTrackColor = colors.brandAccent,
-                inactiveTrackColor = colors.borderSubtle,
-                disabledThumbColor = colors.textSecondary.copy(alpha = 0.38f),
-                disabledActiveTrackColor = colors.brandAccent.copy(alpha = 0.38f),
-                disabledInactiveTrackColor = colors.borderSubtle.copy(alpha = 0.38f)
-            ),
+            colors = sliderColors,
             thumb = {
                 SliderDefaults.Thumb(
                     interactionSource = interactionSource,
                     thumbSize = DpSize(24.dp.times(thumbScale), 24.dp.times(thumbScale)),
+                    colors = sliderColors,
+                    enabled = enabled,
                     modifier = Modifier.graphicsLayer {
                         // The scale is already handled via thumbSize for better layout stability
                     }
@@ -101,6 +109,8 @@ fun CanvasKitSlider(
             track = { sliderState ->
                 SliderDefaults.Track(
                     sliderState = sliderState,
+                    colors = sliderColors,
+                    enabled = enabled,
                     modifier = Modifier.height(10.dp),
                     thumbTrackGapSize = 0.dp,
                     trackInsideCornerSize = 5.dp

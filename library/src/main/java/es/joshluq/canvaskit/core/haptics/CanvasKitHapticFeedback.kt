@@ -41,9 +41,8 @@ interface CanvasKitHapticFeedback {
  */
 @Immutable
 class AndroidCanvasKitHapticFeedback(
-    private val view: View
+    private val view: View,
 ) : CanvasKitHapticFeedback {
-
     override fun click() {
         performHaptic(HapticFeedbackConstants.KEYBOARD_TAP)
     }
@@ -99,18 +98,23 @@ class AndroidCanvasKitHapticFeedback(
 @Immutable
 object NoOpCanvasKitHapticFeedback : CanvasKitHapticFeedback {
     override fun click() {}
+
     override fun tick() {}
+
     override fun success() {}
+
     override fun error() {}
+
     override fun gestureThreshold() {}
 }
 
 /**
  * CompositionLocal providing access to [CanvasKitHapticFeedback].
  */
-val LocalCanvasKitHapticFeedback = staticCompositionLocalOf<CanvasKitHapticFeedback> {
-    NoOpCanvasKitHapticFeedback
-}
+val LocalCanvasKitHapticFeedback =
+    staticCompositionLocalOf<CanvasKitHapticFeedback> {
+        NoOpCanvasKitHapticFeedback
+    }
 
 /**
  * Remembers a platform [CanvasKitHapticFeedback] bound to the current Compose view hierarchy.
