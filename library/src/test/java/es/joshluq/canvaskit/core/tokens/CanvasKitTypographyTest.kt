@@ -5,14 +5,13 @@ import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 class CanvasKitTypographyTest {
-
     @Test
     fun `typography provides overline and tabularNumber styles with tnum enabled`() {
         val typography = CanvasKitTypography()
-        
+
         assertNotNull(typography.overline)
         assertEquals("tnum", typography.overline.fontFeatureSettings)
-        
+
         assertNotNull(typography.tabularNumber)
         assertEquals("tnum", typography.tabularNumber.fontFeatureSettings)
 

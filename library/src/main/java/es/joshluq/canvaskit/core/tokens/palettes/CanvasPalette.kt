@@ -37,8 +37,7 @@ sealed interface CanvasPalette {
     data object Navy : CanvasPalette {
         override val name: String = "Navy"
 
-        override fun colors(darkTheme: Boolean): CanvasKitColors =
-            if (darkTheme) darkCanvasKitColors() else lightCanvasKitColors()
+        override fun colors(darkTheme: Boolean): CanvasKitColors = if (darkTheme) darkCanvasKitColors() else lightCanvasKitColors()
     }
 
     /**
@@ -57,8 +56,8 @@ sealed interface CanvasPalette {
         private val EmeraldAccentDark = Color(0xFF34D399)
         private val OnEmeraldAccentDark = Color(0xFF064E3B)
 
-        override fun colors(darkTheme: Boolean): CanvasKitColors {
-            return if (darkTheme) {
+        override fun colors(darkTheme: Boolean): CanvasKitColors =
+            if (darkTheme) {
                 darkCanvasKitColors(
                     brandPrimary = Color.White,
                     brandAccent = EmeraldAccentDark,
@@ -72,7 +71,6 @@ sealed interface CanvasPalette {
                     onBrandAccent = Color.White,
                 )
             }
-        }
     }
 
     /**
@@ -90,8 +88,8 @@ sealed interface CanvasPalette {
         private val CarbonBlack = Color(0xFF09090B)
         private val PureWhite = Color(0xFFFFFFFF)
 
-        override fun colors(darkTheme: Boolean): CanvasKitColors {
-            return if (darkTheme) {
+        override fun colors(darkTheme: Boolean): CanvasKitColors =
+            if (darkTheme) {
                 darkCanvasKitColors(
                     brandPrimary = PureWhite,
                     brandAccent = PureWhite,
@@ -106,7 +104,6 @@ sealed interface CanvasPalette {
                     onBrandAccent = PureWhite,
                 )
             }
-        }
     }
 
     /**
@@ -125,8 +122,8 @@ sealed interface CanvasPalette {
         private val AmberAccentDark = Color(0xFFFBBF24)
         private val OnAmberAccentDark = Color(0xFF451A03)
 
-        override fun colors(darkTheme: Boolean): CanvasKitColors {
-            return if (darkTheme) {
+        override fun colors(darkTheme: Boolean): CanvasKitColors =
+            if (darkTheme) {
                 darkCanvasKitColors(
                     brandPrimary = Color.White,
                     brandAccent = AmberAccentDark,
@@ -140,7 +137,6 @@ sealed interface CanvasPalette {
                     onBrandAccent = Color.White,
                 )
             }
-        }
     }
 
     /**
@@ -158,8 +154,8 @@ sealed interface CanvasPalette {
         private val VioletAccentDark = Color(0xFFA78BFA)
         private val OnVioletAccentDark = Color(0xFF2E1065)
 
-        override fun colors(darkTheme: Boolean): CanvasKitColors {
-            return if (darkTheme) {
+        override fun colors(darkTheme: Boolean): CanvasKitColors =
+            if (darkTheme) {
                 darkCanvasKitColors(
                     brandPrimary = Color.White,
                     brandAccent = VioletAccentDark,
@@ -173,27 +169,27 @@ sealed interface CanvasPalette {
                     onBrandAccent = Color.White,
                 )
             }
-        }
     }
 
     companion object {
         /**
          * List of all curated palettes available in CanvasKit.
          */
-        val values: List<CanvasPalette> = listOf(
-            Navy,
-            Emerald,
-            Onyx,
-            Amber,
-            Amethyst
-        )
+        val values: List<CanvasPalette> =
+            listOf(
+                Navy,
+                Emerald,
+                Onyx,
+                Amber,
+                Amethyst,
+            )
 
         /**
          * Backward-compatible alias for the initial Navy palette.
          */
         @Deprecated(
             message = "Use CanvasPalette.Navy instead to decouple from specific application brand names.",
-            replaceWith = ReplaceWith("CanvasPalette.Navy")
+            replaceWith = ReplaceWith("CanvasPalette.Navy"),
         )
         val Kilomenos: CanvasPalette = Navy
 
@@ -202,7 +198,7 @@ sealed interface CanvasPalette {
          */
         @Deprecated(
             message = "Crimson has been superseded by Onyx (high-contrast monochrome).",
-            replaceWith = ReplaceWith("CanvasPalette.Onyx")
+            replaceWith = ReplaceWith("CanvasPalette.Onyx"),
         )
         val Crimson: CanvasPalette = Onyx
     }

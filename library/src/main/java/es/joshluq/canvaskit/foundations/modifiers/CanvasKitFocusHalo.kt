@@ -38,7 +38,7 @@ fun Modifier.tacticalFocusHalo(
     focusColor: Color = CanvasKitTheme.colors.brandAccent,
     gapColor: Color = CanvasKitTheme.colors.backgroundPrimary,
     ringWidth: Dp = 2.dp,
-    gapWidth: Dp = 1.5.dp
+    gapWidth: Dp = 1.5.dp,
 ): Modifier {
     val isFocused by interactionSource.collectIsFocusedAsState()
     return this.drawWithContent {
@@ -52,14 +52,14 @@ fun Modifier.tacticalFocusHalo(
             drawOutline(
                 outline = outline,
                 color = gapColor,
-                style = Stroke(width = ringPx + (gapPx * 2))
+                style = Stroke(width = ringPx + (gapPx * 2)),
             )
 
             // 2. Draw tactical primary focus ring
             drawOutline(
                 outline = outline,
                 color = focusColor,
-                style = Stroke(width = ringPx)
+                style = Stroke(width = ringPx),
             )
         }
     }

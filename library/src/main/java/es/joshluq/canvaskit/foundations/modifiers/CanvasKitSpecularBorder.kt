@@ -31,16 +31,17 @@ import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 fun rememberSpecularBorderBrush(
     highlightAlpha: Float = if (CanvasKitTheme.colors.isDark) 0.16f else 0.22f,
     baseBorderColor: Color = CanvasKitTheme.colors.borderSubtle,
-    highlightColor: Color = if (CanvasKitTheme.colors.isDark) Color.White else CanvasKitTheme.colors.brandAccent
+    highlightColor: Color = if (CanvasKitTheme.colors.isDark) Color.White else CanvasKitTheme.colors.brandAccent,
 ): Brush {
-    val topColor = remember(highlightColor, highlightAlpha) {
-        highlightColor.copy(alpha = highlightAlpha)
-    }
+    val topColor =
+        remember(highlightColor, highlightAlpha) {
+            highlightColor.copy(alpha = highlightAlpha)
+        }
     return remember(topColor, baseBorderColor) {
         Brush.verticalGradient(
             0.0f to topColor,
             0.25f to baseBorderColor,
-            1.0f to baseBorderColor
+            1.0f to baseBorderColor,
         )
     }
 }
@@ -56,7 +57,7 @@ fun rememberSpecularBorderBrush(
 fun Modifier.specularBorder(
     shape: Shape,
     width: Dp = 1.dp,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ): Modifier {
     if (!enabled) return this
     val brush = rememberSpecularBorderBrush()

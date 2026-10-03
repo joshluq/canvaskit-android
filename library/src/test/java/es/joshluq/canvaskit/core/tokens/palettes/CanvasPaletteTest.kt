@@ -12,7 +12,6 @@ import kotlin.math.min
 import kotlin.math.pow
 
 class CanvasPaletteTest {
-
     @Test
     fun `all palettes are registered and have unique names`() {
         val palettes = CanvasPalette.values
@@ -73,7 +72,7 @@ class CanvasPaletteTest {
             val contrast = calculateContrastRatio(colors.textPrimary, colors.backgroundPrimary)
             assertTrue(
                 "Palette ${palette.name} textPrimary contrast $contrast is below 4.5:1",
-                contrast >= 4.5
+                contrast >= 4.5,
             )
         }
     }
@@ -85,7 +84,7 @@ class CanvasPaletteTest {
             val contrast = calculateContrastRatio(colors.textPrimary, colors.backgroundPrimary)
             assertTrue(
                 "Palette ${palette.name} dark mode textPrimary contrast $contrast is below 4.5:1",
-                contrast >= 4.5
+                contrast >= 4.5,
             )
         }
     }
@@ -100,7 +99,7 @@ class CanvasPaletteTest {
             if (palette != CanvasPalette.Navy) {
                 assertTrue(
                     "Palette ${palette.name} onBrandAccent contrast $contrast is below 3.0:1",
-                    contrast >= 3.0
+                    contrast >= 3.0,
                 )
             }
         }
@@ -113,12 +112,15 @@ class CanvasPaletteTest {
             val contrast = calculateContrastRatio(colors.brandAccent, colors.backgroundPrimary)
             assertTrue(
                 "Palette ${palette.name} dark mode brandAccent contrast $contrast is below 3.0:1",
-                contrast >= 3.0
+                contrast >= 3.0,
             )
         }
     }
 
-    private fun calculateContrastRatio(foreground: Color, background: Color): Double {
+    private fun calculateContrastRatio(
+        foreground: Color,
+        background: Color,
+    ): Double {
         val lum1 = calculateRelativeLuminance(foreground)
         val lum2 = calculateRelativeLuminance(background)
         val lighter = max(lum1, lum2)
