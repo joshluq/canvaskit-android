@@ -76,34 +76,34 @@ sealed interface CanvasPalette {
     }
 
     /**
-     * Crimson / Red palette.
+     * Onyx / Monochrome high-contrast palette.
      *
-     * Deep Burgundy foundation paired with Ruby Rose accent.
-     * Formulated for retail, entertainment, and bold lifestyle experiences.
-     * Calibrated with distinct hue and luminance to avoid semantic confusion with error states.
+     * Carbon Black primary foundation paired with high-contrast monochrome accents.
+     * Inspired by Uber Base UI, Apple, and minimalist engineering aesthetics.
+     * In Light Mode, primary actions and buttons render in pure carbon black with crisp white text.
+     * In Dark Mode, primary actions invert to pure white with crisp black text for maximum affordance.
      */
     @Immutable
-    data object Crimson : CanvasPalette {
-        override val name: String = "Crimson"
+    data object Onyx : CanvasPalette {
+        override val name: String = "Onyx"
 
-        private val BurgundyPrimary = Color(0xFF881337)
-        private val RubyAccentLight = Color(0xFFE11D48)
-        private val RubyAccentDark = Color(0xFFFB7185)
-        private val OnRubyAccentDark = Color(0xFF4C0519)
+        private val CarbonBlack = Color(0xFF09090B)
+        private val PureWhite = Color(0xFFFFFFFF)
 
         override fun colors(darkTheme: Boolean): CanvasKitColors {
             return if (darkTheme) {
                 darkCanvasKitColors(
-                    brandPrimary = Color.White,
-                    brandAccent = RubyAccentDark,
-                    onBrandAccent = OnRubyAccentDark,
+                    brandPrimary = PureWhite,
+                    brandAccent = PureWhite,
+                    onBrandAccent = CarbonBlack,
+                    textPrimary = PureWhite,
                 )
             } else {
                 lightCanvasKitColors(
-                    brandPrimary = BurgundyPrimary,
-                    brandAccent = RubyAccentLight,
-                    textPrimary = BurgundyPrimary,
-                    onBrandAccent = Color.White,
+                    brandPrimary = CarbonBlack,
+                    brandAccent = CarbonBlack,
+                    textPrimary = CarbonBlack,
+                    onBrandAccent = PureWhite,
                 )
             }
         }
@@ -183,7 +183,7 @@ sealed interface CanvasPalette {
         val values: List<CanvasPalette> = listOf(
             Navy,
             Emerald,
-            Crimson,
+            Onyx,
             Amber,
             Amethyst
         )
@@ -196,6 +196,15 @@ sealed interface CanvasPalette {
             replaceWith = ReplaceWith("CanvasPalette.Navy")
         )
         val Kilomenos: CanvasPalette = Navy
+
+        /**
+         * Backward-compatible alias for the Crimson palette superseded by Onyx.
+         */
+        @Deprecated(
+            message = "Crimson has been superseded by Onyx (high-contrast monochrome).",
+            replaceWith = ReplaceWith("CanvasPalette.Onyx")
+        )
+        val Crimson: CanvasPalette = Onyx
     }
 }
 
