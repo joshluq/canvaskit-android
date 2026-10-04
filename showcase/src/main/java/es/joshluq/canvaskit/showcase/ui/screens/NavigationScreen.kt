@@ -3,7 +3,6 @@ package es.joshluq.canvaskit.showcase.ui.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,10 +13,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -65,7 +64,7 @@ fun NavigationScreen(
     val segmentOptions = remember {
         listOf(
             CanvasKitSegmentItem(id = "day", label = "Daily", icon = Icons.Default.DateRange),
-            CanvasKitSegmentItem(id = "week", label = "Weekly", icon = Icons.Default.List),
+            CanvasKitSegmentItem(id = "week", label = "Weekly", icon = Icons.AutoMirrored.Filled.List),
             CanvasKitSegmentItem(id = "month", label = "Monthly", icon = Icons.Default.Person)
         )
     }
