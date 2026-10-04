@@ -2,16 +2,12 @@ package es.joshluq.canvaskit.components.feedback
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
@@ -20,13 +16,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import es.joshluq.canvaskit.components.cards.CanvasKitCard
+import es.joshluq.canvaskit.components.cards.CanvasKitCardVariant
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 import kotlinx.coroutines.launch
 
@@ -88,14 +83,16 @@ fun CanvasKitDialog(
 
 /**
  * CanvasKitDialogContent is a molecular template providing a standard, beautifully aligned
- * layout structure for modal dialogs. It features slots for an optional icon, a title,
- * custom body/description content, and a row of action buttons.
+ * layout structure for modal dialogs. Built on [CanvasKitCard], it features the signature Atelier
+ * specular highlight, optimal typography hierarchy, and slots for an optional icon, title,
+ * custom body content, and action buttons.
  *
- * @param title The title Composable (typically using [CanvasKitTheme.typography.headingLarge]).
+ * @param title The title Composable (typically using CanvasKitTheme.typography.headingLarge).
  * @param buttons Composable block for confirming/dismissing action buttons.
  * @param modifier Root styling modifier for the content card.
+ * @param variant Visual variant of the card container (defaults to [CanvasKitCardVariant.Outlined]).
  * @param icon Optional leading header icon.
- * @param shape Shape of the dialog card. Defaults to [CanvasKitTheme.shapes.extraLarge].
+ * @param shape Shape of the dialog card. Defaults to CanvasKitTheme.shapes.extraLarge.
  * @param content Optional middle body Composable block.
  */
 @Composable
@@ -103,62 +100,50 @@ fun CanvasKitDialogContent(
     title: @Composable () -> Unit,
     buttons: @Composable RowScope.() -> Unit,
     modifier: Modifier = Modifier,
+    variant: CanvasKitCardVariant = CanvasKitCardVariant.Outlined,
     icon: (@Composable () -> Unit)? = null,
     shape: Shape = CanvasKitTheme.shapes.extraLarge,
     content: @Composable (() -> Unit)? = null
 ) {
-    val colors = CanvasKitTheme.colors
     val spacing = CanvasKitTheme.spacing
 
-    Box(
-        modifier = modifier
-            .clip(shape)
-            .background(colors.backgroundPrimary)
-            .border(width = 1.dp, color = colors.borderSubtle, shape = shape)
-            .padding(spacing.md)
-            .semantics(mergeDescendants = true) {
-                // Merge descendants so that screen readers read the dialog contents as a single card announcement
-            }
-    ) {
-        Column(
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(spacing.sm)
-        ) {
-            // Optional Icon
-            if (icon != null) {
-                Box(
-                    modifier = Modifier.padding(bottom = spacing.xxs),
-                    contentAlignment = Alignment.Center
-                ) {
-                    icon()
+    CanvasKitCard(
+        modifier = modifier,
+        variant = variant,
+        shape = shape,
+        header = {
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(spacing.xxs)
+            ) {
+                if (icon != null) {
+                    Box(
+                        modifier = Modifier.padding(bottom = spacing.xxs),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        icon()
+                    }
+                }
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    title()
                 }
             }
-
-            // Title
-            Box(modifier = Modifier.fillMaxWidth()) {
-                title()
-            }
-
-            // Body content
-            if (content != null) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = spacing.xs)
-                ) {
-                    content()
-                }
-            } else {
-                Spacer(modifier = Modifier.height(spacing.xxs))
-            }
-
-            // Action Buttons
+        },
+        footer = {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(spacing.sm, Alignment.End),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 buttons()
+            }
+        }
+    ) {
+        if (content != null) {
+            Box(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                content()
             }
         }
     }

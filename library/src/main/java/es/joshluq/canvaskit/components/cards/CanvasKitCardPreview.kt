@@ -42,19 +42,19 @@ private fun CardsPreviewContainer() {
             )
         }
 
-        // Elevated Card
+        // Elevated Card (Atmospheric Halo)
         CanvasKitCard(
             variant = CanvasKitCardVariant.Elevated,
             header = {
                 Text(
-                    text = "Elevated Card",
+                    text = "Elevated Card (Atmospheric Halo)",
                     style = CanvasKitTheme.typography.headingMedium,
                     color = CanvasKitTheme.colors.textPrimary
                 )
             }
         ) {
             Text(
-                text = "This container has a subtle elevation to stand out against the primary background.",
+                text = "This container features the signature Atmospheric Halo with directional lighting and ambient depth.",
                 style = CanvasKitTheme.typography.bodyMedium,
                 color = CanvasKitTheme.colors.textSecondary
             )

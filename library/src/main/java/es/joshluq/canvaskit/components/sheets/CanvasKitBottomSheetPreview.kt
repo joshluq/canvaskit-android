@@ -16,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import es.joshluq.canvaskit.components.buttons.CanvasKitButton
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BottomSheetPreviewContent() {
     val spacing = CanvasKitTheme.spacing

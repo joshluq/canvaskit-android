@@ -11,6 +11,7 @@ import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.feedback.CanvasKitCircularProgressBar
+import es.joshluq.canvaskit.foundations.modifiers.tacticalFocusHalo
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
@@ -71,6 +73,7 @@ fun CanvasKitSearchField(
     placeholder: String = "Search...",
     isLoading: Boolean = false,
     enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     onSearch: ((String) -> Unit)? = null,
     onClear: (() -> Unit)? = null
 ) {
@@ -101,6 +104,7 @@ fun CanvasKitSearchField(
         cursorBrush = SolidColor(colors.brandAccent),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(onSearch = { onSearch?.invoke(query) }),
+        interactionSource = interactionSource,
         modifier = modifier
             .fillMaxWidth()
             .onFocusChanged { isFocused = it.isFocused }
@@ -110,6 +114,11 @@ fun CanvasKitSearchField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 48.dp)
+                    .tacticalFocusHalo(
+                        interactionSource = interactionSource,
+                        shape = shapes.pill,
+                        focusColor = colors.brandAccent
+                    )
                     .clip(shapes.pill)
                     .background(colors.backgroundSecondary)
                     .border(

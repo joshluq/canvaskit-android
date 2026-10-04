@@ -1,6 +1,7 @@
 package es.joshluq.canvaskit.components.cards
 
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.BorderStroke
@@ -21,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
@@ -30,6 +32,7 @@ import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.foundations.modifiers.rememberAtmosphericHaloBrush
 import es.joshluq.canvaskit.foundations.modifiers.rememberSpecularBorderBrush
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
@@ -61,7 +64,7 @@ enum class CanvasKitCardVariant {
  * @param variant Visual variant of the card container (Outlined, Elevated, Flat).
  * @param selected Whether the card is currently selected. Triggers accent borders and screen-reader announcements.
  * @param enabled Whether the card interactions are enabled (ignored if onClick is null).
- * @param specularHighlight Whether to render the signature Atelier specular hairline highlight along the top rim.
+ * @param specularHighlight Whether to render the signature Atelier specular highlight (Specular Hairline on Outlined, Atmospheric Halo on Elevated).
  * @param shape Shape of the card container. Defaults to CanvasKitTheme.shapes.medium.
  * @param header Composable slot for the header section of the card.
  * @param footer Composable slot for the footer section of the card.
@@ -104,15 +107,41 @@ fun CanvasKitCard(
     }
 
     val specularBrush = rememberSpecularBorderBrush()
+    val atmosphericBrush = rememberAtmosphericHaloBrush()
     val borderStroke = when {
         selected -> BorderStroke(width = 2.dp, color = colors.brandAccent)
         variant == CanvasKitCardVariant.Outlined && specularHighlight -> BorderStroke(width = 1.dp, brush = specularBrush)
         variant == CanvasKitCardVariant.Outlined -> BorderStroke(width = 0.5.dp, color = colors.borderSubtle)
+        variant == CanvasKitCardVariant.Elevated && specularHighlight -> BorderStroke(width = 1.dp, brush = atmosphericBrush)
+        variant == CanvasKitCardVariant.Elevated -> BorderStroke(width = 0.5.dp, color = colors.borderSubtle.copy(alpha = 0.35f))
         else -> null
     }
 
-    // 3. Elevation shadow
-    val shadowElevation = if (variant == CanvasKitCardVariant.Elevated) 4.dp else 0.dp
+    // 3. Elevation & Atmospheric shadow
+    val targetElevation = when {
+        variant != CanvasKitCardVariant.Elevated -> 0.dp
+        isPressed && enabled && onClick != null -> 1.5.dp
+        else -> 4.dp
+    }
+    val shadowElevation by animateDpAsState(
+        targetValue = targetElevation,
+        animationSpec = spring(
+            dampingRatio = Spring.DampingRatioNoBouncy,
+            stiffness = Spring.StiffnessMedium
+        ),
+        label = "CardElevation"
+    )
+
+    val spotShadowColor = when {
+        variant != CanvasKitCardVariant.Elevated -> Color.Black
+        colors.isDark -> colors.brandAccent.copy(alpha = 0.28f)
+        else -> Color.Black.copy(alpha = 0.80f)
+    }
+    val ambientShadowColor = when {
+        variant != CanvasKitCardVariant.Elevated -> Color.Black
+        colors.isDark -> colors.brandAccent.copy(alpha = 0.18f)
+        else -> colors.brandAccent.copy(alpha = 0.10f)
+    }
 
     val haptic = LocalHapticFeedback.current
 
@@ -120,7 +149,13 @@ fun CanvasKitCard(
     Box(
         modifier = modifier
             .graphicsLayer(scaleX = scale, scaleY = scale)
-            .shadow(elevation = shadowElevation, shape = shape, clip = false)
+            .shadow(
+                elevation = shadowElevation,
+                shape = shape,
+                clip = false,
+                ambientColor = ambientShadowColor,
+                spotColor = spotShadowColor
+            )
             .clip(shape)
             .background(backgroundColor)
             .then(

@@ -10,11 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.foundations.modifiers.rememberAtmosphericHaloBrush
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
  * CanvasKitDropdownMenu is a highly-polished, expressive menu component.
- * It follows Material 3 Expressive guidelines with generous spacing and rounded corners.
+ * It features the signature Atelier Atmospheric Halo floating border and generous spacing.
  *
  * @param expanded Whether the menu is currently visible.
  * @param onDismissRequest Callback to fire when the menu should be closed.
@@ -32,6 +33,7 @@ fun CanvasKitDropdownMenu(
 ) {
     val colors = CanvasKitTheme.colors
     val shapes = CanvasKitTheme.shapes
+    val atmosphericBrush = rememberAtmosphericHaloBrush()
 
     DropdownMenu(
         expanded = expanded,
@@ -40,7 +42,7 @@ fun CanvasKitDropdownMenu(
         offset = offset,
         shape = shapes.large, // Expressive: 16dp
         containerColor = colors.backgroundPrimary,
-        border = BorderStroke(0.5.dp, colors.borderSubtle),
+        border = BorderStroke(1.dp, atmosphericBrush),
         shadowElevation = 8.dp,
         content = content
     )

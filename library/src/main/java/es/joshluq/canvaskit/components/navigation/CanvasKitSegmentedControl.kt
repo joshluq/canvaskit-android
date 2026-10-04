@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -32,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
@@ -43,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.foundations.modifiers.rememberSpecularBorderBrush
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 import kotlin.math.roundToInt
 
@@ -63,7 +66,7 @@ data class CanvasKitSegmentItem(
 )
 
 /**
- * CanvasKitSegmentedControl is an artisanal segmented button switch following
+ * CanvasKitSegmentedControl is an artisanal-segmented button switch following
  * Material 3 Expressive and iOS HIG designs. It features a sliding pill indicator
  * with physical spring dynamics and strict WCAG AA accessibility compliance.
  *
@@ -202,15 +205,28 @@ fun CanvasKitSegmentedControl(
             label = "SegmentPillOffset"
         )
 
-        // Sliding Indicator Pill
+        val pillSpecularBrush = rememberSpecularBorderBrush(
+            highlightAlpha = if (colors.isDark) 0.22f else 0.28f
+        )
+
+        // Sliding Indicator Pill (Lucent Bevel with Spring Physics)
         Box(
             modifier = Modifier
                 .offset { IntOffset(x = pillOffsetPx.roundToInt(), y = 0) }
                 .width(segmentWidthDp)
                 .fillMaxHeight()
-                .shadow(elevation = 2.dp, shape = shapes.pill)
+                .shadow(
+                    elevation = 3.dp,
+                    shape = shapes.pill,
+                    ambientColor = if (colors.isDark) colors.brandAccent.copy(alpha = 0.20f) else Color.Black.copy(alpha = 0.10f),
+                    spotColor = if (colors.isDark) colors.brandAccent.copy(alpha = 0.25f) else Color.Black.copy(alpha = 0.20f)
+                )
                 .clip(shapes.pill)
                 .background(colors.backgroundPrimary)
+                .border(
+                    BorderStroke(1.dp, pillSpecularBrush),
+                    shapes.pill
+                )
         )
 
         // Interactive Segment Row
