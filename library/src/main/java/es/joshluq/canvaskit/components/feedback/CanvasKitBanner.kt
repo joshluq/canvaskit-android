@@ -9,7 +9,9 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,10 +31,12 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.liveRegion
@@ -58,17 +62,25 @@ enum class CanvasKitAlertVariant {
     Error
 }
 
+internal fun CanvasKitAlertVariant.toStatusDotVariant(): CanvasKitStatusDotVariant = when (this) {
+    CanvasKitAlertVariant.Info -> CanvasKitStatusDotVariant.Brand
+    CanvasKitAlertVariant.Success -> CanvasKitStatusDotVariant.Success
+    CanvasKitAlertVariant.Warning -> CanvasKitStatusDotVariant.Warning
+    CanvasKitAlertVariant.Error -> CanvasKitStatusDotVariant.Error
+}
+
 /**
  * CanvasKitBanner is a premium, floating notification module following the
  * Material 3 Expressive "Toast" style. It features a detached silhouette with
- * 24dp rounding, elevation, and spring-based entry animations.
+ * 24dp rounding, directional specular border, and live radar status LED.
  *
  * @param variant The semantic state of the banner (Info, Success, Warning, Error).
  * @param message Composable content block for the body text of the banner.
  * @param modifier Root layout modifier.
  * @param visible Whether the banner should be visible. Drives the animated entry/exit.
+ * @param animatePulse Whether the status indicator should emit concentric radar pulses.
  * @param title Optional composable for a bold banner headline above the message.
- * @param icon Optional leading icon slot. Defaults to a variant-appropriate icon inside a circle.
+ * @param icon Optional leading icon slot. Defaults to a variant-appropriate [CanvasKitStatusDot].
  * @param action Optional trailing composable for a CTA (e.g., a text button "Retry").
  * @param onDismiss When non-null, renders a close button that triggers this callback.
  */
@@ -78,6 +90,7 @@ fun CanvasKitBanner(
     message: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     visible: Boolean = true,
+    animatePulse: Boolean = true,
     title: (@Composable () -> Unit)? = null,
     icon: (@Composable () -> Unit)? = null,
     action: (@Composable () -> Unit)? = null,
@@ -88,6 +101,14 @@ fun CanvasKitBanner(
     val spacing = CanvasKitTheme.spacing
 
     val (contentColor, containerColor) = variant.resolveColors(colors)
+
+    val specularBorderBrush = remember(contentColor, colors.isDark) {
+        Brush.verticalGradient(
+            0.0f to contentColor.copy(alpha = if (colors.isDark) 0.35f else 0.40f),
+            0.35f to contentColor.copy(alpha = 0.15f),
+            1.0f to contentColor.copy(alpha = 0.05f)
+        )
+    }
 
     // Correctly-typed spring specs per animation target type
     val floatSpring = spring<Float>(
@@ -118,6 +139,7 @@ fun CanvasKitBanner(
                 .shadow(elevation = 8.dp, shape = shapes.container)
                 .clip(shapes.container)
                 .background(containerColor)
+                .border(BorderStroke(1.dp, specularBorderBrush), shapes.container)
                 .semantics {
                     liveRegion = LiveRegionMode.Polite
                 }
@@ -127,7 +149,7 @@ fun CanvasKitBanner(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Leading icon in a circular container
+                // Leading indicator (Icon or Tactical Radar Status Dot)
                 Box(
                     modifier = Modifier
                         .size(40.dp)
@@ -138,11 +160,10 @@ fun CanvasKitBanner(
                     if (icon != null) {
                         icon()
                     } else {
-                        Icon(
-                            imageVector = variant.defaultIcon(),
-                            contentDescription = null,
-                            tint = contentColor,
-                            modifier = Modifier.size(20.dp)
+                        CanvasKitStatusDot(
+                            variant = variant.toStatusDotVariant(),
+                            animatePulse = animatePulse,
+                            size = 8.dp
                         )
                     }
                 }

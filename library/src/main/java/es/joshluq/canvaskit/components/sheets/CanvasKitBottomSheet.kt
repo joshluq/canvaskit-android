@@ -1,7 +1,10 @@
 package es.joshluq.canvaskit.components.sheets
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,16 +22,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import es.joshluq.canvaskit.foundations.modifiers.rememberAtmosphericHaloBrush
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
  * CanvasKitBottomSheet is a premium modal container that slides up from the bottom.
- * It follows Material 3 Expressive guidelines with organic rounding and refined drag handle.
+ * It features the signature Atelier specular hairline along the top curved rim and a refined drag handle.
  *
  * @param onDismissRequest Callback to fire when the sheet should be closed.
  * @param modifier Root layout modifier.
  * @param sheetState The state of the bottom sheet.
  * @param showDragHandle Whether to show the drag handle at the top.
+ * @param specularHighlight Whether to render the signature specular hairline border along the top rim.
  * @param containerColor Background color of the sheet.
  * @param scrimColor Color of the background overlay when the sheet is open.
  * @param content Composable slot for the sheet's content.
@@ -40,23 +45,42 @@ fun CanvasKitBottomSheet(
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(),
     showDragHandle: Boolean = true,
+    specularHighlight: Boolean = true,
     containerColor: Color = CanvasKitTheme.colors.backgroundPrimary,
     scrimColor: Color = BottomSheetDefaults.ScrimColor,
     content: @Composable ColumnScope.() -> Unit
 ) {
+    val sheetShape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)
+    val specularBrush = rememberAtmosphericHaloBrush()
+
     ModalBottomSheet(
         onDismissRequest = onDismissRequest,
         modifier = modifier,
         sheetState = sheetState,
-        shape = RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp),
+        shape = sheetShape,
         containerColor = containerColor,
         scrimColor = scrimColor,
-        dragHandle = if (showDragHandle) {
-            { CanvasKitDragHandle() }
-        } else {
-            null
-        },
-        content = content
+        dragHandle = null,
+        content = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .then(
+                        if (specularHighlight) {
+                            Modifier.border(BorderStroke(1.dp, specularBrush), sheetShape)
+                        } else {
+                            Modifier
+                        }
+                    )
+            ) {
+                Column(modifier = Modifier.fillMaxWidth()) {
+                    if (showDragHandle) {
+                        CanvasKitDragHandle()
+                    }
+                    content()
+                }
+            }
+        }
     )
 }
 
@@ -69,6 +93,7 @@ fun CanvasKitDragHandle(
 ) {
     val colors = CanvasKitTheme.colors
     val spacing = CanvasKitTheme.spacing
+    val shapes = CanvasKitTheme.shapes
 
     Box(
         modifier = modifier
@@ -78,10 +103,14 @@ fun CanvasKitDragHandle(
     ) {
         Box(
             modifier = Modifier
-                .width(32.dp)
+                .width(36.dp)
                 .height(4.dp)
-                .clip(CanvasKitTheme.shapes.pill)
-                .background(colors.borderSubtle)
+                .clip(shapes.pill)
+                .background(colors.textSecondary.copy(alpha = 0.28f))
+                .border(
+                    BorderStroke(0.5.dp, colors.borderSubtle.copy(alpha = 0.40f)),
+                    shapes.pill
+                )
         )
     }
 }

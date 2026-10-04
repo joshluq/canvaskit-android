@@ -144,13 +144,13 @@ fun CardsScreen(
                 ) {
                     Column {
                         Text(
-                            text = "Refined Elevation",
+                            text = "Atmospheric Halo",
                             style = CanvasKitTheme.typography.headingMedium,
                             color = colors.textPrimary
                         )
                         Spacer(modifier = Modifier.height(spacing.xxs))
                         Text(
-                            text = "Subtle shadows that suggest depth without adding visual noise.",
+                            text = "Atmospheric halo border with directional lighting, specular rim, and ambient depth.",
                             style = CanvasKitTheme.typography.bodyMedium,
                             color = colors.textSecondary
                         )
