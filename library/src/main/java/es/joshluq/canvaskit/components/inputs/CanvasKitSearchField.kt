@@ -116,7 +116,7 @@ fun CanvasKitSearchField(
                     .clip(shapes.pill)
                     .background(colors.backgroundSecondary)
                     .border(
-                        width = if (isFocused) stroke.thick else stroke.thin,
+                        width = stroke.thin,
                         color = borderColor,
                         shape = shapes.pill
                     )
