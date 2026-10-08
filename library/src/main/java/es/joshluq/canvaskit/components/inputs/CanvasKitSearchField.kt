@@ -41,7 +41,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import es.joshluq.canvaskit.components.buttons.CanvasKitIconButton
 import es.joshluq.canvaskit.components.feedback.CanvasKitCircularProgressBar
-import es.joshluq.canvaskit.foundations.modifiers.tacticalFocusHalo
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
@@ -114,11 +113,6 @@ fun CanvasKitSearchField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .defaultMinSize(minHeight = 48.dp)
-                    .tacticalFocusHalo(
-                        interactionSource = interactionSource,
-                        shape = shapes.pill,
-                        focusColor = colors.brandAccent
-                    )
                     .clip(shapes.pill)
                     .background(colors.backgroundSecondary)
                     .border(

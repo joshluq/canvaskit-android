@@ -36,7 +36,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import es.joshluq.canvaskit.foundations.modifiers.tacticalFocusHalo
 import es.joshluq.canvaskit.foundations.theme.CanvasKitTheme
 
 /**
@@ -169,11 +168,6 @@ fun CanvasKitTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .defaultMinSize(minHeight = 56.dp) // Flexible height — supports 2.0x font scaling
-                        .tacticalFocusHalo(
-                            interactionSource = interactionSource,
-                            shape = shapes.pill,
-                            focusColor = if (isError) colors.error else colors.brandAccent
-                        )
                         .clip(shapes.pill)
                         .background(containerBgColor)
                         .then(
